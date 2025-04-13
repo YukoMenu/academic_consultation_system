@@ -1,10 +1,15 @@
+:root {
+    --sidebar-dark: #1e1e2f;
+    --sidebar-light: #ffffff;
+}
+
 .sidebar{
     position: fixed;
     left: 0;
     right: 0;
     width: 220px;
     height: 100vh;
-    background-color: #1e1e2f;
+    background-color: var(--sidebar-dark);
     color: white;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
