@@ -1,4 +1,5 @@
-fetch('../shared/sidebar.html')
+function loadSideBar() {
+    fetch('../shared/sidebar.html')
 
     .then(function (response) {
         return response.text()
@@ -7,3 +8,4 @@ fetch('../shared/sidebar.html')
     .then(function(html) {
         document.getElementById('sidebar').innerHTML = html
     })
+}
