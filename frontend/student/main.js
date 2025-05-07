@@ -19,7 +19,7 @@ const showSidebar = (toggleId, sidebarId, headerId, mainId) =>{
 showSidebar('header-toggle','sidebar', 'header', 'main')
 
 /*=============== LINK ACTIVE ===============*/
-const sidebarLink = document.querySelectorAll('.sidebar__list a')
+/*const sidebarLink = document.querySelectorAll('.sidebar__list a')
 
 function linkColor(){
     sidebarLink.forEach(l => l.classList.remove('active-link'))
@@ -27,6 +27,56 @@ function linkColor(){
 }
 
 sidebarLink.forEach(l => l.addEventListener('click', linkColor))
+*/
+
+/*=============== LINK ACTIVE & PAGE LOADING ===============*/
+const sidebarLinks = document.querySelectorAll('.sidebar__link')
+const mainContent = document.getElementById('main')
+
+sidebarLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+       e.preventDefault()
+ 
+       // Remove 'active-link' from all
+       sidebarLinks.forEach(l => l.classList.remove('active-link'))
+       link.classList.add('active-link')
+ 
+       const page = link.getAttribute('data-page')
+       if (page) {
+          // Save last visited page to localStorage
+          localStorage.setItem('last-page', page)
+ 
+          fetch(page)
+             .then(res => res.text())
+             .then(html => {
+                mainContent.innerHTML = html
+ 
+                const pageBase = page.replace('.html', '')
+                const cssHref = `${pageBase}.css`
+                const jsSrc = `${pageBase}.js`
+ 
+                // Remove previous dynamic style
+                const existingStyle = document.getElementById('dynamic-style')
+                if (existingStyle) existingStyle.remove()
+ 
+                const css = document.createElement('link')
+                css.rel = 'stylesheet'
+                css.href = cssHref
+                css.id = 'dynamic-style'
+                document.head.appendChild(css)
+ 
+                // Load JS
+                const script = document.createElement('script')
+                script.src = jsSrc
+                script.defer = true
+                document.body.appendChild(script)
+             })
+             .catch(err => {
+                mainContent.innerHTML = `<p>Error loading page: ${err}</p>`
+             })
+       }
+    })
+ }) 
 
 /*=============== DARK LIGHT THEME ===============*/ 
 const themeButton = document.getElementById('theme-button')
@@ -57,3 +107,10 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
+
+window.addEventListener('DOMContentLoaded', () => {
+    const lastPage = localStorage.getItem('last-page') || 'dashboard/dashboard.html'
+    const defaultLink = document.querySelector(`[data-page="${lastPage}"]`)
+    if (defaultLink) defaultLink.click()
+ })
+ 
