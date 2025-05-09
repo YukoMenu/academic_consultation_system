@@ -113,4 +113,15 @@ window.addEventListener('DOMContentLoaded', () => {
     const defaultLink = document.querySelector(`[data-page="${lastPage}"]`)
     if (defaultLink) defaultLink.click()
  })
+
+/*=============== LOGOUT FUNCTIONALITY ===============*/
+const logoutButton = document.querySelector('.sidebar__actions button:last-child')
+
+logoutButton.addEventListener('click', () => {
+    // Clear all stored data
+    localStorage.clear()
+    
+    // Redirect to login page
+    window.location.href = '../login page/login.html'
+})
  
