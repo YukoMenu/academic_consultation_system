@@ -18,4 +18,5 @@ historyData.forEach(entry => {
     <td>${entry.notes}</td>
   `
   tbody.appendChild(row)
-})})();
+})
+})();
