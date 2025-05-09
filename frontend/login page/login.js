@@ -1,8 +1,5 @@
 // Theme switcher
-const themeButton = document.createElement('button');
-themeButton.className = 'theme-button';
-themeButton.innerHTML = '<i class="ri-moon-clear-fill"></i>';
-document.body.appendChild(themeButton);
+const themeButton = document.getElementById('theme-button');
 
 // Theme switch
 themeButton.addEventListener('click', () => {
