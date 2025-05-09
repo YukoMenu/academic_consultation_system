@@ -135,6 +135,13 @@ body.dark-theme {
   font-weight: var(--font-semi-bold);
 }
 
+.header__logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin-right: 0.5rem;
+}
+
 .header__toggle {
   font-size: 1.5rem;
   color: var(--title-color);
