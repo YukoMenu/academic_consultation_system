@@ -1,0 +1,52 @@
+.notifications-page {
+    padding: 2rem;
+    color: var(--text-color);
+}
+
+.notifications-page h2 {
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+    color: var(--title-color);
+}
+
+.notifications-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.notifications-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.notifications-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--title-color);
+}
+
+.notifications-group input[type="checkbox"],
+.notifications-group select {
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background-color: var(--container-color);
+    color: var(--text-color);
+}
+
+.notifications-save {
+    align-self: start;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--first-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.notifications-save:hover {
+    background-color: var(--first-color-alt);
+}

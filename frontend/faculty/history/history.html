@@ -1,12 +1,29 @@
+<!-- history.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History</title>
-    <link rel="stylesheet" href="history.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appointment History</title>
+  <link rel="stylesheet" href="history.css" />
 </head>
 <body>
-    <script src="history.js"></script>
+  <main class="history-page container">
+    <h2>Past Appointments</h2>
+    <ul class="history-list">
+      <!-- Example history item -->
+      <li class="history-card">
+        <div class="history-info">
+          <p><strong>Student:</strong> Juan Garcia</p>
+          <p><strong>Date:</strong> April 10, 2025</p>
+          <p><strong>Time:</strong> 2:00 PM - 2:30 PM</p>
+          <p><strong>Status:</strong> <span class="status completed">Completed</span></p>
+          <p><strong>Notes:</strong> Reviewed thesis draft and provided feedback.</p>
+        </div>
+      </li>
+      <!-- More history cards go here -->
+    </ul>
+  </main>
+  <script src="history.js"></script>
 </body>
 </html>

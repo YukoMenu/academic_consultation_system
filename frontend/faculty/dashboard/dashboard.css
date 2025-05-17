@@ -1,102 +1,93 @@
 :root {
-  --card-bg-light: #ffffff;
-  --card-bg-dark: #1e1e2f;
-  --text-light: #1a1a1a;
-  --text-dark: #f1f1f1;
-  --border-light: #e0e0e0;
-  --border-dark: #333;
-  --accent: #3e8ef7;
-  --status-confirmed: #4caf50;
-  --status-pending: #ff9800;
-  --message-bg: #f8f9fa;
-  --message-hover: #f0f2f5;
-  --calendar-today: #e3f2fd;
-  --calendar-weekend: #f5f5f5;
+  --card-bg-light: var(--body-color);
+  --card-bg-dark: hsl(228, 24%, 16%);
+  --text-light: var(--title-color);
+  --text-dark: hsl(228, 18%, 96%);
+  --border-light: hsl(228, 20%, 90%);
+  --border-dark: hsl(228, 16%, 30%);
+  --accent: var(--first-color);
+  --shadow-color: var(--shadow-color);
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 1rem;
+  font-family: var(--body-font);
   color: var(--text-light);
-  background-color: #f9f9f9;
+  background-color: var(--body-color);
+  transition: background-color 0.4s, color 0.4s;
 }
 
 body.dark-theme {
-  background-color: #1e1e2f;
+  background-color: var(--card-bg-dark);
   color: var(--text-dark);
 }
 
-
 .faculty-dashboard h2 {
-margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .dashboard-overview {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-gap: 1rem;
-margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .card {
-background-color: var(--card-bg-light);
-border: 1px solid var(--border-light);
-border-radius: 12px;
-padding: 1rem;
-box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-transition: background 0.3s, color 0.3s;
+  background-color: var(--card-bg-light);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 6px var(--shadow-color);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
 }
 
 body.dark-theme .card {
-background-color: var(--card-bg-dark);
-border-color: var(--border-dark);
+  background-color: var(--card-bg-dark);
+  border-color: var(--border-dark);
 }
 
 .card h3 {
-margin-top: 0;
-font-size: 1.1rem;
-color: var(--accent);
+  color: var(--accent);
 }
 
 .dashboard-section {
-margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .appointments-list {
-list-style: none;
-padding-left: 0;
+  list-style: none;
+  padding-left: 0;
 }
 
 .appointments-list li {
-padding: 0.5rem 0;
-border-bottom: 1px dashed #ccc;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #ccc;
 }
 
 body.dark-theme .appointments-list li {
-border-color: #444;
+  border-color: #444;
 }
 
 .dashboard-actions {
-display: flex;
-gap: 1rem;
-flex-wrap: wrap;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .btn {
-background-color: var(--accent);
-color: #fff;
-padding: 0.6rem 1.2rem;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-transition: background 0.3s;
+  background-color: var(--accent);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
-background-color: #357ce1;
+  background-color: hsl(228, 75%, 55%);
 }
 
 body.dark-theme .btn {
-background-color: #4b9dff;
+  background-color: hsl(228, 70%, 63%);
 }
