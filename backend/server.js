@@ -31,24 +31,34 @@ app.get('/users', (req, res) => {
     });
 });
 
-// Example POST route: Add a new user
-app.post('/users', (req, res) => {
-    const { name } = req.body;
+const bcrypt = require('bcrypt');
 
-    if (!name) {
-        return res.status(400).json({ error: 'Name is required' });
+app.post('/users', async (req, res) => {
+    const { name, email, password, role } = req.body;
+    if (!name || !email || !password || !role) {
+        return res.status(400).json({ error: 'All fields are required' });
     }
 
-    const sql = 'INSERT INTO users (name) VALUES (?)';
-    db.run(sql, [name], function (err) {
-        if (err) {
-            console.error(err.message);
-            res.status(500).json({ error: err.message });
-        } else {
-            res.status(201).json({ id: this.lastID, name });
-        }
-    });
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const sql = `INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)`;
+        db.run(sql, [name, email, hashedPassword, role], function(err) {
+            if (err) {
+                console.error(err.message);
+                if (err.message.includes('UNIQUE constraint failed')) {
+                    return res.status(409).json({ error: 'Email already registered' });
+                }
+                return res.status(500).json({ error: err.message });
+            }
+            res.status(201).json({ id: this.lastID, name, email, role });
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'Server error' });
+    }
 });
+
+
 
 // Start the server
 app.listen(port, () => {

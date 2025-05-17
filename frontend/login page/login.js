@@ -55,36 +55,41 @@ const signupForm = document.getElementById('signupForm');
 
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     const role = signupForm.querySelector('input[name="role"]:checked').value;
     const fullName = signupForm.querySelector('input[type="text"]').value;
     const email = signupForm.querySelector('input[type="email"]').value;
     const password = signupForm.querySelectorAll('input[type="password"]')[0].value;
     const confirmPassword = signupForm.querySelectorAll('input[type="password"]')[1].value;
-    
-    // Validate passwords match
+
     if (password !== confirmPassword) {
         alert('Passwords do not match!');
         return;
     }
-    
-    // Here you would typically make an API call to your backend
-    console.log('Signup attempt:', { role, fullName, email, password });
-    
-    // For demo purposes, redirect based on role
-    if (role === 'student') {
-        window.location.href = '../student/index.html';
-    } else {
-        window.location.href = '../teacher/index.html';
-    }
-});
 
-fetch('http://localhost:3000/users')
-  .then(res => res.json())
-  .then(data => console.log(data));
+    fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: fullName,
+            email,
+            password,
+            role
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log('Signup success:', data);
 
-fetch('http://localhost:3000/users', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name: 'Alice' })
+        // Redirect based on role
+        if (role === 'student') {
+            window.location.href = '../student/index.html';
+        } else {
+            window.location.href = '../teacher/index.html';
+        }
+    })
+    .catch(err => {
+        console.error('Signup failed:', err);
+        alert('Signup failed. Try again.');
+    });
 });
