@@ -39,16 +39,38 @@ const loginForm = document.getElementById('loginForm');
 
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    const username = loginForm.querySelector('input[type="text"]').value;
+
+    const email = loginForm.querySelector('input[type="text"]').value;  // treat as email
     const password = loginForm.querySelector('input[type="password"]').value;
-    
-    // Here you would typically make an API call to your backend
-    console.log('Login attempt:', { username, password });
-    
-    // For demo purposes, redirect to student dashboard
-    window.location.href = '../student/index.html';
+
+    fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    })
+    .then(res => res.json().then(data => ({ status: res.status, body: data })))
+    .then(({ status, body }) => {
+        if (status === 200) {
+            console.log('Login success:', body);
+
+            // Redirect based on role
+            if (body.user.role === 'student') {
+                window.location.href = '../student/index.html';
+            } else if (body.user.role === 'teacher') {
+                window.location.href = '../teacher/index.html';
+            } else {
+                alert('Unknown user role');
+            }
+        } else {
+            alert(body.error || 'Login failed');
+        }
+    })
+    .catch(err => {
+        console.error('Login error:', err);
+        alert('Login failed. Please try again.');
+    });
 });
+
 
 // Signup form handling
 const signupForm = document.getElementById('signupForm');
@@ -62,6 +84,7 @@ signupForm.addEventListener('submit', (e) => {
     const password = signupForm.querySelectorAll('input[type="password"]')[0].value;
     const confirmPassword = signupForm.querySelectorAll('input[type="password"]')[1].value;
 
+    // Validate passwords match
     if (password !== confirmPassword) {
         alert('Passwords do not match!');
         return;
@@ -70,26 +93,22 @@ signupForm.addEventListener('submit', (e) => {
     fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            name: fullName,
-            email,
-            password,
-            role
+        body: JSON.stringify({ 
+            name: fullName, 
+            email, 
+            password, 
+            role 
         })
     })
     .then(res => res.json())
     .then(data => {
         console.log('Signup success:', data);
-
-        // Redirect based on role
-        if (role === 'student') {
-            window.location.href = '../student/index.html';
-        } else {
-            window.location.href = '../teacher/index.html';
-        }
+        // Redirect to login page instead of dashboard
+        window.location.href = 'login.html';
     })
     .catch(err => {
         console.error('Signup failed:', err);
         alert('Signup failed. Try again.');
     });
 });
+

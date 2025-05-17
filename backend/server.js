@@ -33,6 +33,49 @@ app.get('/users', (req, res) => {
 
 const bcrypt = require('bcrypt');
 
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    const sql = `SELECT * FROM users WHERE email = ?`;
+    db.get(sql, [email], (err, user) => {
+        if (err) {
+            console.error(err.message);
+            return res.status(500).json({ error: 'Server error' });
+        }
+
+        if (!user) {
+            // User not found
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        // Compare hashed passwords
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+            if (err) {
+                return res.status(500).json({ error: 'Server error' });
+            }
+
+            if (!isMatch) {
+                return res.status(401).json({ error: 'Invalid email or password' });
+            }
+
+            // Login success — send back user info (excluding password)
+            res.json({
+                message: 'Login successful',
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role
+                }
+            });
+        });
+    });
+});
+
 app.post('/users', async (req, res) => {
     const { name, email, password, role } = req.body;
     if (!name || !email || !password || !role) {
@@ -57,8 +100,6 @@ app.post('/users', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
-
-
 
 // Start the server
 app.listen(port, () => {
