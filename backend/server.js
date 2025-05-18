@@ -1,3 +1,4 @@
+// npm install express <- only run if 'node server.js' won't run, code: 'MODULE_NOT_FOUND'
 // node server.js
 
 const express = require('express');
