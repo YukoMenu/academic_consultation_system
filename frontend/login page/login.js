@@ -34,43 +34,60 @@ showLoginLink.addEventListener('click', (e) => {
     loginContent.style.display = 'block';
 });
 
-// Login form handling
 const loginForm = document.getElementById('loginForm');
+const loginWarning = document.getElementById('loginWarning');
 
-loginForm.addEventListener('submit', (e) => {
+loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const email = loginForm.querySelector('input[type="text"]').value;  // treat as email
+    const email = loginForm.querySelector('input[type="text"]').value.trim();
     const password = loginForm.querySelector('input[type="password"]').value;
 
-    fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    })
-    .then(res => res.json().then(data => ({ status: res.status, body: data })))
-    .then(({ status, body }) => {
-        if (status === 200) {
-            console.log('Login success:', body);
+    resetWarning();
 
-            // Redirect based on role
-            if (body.user.role === 'student') {
-                window.location.href = '../student/index.html';
-            } else if (body.user.role === 'teacher') {
-                window.location.href = '../teacher/index.html';
-            } else {
-                alert('Unknown user role');
-            }
+    try {
+        const res = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+
+        const body = await res.json();
+
+        if (res.status === 200) {
+            console.log('Login success:', body);
+            redirectUser(body.user.role);
         } else {
-            alert(body.error || 'Login failed');
+            showWarning(body.error || 'Login failed');
         }
-    })
-    .catch(err => {
+    } catch (err) {
         console.error('Login error:', err);
-        alert('Login failed. Please try again.');
-    });
+        showWarning('Login failed. Please try again.');
+    }
 });
 
+function resetWarning() {
+    loginWarning.textContent = '';
+    loginWarning.style.display = 'none';
+}
+
+function showWarning(message) {
+    loginWarning.textContent = message;
+    loginWarning.style.display = 'block';
+}
+
+function redirectUser(role) {
+    switch (role) {
+        case 'student':
+            window.location.href = '../student/index.html';
+            break;
+        case 'teacher':
+            window.location.href = '../teacher/index.html';
+            break;
+        default:
+            showWarning('Unknown user role.');
+    }
+}
 
 // Signup form handling
 const signupForm = document.getElementById('signupForm');

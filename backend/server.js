@@ -1,3 +1,5 @@
+// node server.js
+
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
@@ -43,26 +45,27 @@ app.post('/login', (req, res) => {
     const sql = `SELECT * FROM users WHERE email = ?`;
     db.get(sql, [email], (err, user) => {
         if (err) {
-            console.error(err.message);
+            console.error('Database error:', err.message);
             return res.status(500).json({ error: 'Server error' });
         }
 
         if (!user) {
-            // User not found
+            // Do not reveal if user exists
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-        // Compare hashed passwords
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
+                console.error('Bcrypt error:', err.message);
                 return res.status(500).json({ error: 'Server error' });
             }
 
             if (!isMatch) {
+                // Still return generic message
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
 
-            // Login success — send back user info (excluding password)
+            // Success — exclude password from response
             res.json({
                 message: 'Login successful',
                 user: {
