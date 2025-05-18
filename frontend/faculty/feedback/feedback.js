@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  // Filter feedback for this teacher, for example Dr. John Doe (faculty1)
-  // You can adjust this to get the current teacher dynamically
+  // Filter feedback for this faculty, for example Dr. John Doe (faculty1)
+  // You can adjust this to get the current faculty dynamically
   const currentFacultyId = "faculty1";
 
   const filteredFeedback = feedbacks.filter(fb => fb.facultyId === currentFacultyId);

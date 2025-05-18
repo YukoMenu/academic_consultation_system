@@ -1,11 +1,11 @@
-.teacher-feedback-page {
+.faculty-feedback-page {
   max-width: 700px;
   margin: 2rem 1.5rem;
   margin: 2rem 0;
 }
 
 
-.teacher-feedback-page h2 {
+.faculty-feedback-page h2 {
   margin-bottom: 1.5rem;
   color: var(--title-color, #1a1a1a);
   border-bottom: 2px solid var(--first-color, #3e8ef7);
