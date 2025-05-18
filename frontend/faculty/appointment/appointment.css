@@ -73,7 +73,6 @@ body.dark-theme .appointment-card {
   border-radius: 8px;
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
-  resize: vertical;
   transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
@@ -119,5 +118,23 @@ body.dark-theme .notes-input {
 .reject-btn:hover {
   background-color: var(--btn-reject-hover);
 }
+
+.dashboard-actions {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#load-consultation-form {
+  background-color: var(--accent);
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#load-consultation-form:hover {
+  background-color: hsl(230, 80%, 45%);
+}
+
 
 /*end of appointments.css */

@@ -1,83 +1,56 @@
 //start of appointments.js
 (() => {
-  console.log('Appointment page loaded');
+  console.log("Appointments page script loaded");
 
-  const appointmentsList = document.querySelector(".appointments-list");
-  if (appointmentsList) {
-    appointmentsList.addEventListener("click", (e) => {
-      const target = e.target;
-      if (target.classList.contains("accept-btn") || target.classList.contains("reject-btn")) {
-        const card = target.closest(".appointment-card");
-        if (!card) return;
+  /* Accept / Reject handler */
+  const list = document.querySelector(".appointments-list");
+  if (list) {
+    list.addEventListener("click", e => {
+      const btn = e.target;
+      if (!btn.classList.contains("accept-btn") &&
+          !btn.classList.contains("reject-btn")) return;
 
-        const student = card.querySelector("p strong").nextSibling.textContent.trim();
-        const notes = card.querySelector(".notes-input").value.trim();
-        const action = target.classList.contains("accept-btn") ? "accepted" : "rejected";
+      const card   = btn.closest(".appointment-card");
+      const action = btn.classList.contains("accept-btn") ? "accepted" : "rejected";
+      const notes  = card.querySelector(".notes-input").value.trim();
+      const student = card.querySelector("p strong").nextSibling.textContent.trim();
 
-        alert(`Appointment for ${student} has been ${action}.\nNotes: ${notes}`);
-
-        card.style.opacity = "0.6";
-        card.style.pointerEvents = "none";
-      }
+      alert(`Appointment for ${student} has been ${action}.\nNotes: ${notes}`);
+      card.style.opacity = "0.6";
+      card.style.pointerEvents = "none";
     });
   }
 
-  const formBtn = document.getElementById("load-consultation-form");
-  if (formBtn) {
-    formBtn.addEventListener("click", () => {
-      fetch("form/form.html")
-        .then((res) => res.text())
-        .then((html) => {
-          document.getElementById("main-content").innerHTML = html;
+  /* ── Load Consultation Form dynamically ── */
+  const formBtn = document.getElementById('load-consultation-form');
 
-          const existingScript = document.querySelector('script[src="form/form.js"]');
-          if (existingScript) existingScript.remove();
-          const script = document.createElement("script");
-          script.src = "form/form.js";
-          script.defer = true;
-          document.body.appendChild(script);
-        });
-    });
-  }
-})();(() => {
-  console.log('Appointment page loaded');
+   if (formBtn) {
+      formBtn.addEventListener('click', () => {
+         fetch('form/form.html')
+          .then(res => res.text())
+          .then(html => {
+              const main = document.getElementById('main');
+              main.innerHTML = html;
 
-  const appointmentsList = document.querySelector(".appointments-list");
-  if (appointmentsList) {
-    appointmentsList.addEventListener("click", (e) => {
-      const target = e.target;
-      if (target.classList.contains("accept-btn") || target.classList.contains("reject-btn")) {
-        const card = target.closest(".appointment-card");
-        if (!card) return;
+              // Remove previous dynamic style
+              const existingStyle = document.getElementById('dynamic-style');
+              if (existingStyle) existingStyle.remove();
 
-        const student = card.querySelector("p strong").nextSibling.textContent.trim();
-        const notes = card.querySelector(".notes-input").value.trim();
-        const action = target.classList.contains("accept-btn") ? "accepted" : "rejected";
+              const css = document.createElement('link');
+              css.rel = 'stylesheet';
+              css.href = 'form/form.css';
+              css.id = 'dynamic-style';
+              document.head.appendChild(css);
 
-        alert(`Appointment for ${student} has been ${action}.\nNotes: ${notes}`);
-
-        card.style.opacity = "0.6";
-        card.style.pointerEvents = "none";
-      }
-    });
-  }
-
-  const formBtn = document.getElementById("load-consultation-form");
-  if (formBtn) {
-    formBtn.addEventListener("click", () => {
-      fetch("form/form.html")
-        .then((res) => res.text())
-        .then((html) => {
-          document.getElementById("main-content").innerHTML = html;
-
-          const existingScript = document.querySelector('script[src="form/form.js"]');
-          if (existingScript) existingScript.remove();
-          const script = document.createElement("script");
-          script.src = "form/form.js";
-          script.defer = true;
-          document.body.appendChild(script);
-        });
-    });
-  }
+              const script = document.createElement('script');
+              script.src = 'form/form.js';
+              script.defer = true;
+              document.body.appendChild(script);
+          })
+          .catch(err => {
+              console.error('Error loading form.html:', err);
+          });
+      });
+   }
 })();
 //end of appointment.js

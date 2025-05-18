@@ -1,0 +1,52 @@
+.form-page {
+  padding: 2rem;
+  font-family: var(--body-font);
+  background-color: var(--body-color);
+  color: var(--text-color);
+  transition: background-color 0.4s, color 0.4s;
+}
+
+body.dark-theme .form-page {
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+.form-page input,
+.form-page textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-light, #ccc);
+  border-radius: 6px;
+  font-size: var(--normal-font-size, 1rem);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .form-page input,
+body.dark-theme .form-page textarea {
+  background-color: hsl(228, 24%, 24%);
+  color: var(--text-dark);
+  border-color: var(--border-dark, #555);
+}
+
+.form-page .row {
+  margin-bottom: 1.5rem;
+}
+
+.form-page .two-col {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-page .three-col > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.form-page .box {
+  flex: 1;
+}
+
+.form-page .checkbox-group input[type="text"] {
+  margin-left: 0.5rem;
+}
