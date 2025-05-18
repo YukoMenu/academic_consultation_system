@@ -1,0 +1,274 @@
+/* Root styles */
+:root {
+    --card-bg: #ffffff;
+    --card-border: #e0e0e0;
+    --text-primary: #1a1a1a;
+    --text-secondary: #555;
+    --status-confirmed: #4caf50;
+    --status-pending: #ff9800;
+    --message-bg: #f8f9fa;
+    --message-hover: #f0f2f5;
+    --calendar-today: #e3f2fd;
+    --calendar-weekend: #f5f5f5;
+}
+
+body.dark-theme {
+    --card-bg: #1e1e2f;
+    --card-border: #333;
+    --text-primary: #f1f1f1;
+    --text-secondary: #aaa;
+    --status-confirmed: #81c784;
+    --status-pending: #ffb74d;
+    --message-bg: #2a2a3c;
+    --message-hover: #32324a;
+    --calendar-today: #1a237e;
+    --calendar-weekend: #2a2a3c;
+}
+
+/* General layout */
+.dashboard {
+    padding: 1rem;
+}
+
+.dashboard h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Cards */
+.dashboard__cards {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1rem;
+    padding: 1rem;
+    flex: 1 1 200px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card i {
+    font-size: 2rem;
+    color: var(--text-secondary);
+}
+
+.card p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.card h3 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* Dashboard Content */
+.dashboard__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Sections */
+.dashboard__section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard__section h3 {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--card-border);
+    padding-bottom: 0.5rem;
+}
+
+/* Calendar */
+.calendar__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.calendar__nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.calendar__nav-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.calendar__nav-btn:hover {
+    background-color: var(--message-hover);
+}
+
+.calendar__nav-btn i {
+    font-size: 1.5rem;
+}
+
+.calendar__date {
+    color: var(--text-primary);
+    font-weight: var(--font-semi-bold);
+}
+
+.calendar__week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar__day {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 0.5rem;
+    min-height: 120px;
+}
+
+.calendar__day-header {
+    padding: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--card-border);
+    background-color: var(--message-bg);
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.calendar__day-name {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.calendar__day-date {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: var(--font-semi-bold);
+    color: var(--text-primary);
+}
+
+.calendar__events {
+    padding: 0.5rem;
+}
+
+.calendar__event {
+    background-color: var(--message-bg);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.calendar__event.confirmed {
+    border-left: 3px solid var(--status-confirmed);
+}
+
+.calendar__event.pending {
+    border-left: 3px solid var(--status-pending);
+}
+
+.event__time {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.event__title {
+    display: block;
+    color: var(--text-primary);
+    font-weight: var(--font-semi-bold);
+}
+
+/* Messages */
+.dashboard__messages-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dashboard__messages {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashboard__messages li {
+    padding: 1rem;
+    border-bottom: 1px solid var(--card-border);
+    background-color: var(--message-bg);
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.dashboard__messages li:hover {
+    background-color: var(--message-hover);
+}
+
+.message__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.message__header strong {
+    color: var(--text-primary);
+}
+
+.message__time {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.dashboard__messages p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+    .dashboard__content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard__cards {
+        flex-direction: column;
+    }
+    
+    .card {
+        width: 100%;
+    }
+    
+    .calendar__week {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .calendar__day {
+        min-height: auto;
+    }
+}
+  

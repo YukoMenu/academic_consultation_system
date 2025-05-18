@@ -1,0 +1,35 @@
+.history-page {
+    padding: 1rem 2rem;
+    color: var(--text-color);
+  }
+  
+  .history-page h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--container-color);
+    color: var(--text-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .history-table th,
+  .history-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+  }
+  
+  .history-table th {
+    background-color: var(--first-color-light);
+    color: var(--title-color);
+  }
+  
+  .history-table tr:last-child td {
+    border-bottom: none;
+  }
+  

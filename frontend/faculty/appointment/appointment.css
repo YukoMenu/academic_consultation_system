@@ -1,0 +1,121 @@
+/* appointments.css */
+:root {
+  --card-bg-light: var(--body-color);
+  --card-bg-dark: hsl(228, 24%, 16%);
+  --text-light: var(--title-color);
+  --text-dark: hsl(228, 18%, 96%);
+  --border-light: hsl(228, 20%, 90%);
+  --border-dark: hsl(228, 16%, 30%);
+  --accent: var(--first-color);
+  --shadow-color: var(--shadow-color);
+  --btn-accept: hsl(120, 70%, 40%);
+  --btn-accept-hover: hsl(120, 70%, 30%);
+  --btn-reject: hsl(0, 70%, 50%);
+  --btn-reject-hover: hsl(0, 70%, 40%);
+}
+
+body {
+  font-family: var(--body-font);
+  color: var(--text-light);
+  background-color: var(--body-color);
+  transition: background-color 0.4s, color 0.4s;
+}
+
+body.dark-theme {
+  background-color: var(--card-bg-dark);
+  color: var(--text-dark);
+}
+
+.appointments-page {
+  margin-top: 2rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.appointments-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.appointment-card {
+  background-color: var(--card-bg-light);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: background-color 0.4s, border-color 0.4s;
+}
+
+body.dark-theme .appointment-card {
+  background-color: var(--card-bg-dark);
+  border-color: var(--border-dark);
+}
+
+.appointment-info p {
+  margin-bottom: 0.4rem;
+}
+
+.notes-input {
+  margin-top: 0.5rem;
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  resize: vertical;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .notes-input {
+  background-color: hsl(228, 24%, 24%);
+  border-color: var(--border-dark);
+  color: var(--text-dark);
+}
+
+.notes-input::placeholder {
+  color: var(--text-color);
+}
+
+.appointment-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: var(--font-semi-bold);
+  transition: background-color 0.3s;
+}
+
+.accept-btn {
+  background-color: var(--btn-accept);
+}
+
+.accept-btn:hover {
+  background-color: var(--btn-accept-hover);
+}
+
+.reject-btn {
+  background-color: var(--btn-reject);
+}
+
+.reject-btn:hover {
+  background-color: var(--btn-reject-hover);
+}

@@ -1,0 +1,151 @@
+
+:root {
+    --bg-main: #fff;
+    --bg-card: #f9f9f9;
+    --text-primary: #111;
+    --text-secondary: #555;
+    --border-color: #ddd;
+
+    --available: #4caf50;
+    --scheduled: #ff9800;
+    --unavailable: #f44336;
+}
+
+body.dark-theme {
+    --bg-main: #1e1e2f;
+    --bg-card: #2a2a3b;
+    --text-primary: #f1f1f1;
+    --text-secondary: #aaa;
+    --border-color: #444;
+}
+
+.appointment {
+    padding: 1.5rem;
+    color: var(--text-primary);
+}
+
+.appointment h2, .appointment h3 {
+    margin-bottom: 1rem;
+}
+
+.faculty-select {
+    margin-bottom: 1.5rem;
+}
+
+.faculty-select label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+#facultyDropdown {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* Legend */
+.calendar-legend {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.legend-item {
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: white;
+}
+
+.legend-item.available {
+    background-color: var(--available);
+}
+
+.legend-item.scheduled {
+    background-color: var(--scheduled);
+}
+
+.legend-item.unavailable {
+    background-color: var(--unavailable);
+}
+
+/* Calendar Grid */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.calendar-day {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-card);
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.calendar-day:hover {
+    opacity: 0.85;
+}
+
+.calendar-day.available {
+    background-color: var(--available);
+    color: #fff;
+}
+
+.calendar-day.scheduled {
+    background-color: var(--scheduled);
+    color: #fff;
+}
+
+.calendar-day.unavailable {
+    background-color: var(--unavailable);
+    color: #fff;
+}
+
+/* Appointment Form */
+.appointment-form {
+    background-color: var(--bg-card);
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    max-width: 400px;
+}
+
+.appointment-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.appointment-form select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+}
+
+#confirmBtn {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: var(--available);
+    color: white;
+    font-weight: bold;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#confirmBtn:hover {
+    background-color: #388e3c;
+}

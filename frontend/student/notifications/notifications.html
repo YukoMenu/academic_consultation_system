@@ -1,0 +1,36 @@
+<section class="notifications-page">
+    <h2>Notification Settings</h2>
+
+    <form id="notificationsForm" class="notifications-form">
+        <div class="notifications-group">
+            <label for="appointmentUpdates">Appointment Updates</label>
+            <input type="checkbox" id="appointmentUpdates" checked />
+            <small>Receive notifications when new appointments are scheduled or updated.</small>
+        </div>
+
+        <div class="notifications-group">
+            <label for="feedbackResponses">Feedback Responses</label>
+            <input type="checkbox" id="feedbackResponses" checked />
+            <small>Get notified when your feedback receives a response.</small>
+        </div>
+
+        <div class="notifications-group">
+            <label for="facultyMessages">Faculty Messages</label>
+            <input type="checkbox" id="facultyMessages" checked />
+            <small>Receive notifications for any new messages from your faculty members.</small>
+        </div>
+
+        <div class="notifications-group">
+            <label for="emailFrequency">Email Frequency</label>
+            <select id="emailFrequency">
+                <option value="immediate">Immediate</option>
+                <option value="daily">Daily Digest</option>
+                <option value="weekly">Weekly Summary</option>
+                <option value="none">No Emails</option>
+            </select>
+            <small>Select how often you would like to receive email notifications.</small>
+        </div>
+
+        <button type="submit" class="notifications-save">Save Changes</button>
+    </form>
+</section>

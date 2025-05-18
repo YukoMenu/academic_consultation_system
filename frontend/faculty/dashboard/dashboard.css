@@ -1,0 +1,93 @@
+:root {
+  --card-bg-light: var(--body-color);
+  --card-bg-dark: hsl(228, 24%, 16%);
+  --text-light: var(--title-color);
+  --text-dark: hsl(228, 18%, 96%);
+  --border-light: hsl(228, 20%, 90%);
+  --border-dark: hsl(228, 16%, 30%);
+  --accent: var(--first-color);
+  --shadow-color: var(--shadow-color);
+}
+
+body {
+  font-family: var(--body-font);
+  color: var(--text-light);
+  background-color: var(--body-color);
+  transition: background-color 0.4s, color 0.4s;
+}
+
+body.dark-theme {
+  background-color: var(--card-bg-dark);
+  color: var(--text-dark);
+}
+
+.faculty-dashboard h2 {
+  margin-bottom: 1rem;
+}
+
+.dashboard-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background-color: var(--card-bg-light);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 6px var(--shadow-color);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
+
+body.dark-theme .card {
+  background-color: var(--card-bg-dark);
+  border-color: var(--border-dark);
+}
+
+.card h3 {
+  color: var(--accent);
+}
+
+.dashboard-section {
+  margin-bottom: 2rem;
+}
+
+.appointments-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.appointments-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+body.dark-theme .appointments-list li {
+  border-color: #444;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background-color: var(--accent);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: hsl(228, 75%, 55%);
+}
+
+body.dark-theme .btn {
+  background-color: hsl(228, 70%, 63%);
+}
