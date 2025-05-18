@@ -1,0 +1,122 @@
+.form-page {
+  padding: 2rem;
+  font-family: var(--body-font);
+  background-color: var(--body-color);
+  color: var(--text-color);
+  transition: background-color 0.4s, color 0.4s;
+}
+
+body.dark-theme .form-page {
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+.form-page input,
+.form-page textarea {
+  padding: 0.5rem;
+  border: 1px solid var(--border-light, #ccc);
+  border-radius: 6px;
+  font-size: var(--normal-font-size, 1rem);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .form-page input,
+body.dark-theme .form-page textarea {
+  background-color: hsl(228, 24%, 24%);
+  color: var(--text-dark);
+  border-color: var(--border-dark, #555);
+}
+
+.form-page input[type="text"],
+.form-page input[type="date"],
+.form-page input[type="time"] {
+  width: auto;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.form-page label {
+  white-space: nowrap;
+  margin-right: 0.5rem;
+}
+
+.form-page .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-page .three-fields {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.form-page .three-fields > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-page .two-col {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.form-page .two-col > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-page .three-col > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.form-page .box {
+  flex: 1;
+}
+
+.form-page textarea {
+  width: 100%;
+  height: 100px;
+  resize: vertical;
+}
+
+.form-page .checkbox-group input[type="text"] {
+  margin-left: 0.5rem;
+  width: 200px;
+}
+
+/* Standard input widths */
+.form-page input[type="text"],
+.form-page input[type="date"],
+.form-page input[type="time"] {
+  padding: 0.5rem;
+  min-width: 200px;
+  flex: 1;
+}
+
+/* Shorter inputs (like TIME and TERM) */
+.form-page .input-short {
+  width: 120px;
+}
+
+/* Allow input groups to stretch evenly */
+.form-page .row div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-page .checkbox-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
