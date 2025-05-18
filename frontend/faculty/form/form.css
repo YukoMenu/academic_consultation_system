@@ -113,3 +113,10 @@ body.dark-theme .form-page textarea {
   gap: 0.5rem;
 }
 
+.form-page .checkbox-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
