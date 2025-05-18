@@ -1,4 +1,4 @@
-/* appointments.css */
+/*start of appointments.css */
 :root {
   --card-bg-light: var(--body-color);
   --card-bg-dark: hsl(228, 24%, 16%);
@@ -119,3 +119,5 @@ body.dark-theme .notes-input {
 .reject-btn:hover {
   background-color: var(--btn-reject-hover);
 }
+
+/*end of appointments.css */

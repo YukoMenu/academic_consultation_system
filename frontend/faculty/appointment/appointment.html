@@ -1,34 +1,26 @@
-<!-- appointments.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Faculty Appointments</title>
-  <link rel="stylesheet" href="appointments.css" />
-</head>
-<body>
-  <main class="appointments-page container">
-    <h2>Upcoming Appointment Requests</h2>
-    <ul class="appointments-list">
-      <!-- Example appointment -->
-      <li class="appointment-card">
-        <div class="appointment-info">
-          <p><strong>Student:</strong> Jane Dela Cruz</p>
-          <p><strong>Date:</strong> May 20, 2025</p>
-          <p><strong>Time:</strong> 10:00 AM - 10:30 AM</p>
-          <p><strong>Reason:</strong> Thesis Consultation</p>
-          <textarea placeholder="Add notes..." class="notes-input"></textarea>
-        </div>
-        <div class="appointment-actions">
-          <button class="btn accept-btn">Accept</button>
-          <button class="btn reject-btn">Reject</button>
-        </div>
-      </li>
-      <!-- More appointment cards go here -->
-    </ul>
-  </main>
+<!--start of appointments.html-->
+<div class="appointments-page container">
+  <h2>Upcoming Appointment Requests</h2>
 
-  <script src="appointments.js"></script>
-</body>
-</html>
+  <div class="dashboard-actions">
+    <button id="load-consultation-form" class="btn">Go to Consultation Form</button>
+  </div>
+
+  <ul class="appointments-list">
+    <!-- Example appointment -->
+    <li class="appointment-card">
+      <div class="appointment-info">
+        <p><strong>Student:</strong> Jane Dela Cruz</p>
+        <p><strong>Date:</strong> May 20, 2025</p>
+        <p><strong>Time:</strong> 10:00 AM - 10:30 AM</p>
+        <p><strong>Reason:</strong> Thesis Consultation</p>
+        <textarea placeholder="Add notes..." class="notes-input"></textarea>
+      </div>
+      <div class="appointment-actions">
+        <button class="btn accept-btn">Accept</button>
+        <button class="btn reject-btn">Reject</button>
+      </div>
+    </li>
+  </ul>
+</div>
+<!--end of appointments.html-->
