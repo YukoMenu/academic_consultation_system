@@ -2,24 +2,24 @@
 <div class="form-page">
   <div class="consultation-report">
     <div class="row">
-      <label>
-        NAME/S:<input type="text" />
-      </label>
+      <label>NAME/S:</label>
+      <input type="text" />
     </div>
 
-    <div class="row three-col">
-      <div>
-        <label>
-          DATE:<input type="date" />
-          START TIME:<input type="time" />
-          END TIME:<input type="time" />
-        </label>
-      </div>
+    <div class="row">
+      <label>DATE:</label>
+      <input type="date" />
+      <label>START TIME:</label>
+      <input type="time" class="input-short" />
+      <label>END TIME:</label>
+      <input type="time" class="input-short" />
     </div>
 
     <div class="row two-col">
       <div>
         <label>PROGRAM:</label><input type="text" />
+      </div>
+      <div>
         <label>COURSE CODE/TITLE:</label><input type="text" />
       </div>
     </div>
@@ -27,29 +27,33 @@
     <div class="row two-col">
       <div>
         <label>VENUE:</label><input type="text" />
-        <label>TERM:</label><input type="text" />
+      </div>
+      <div>
+        <label>TERM:</label><input type="text" class="input-short" />
       </div>
     </div>
 
-    <div class="row two-col box-pair">
+    <div class="row two-col">
       <div class="box">
         <label>Course Concerns:</label>
-        <textarea></textarea>
+        <textarea rows="6"></textarea>
       </div>
       <div class="box">
         <label>Action Taken / Intervention / Progress:</label>
-        <textarea></textarea>
+        <textarea rows="6"></textarea>
       </div>
     </div>
 
-    <br><br>
-
     <div class="row checkbox-group">
-      <label>Nature of Concerns:</label><br>
-      <label><input type="checkbox" /> Decision making</label><br>
-      <label><input type="checkbox" /> Study skills</label><br>
-      <label><input type="checkbox" /> Monitoring of Underachieving Students</label><br>
-      <label><input type="checkbox" /> Others (pls specify): <input type="text" style="width: 200px;" /></label><br>
+      <label>Nature of Concerns:</label><br />
+      <label><input type="checkbox" /> Decision making</label><br />
+      <label><input type="checkbox" /> Study skills</label><br />
+      <label><input type="checkbox" /> Monitoring of Underachieving Students</label><br />
+      <label>
+        <input type="checkbox" /> Others (pls specify):
+        <input type="text" style="width: 200px;" />
+      </label>
     </div>
   </div>
 </div>
+<!-- end of form.html -->
