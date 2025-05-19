@@ -38,6 +38,8 @@ body.dark-theme .form-page textarea {
 .form-page label {
   white-space: nowrap;
   margin-right: 0.5rem;
+  text-align: left;
+  align-self: flex-start;
 }
 
 .form-page .row {
@@ -79,7 +81,11 @@ body.dark-theme .form-page textarea {
 
 .form-page .box {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
+
 
 .form-page textarea {
   width: 100%;
