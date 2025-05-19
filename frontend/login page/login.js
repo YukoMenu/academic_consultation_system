@@ -50,21 +50,13 @@ loginForm.addEventListener('submit', async (e) => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.user) {
-                localStorage.setItem('user', JSON.stringify(data.user))
-                window.location.href = '../student/index.html' // Or wherever your main app starts
-            } else {
-                alert(data.error || 'Login failed')
-            }
-        })
+        });
 
-        const body = await res.json();
+        const body = await res.json(); // Only parse once
 
-        if (res.status === 200) {
-            console.log('Login success:', body);
+        if (res.status === 200 && body.user) {
+            localStorage.setItem('user', JSON.stringify(body.user));
+            window.location.href = '../student/index.html';
             redirectUser(body.user.role);
         } else {
             showWarning(body.error || 'Login failed');
