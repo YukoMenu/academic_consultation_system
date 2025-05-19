@@ -108,10 +108,21 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
 
+function fetchUserInfo() {
+    const storedUser = localStorage.getItem('user')
+    if (!storedUser) return;
+
+    const user = JSON.parse(storedUser)
+    document.getElementById('user-name').textContent = user.name
+    document.getElementById('user-email').textContent = user.email
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const lastPage = localStorage.getItem('last-page') || 'dashboard/dashboard.html'
     const defaultLink = document.querySelector(`[data-page="${lastPage}"]`)
     if (defaultLink) defaultLink.click()
+        
+    fetchUserInfo()
  })
 
 /*=============== LOGOUT FUNCTIONALITY ===============*/

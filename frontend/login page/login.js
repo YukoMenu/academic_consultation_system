@@ -50,7 +50,16 @@ loginForm.addEventListener('submit', async (e) => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
-        });
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.user) {
+                localStorage.setItem('user', JSON.stringify(data.user))
+                window.location.href = '../student/index.html' // Or wherever your main app starts
+            } else {
+                alert(data.error || 'Login failed')
+            }
+        })
 
         const body = await res.json();
 
