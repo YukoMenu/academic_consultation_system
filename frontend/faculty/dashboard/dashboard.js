@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Faculty Dashboard Loaded');
+console.log('Faculty Dashboard Loaded');
 
-    // Example: Dynamically insert name (replace with actual backend value)
-    const facultyName = 'Dr. Santos'; // Normally fetched from login/session
-    const welcomeHeading = document.querySelector('.faculty-dashboard h2');
-    if (welcomeHeading) {
-        welcomeHeading.textContent = `Welcome back, ${facultyName}!`;
+document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (user && user.name) {
+        const heading = document.getElementById('dashboard-heading')
+        if (heading) {
+            heading.textContent = `Welcome, ${user.name}`
+        }
     }
-    // Optional: You can later fetch and render real appointment data
-});
+})

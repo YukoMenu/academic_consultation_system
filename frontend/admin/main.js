@@ -1,4 +1,3 @@
-//main.js
 /*=============== SHOW SIDEBAR ===============*/
 const showSidebar = (toggleId, sidebarId, headerId, mainId) =>{
    const toggle = document.getElementById(toggleId),
@@ -18,6 +17,17 @@ const showSidebar = (toggleId, sidebarId, headerId, mainId) =>{
    }
 }
 showSidebar('header-toggle','sidebar', 'header', 'main')
+
+/*=============== LINK ACTIVE ===============*/
+/*const sidebarLink = document.querySelectorAll('.sidebar__list a')
+
+function linkColor(){
+    sidebarLink.forEach(l => l.classList.remove('active-link'))
+    this.classList.add('active-link')
+}
+
+sidebarLink.forEach(l => l.addEventListener('click', linkColor))
+*/
 
 /*=============== LINK ACTIVE & PAGE LOADING ===============*/
 const sidebarLinks = document.querySelectorAll('.sidebar__link')
@@ -98,10 +108,21 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
 
+function fetchUserInfo() {
+    const storedUser = localStorage.getItem('user')
+    if (!storedUser) return;
+
+    const user = JSON.parse(storedUser)
+    document.getElementById('user-name').textContent = user.name
+    document.getElementById('user-email').textContent = user.email
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const lastPage = localStorage.getItem('last-page') || 'dashboard/dashboard.html'
     const defaultLink = document.querySelector(`[data-page="${lastPage}"]`)
     if (defaultLink) defaultLink.click()
+        
+    fetchUserInfo()
  })
 
 /*=============== LOGOUT FUNCTIONALITY ===============*/
@@ -114,5 +135,5 @@ logoutButton.addEventListener('click', () => {
     // Redirect to login page
     window.location.href = '../login page/login.html'
 })
- 
+
 //end of main.js
