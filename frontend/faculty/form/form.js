@@ -2,14 +2,8 @@
 console.log('Form is loaded');
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("consultation-form");
   console.log('Submit listener attached:', !!form);
-
-  if (!form) {
-    console.warn('Form not found in DOM');
-    return;
-  }
-
+  const form = document.getElementById("consultation-form");
   if (form) {
     form.addEventListener("submit", async (e) => {
       console.log('Submit button pressed.');
@@ -56,11 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!res.ok) throw new Error("Failed to submit consultation");
 
         alert("Consultation submitted!");
-        form.reset();
+        //form.reset();
       } catch (err) {
         console.error(err);
         alert("An error occurred.");
       }
+
+      return false;
     });
   }
 });
