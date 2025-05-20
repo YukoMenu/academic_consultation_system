@@ -49,8 +49,6 @@ function attachFormListener() {
       });
 
       if (!res.ok) throw new Error("Failed to submit consultation");
-
-      alert("Consultation submitted!");
       //form.reset();
     } catch (err) {
       console.error(err);
