@@ -1,3 +1,7 @@
+// npm install express  <-  only run if 'node server.js' won't run;   err code: 'MODULE_NOT_FOUND'
+//                          or if you can't see a folder named 'node_modules' inside backend folder
+// node server.js
+
 // ----- START OF SERVER.JS -----
 const express = require('express');
 const cors = require('cors');
