@@ -6,6 +6,8 @@ const db = require('../db/database');
 
 // POST /api/consultation
 router.post('/', (req, res) => {
+  console.log('Received consultation POST data:', req.body);
+  
   const {
     names,
     date,
