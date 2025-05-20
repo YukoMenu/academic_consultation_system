@@ -1,9 +1,18 @@
 // ----- START OF FORM.JS -----
 console.log('Form is loaded');
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("consultation-form");
+  console.log('Submit listener attached:', !!form);
+
+  if (!form) {
+    console.warn('Form not found in DOM');
+    return;
+  }
+
   if (form) {
     form.addEventListener("submit", async (e) => {
+      console.log('Submit button pressed.');
       e.preventDefault();
 
       const formData = new FormData(form);
@@ -55,4 +64,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-// ----- END OF FORM.JS -----
+//----- END OF FORM.JS -----

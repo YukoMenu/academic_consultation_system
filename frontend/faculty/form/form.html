@@ -1,75 +1,88 @@
 <!-- START OF FORM.HTML -->
-<div class="form-page">
-  <div class="consultation-report">
-    <div class="row">
-      <label>NAME/S:</label>
-      <input type="text" name="names"/>
-    </div>
-
-    <div class="row">
-      <label for="date">DATE:</label>
-      <input type="date" id="date" name="date" required />
-
-      <label for="start_time">START TIME:</label>
-      <input type="time" id="start_time" name="start_time" class="input-short" required />
-
-      <label for="end_time">END TIME:</label>
-      <input type="time" id="end_time" name="end_time" class="input-short" required />
-    </div>
-
-    <div class="row two-col">
-      <div>
-        <label for="program">PROGRAM:</label>
-        <input type="text" id="program" name="program" required />
+<form id="consultation-form">
+  <div class="form-page">
+    <div class="consultation-report">
+      
+      <div class="row">
+        <label for="names">NAME/S:</label>
+        <input type="text" id="names" name="names" />
       </div>
-      <div>
-        <label for="course_code">COURSE CODE/TITLE:</label>
-        <input type="text" id="course_code" name="course_code" required />
-      </div>
-    </div>
 
-    <div class="row two-col">
-      <div>
-        <label for="venue">VENUE:</label>
-        <input type="text" id="venue" name="venue" />
-      </div>
-      <div>
-        <label for="term">TERM:</label>
-        <select id="term" name="term" class="input-short" required>
-          <option value="" disabled selected>Select Term</option>
-          <option value="Prelim">Prelim</option>
-          <option value="Midterm">Midterm</option>
-          <option value="Final">Final</option>
-        </select>
-      </div>
-    </div>
+      <div class="row">
+        <label for="date">DATE:</label>
+        <input type="date" id="date" name="date" required />
 
+        <label for="start_time">START TIME:</label>
+        <input type="time" id="start_time" name="start_time" class="input-short" required />
 
-    <div class="row two-col">
-      <div class="box">
-        <label>Course Concerns:</label>
-        <textarea name="course_concerns" rows="6"></textarea>
+        <label for="end_time">END TIME:</label>
+        <input type="time" id="end_time" name="end_time" class="input-short" required />
       </div>
-      <div class="box">
-        <label>Action Taken / Intervention / Progress:</label>
-        <textarea name="intervention" rows="6"></textarea>
-      </div>
-    </div>
 
-    <div class="checkbox-group">
-      <label for="">Nature of Concerns:</label>
-      <label><input type="checkbox" name="nature_of_concerns" value="Decision making" /> Decision making</label>
-      <label><input type="checkbox" name="nature_of_concerns" value="Study skills" /> Study skills</label>
-      <label><input type="checkbox" name="nature_of_concerns" value="Monitoring of Underachieving Students" /> Monitoring of Underachieving Students</label>
-      <label>
-        <input type="checkbox" name="nature_of_concerns" value="Others" />
-        Others (pls specify): <input type="text" name="others_text" />
-      </label>
-    </div>
-    <br><br>
-    <div class="row">
-      <button type="submit">Submit</button>
+      <div class="row two-col">
+        <div>
+          <label for="program">PROGRAM:</label>
+          <input type="text" id="program" name="program" required />
+        </div>
+        <div>
+          <label for="course_code">COURSE CODE/TITLE:</label>
+          <input type="text" id="course_code" name="course_code" required />
+        </div>
+      </div>
+
+      <div class="row two-col">
+        <div>
+          <label for="venue">VENUE:</label>
+          <input type="text" id="venue" name="venue" />
+        </div>
+        <div>
+          <label for="term">TERM:</label>
+          <select id="term" name="term" class="input-short" required>
+            <option value="" disabled selected>Select Term</option>
+            <option value="Prelim">Prelim</option>
+            <option value="Midterm">Midterm</option>
+            <option value="Final">Final</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row two-col">
+        <div class="box">
+          <label for="course_concerns">Course Concerns:</label>
+          <textarea id="course_concerns" name="course_concerns" rows="6"></textarea>
+        </div>
+        <div class="box">
+          <label for="intervention">Action Taken / Intervention / Progress:</label>
+          <textarea id="intervention" name="intervention" rows="6"></textarea>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <p>Nature of Concerns:</p>
+        <label>
+          <input type="checkbox" name="nature_of_concerns" value="Decision making" />
+          Decision making
+        </label>
+        <label>
+          <input type="checkbox" name="nature_of_concerns" value="Study skills" />
+          Study skills
+        </label>
+        <label>
+          <input type="checkbox" name="nature_of_concerns" value="Monitoring of Underachieving Students" />
+          Monitoring of Underachieving Students
+        </label>
+        <label>
+          <input type="checkbox" name="nature_of_concerns" value="Others" />
+          Others (pls specify):
+          <input type="text" id="others_text" name="others_text" />
+        </label>
+      </div>
+
+      <br><br>
+      <div class="row">
+        <button type="submit">Submit</button>
+      </div>
     </div>
   </div>
-</div>
+</form>
 <!-- END OF FORM.HTML -->
