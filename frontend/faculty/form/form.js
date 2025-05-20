@@ -1,4 +1,4 @@
-//  ----- START OF FORM.JS -----
+// ----- START OF FORM.JS -----
 console.log('Form is loaded');
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("consultation-form");
@@ -55,4 +55,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-//  ----- END OF FORM.JS -----
+// ----- END OF FORM.JS -----

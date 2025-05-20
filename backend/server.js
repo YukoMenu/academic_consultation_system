@@ -1,6 +1,6 @@
 // npm install express <- only run if 'node server.js' won't run, code: 'MODULE_NOT_FOUND'
 // node server.js
-
+// ----- START OF SERVER.JS -----
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
@@ -51,7 +51,6 @@ app.post('/login', (req, res) => {
         }
 
         if (!user) {
-            // Do not reveal if user exists
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
@@ -62,11 +61,8 @@ app.post('/login', (req, res) => {
             }
 
             if (!isMatch) {
-                // Still return generic message
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
-
-            // Success — exclude password from response
             res.json({
                 message: 'Login successful',
                 user: {
@@ -109,3 +105,4 @@ app.post('/users', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
+// ----- END OF SERVER.JS -----

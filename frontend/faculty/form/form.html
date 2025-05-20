@@ -7,31 +7,43 @@
     </div>
 
     <div class="row">
-      <label>DATE:</label>
-      <input type="date" />
-      <label>START TIME:</label>
-      <input type="time" class="input-short" />
-      <label>END TIME:</label>
-      <input type="time" class="input-short" />
+      <label for="date">DATE:</label>
+      <input type="date" id="date" name="date" required />
+
+      <label for="start_time">START TIME:</label>
+      <input type="time" id="start_time" name="start_time" class="input-short" required />
+
+      <label for="end_time">END TIME:</label>
+      <input type="time" id="end_time" name="end_time" class="input-short" required />
     </div>
 
     <div class="row two-col">
       <div>
-        <label>PROGRAM:</label><input type="text" />
+        <label for="program">PROGRAM:</label>
+        <input type="text" id="program" name="program" required />
       </div>
       <div>
-        <label>COURSE CODE/TITLE:</label><input type="text" />
+        <label for="course_code">COURSE CODE/TITLE:</label>
+        <input type="text" id="course_code" name="course_code" required />
       </div>
     </div>
 
     <div class="row two-col">
       <div>
-        <label>VENUE:</label><input type="text" />
+        <label for="venue">VENUE:</label>
+        <input type="text" id="venue" name="venue" />
       </div>
       <div>
-        <label>TERM:</label><input type="text" class="input-short" />
+        <label for="term">TERM:</label>
+        <select id="term" name="term" class="input-short" required>
+          <option value="" disabled selected>Select Term</option>
+          <option value="Prelim">Prelim</option>
+          <option value="Midterm">Midterm</option>
+          <option value="Final">Final</option>
+        </select>
       </div>
     </div>
+
 
     <div class="row two-col">
       <div class="box">
