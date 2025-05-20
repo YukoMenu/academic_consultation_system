@@ -1,9 +1,9 @@
-<!-- form.html -->
+<!-- START OF FORM.HTML -->
 <div class="form-page">
   <div class="consultation-report">
     <div class="row">
       <label>NAME/S:</label>
-      <input type="text" />
+      <input type="text" name="names"/>
     </div>
 
     <div class="row">
@@ -36,25 +36,28 @@
     <div class="row two-col">
       <div class="box">
         <label>Course Concerns:</label>
-        <textarea rows="6"></textarea>
+        <textarea name="course_concerns" rows="6"></textarea>
       </div>
       <div class="box">
         <label>Action Taken / Intervention / Progress:</label>
-        <textarea rows="6"></textarea>
+        <textarea name="intervention" rows="6"></textarea>
       </div>
     </div>
 
     <div class="checkbox-group">
       <label for="">Nature of Concerns:</label>
-      <label><input type="checkbox" /> Decision making</label>
-      <label><input type="checkbox" /> Study skills</label>
-      <label><input type="checkbox" /> Monitoring of Underachieving Students</label>
+      <label><input type="checkbox" name="nature_of_concerns" value="Decision making" /> Decision making</label>
+      <label><input type="checkbox" name="nature_of_concerns" value="Study skills" /> Study skills</label>
+      <label><input type="checkbox" name="nature_of_concerns" value="Monitoring of Underachieving Students" /> Monitoring of Underachieving Students</label>
       <label>
-        <input type="checkbox" /> Others (pls specify): 
-        <input type="text" />
+        <input type="checkbox" name="nature_of_concerns" value="Others" />
+        Others (pls specify): <input type="text" name="others_text" />
       </label>
     </div>
-
+    <br><br>
+    <div class="row">
+      <button type="submit">Submit</button>
+    </div>
   </div>
 </div>
-<!-- end of form.html -->
+<!-- END OF FORM.HTML -->

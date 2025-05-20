@@ -1,43 +1,58 @@
-//start of form.js
+//  ----- START OF FORM.JS -----
 console.log('Form is loaded');
 document.addEventListener("DOMContentLoaded", () => {
-  const appointmentsList = document.querySelector(".appointments-list");
+  const form = document.getElementById("consultation-form");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-  appointmentsList.addEventListener("click", (e) => {
-    const target = e.target;
-    if (target.classList.contains("accept-btn") || target.classList.contains("reject-btn")) {
-      const card = target.closest(".appointment-card");
-      if (!card) return;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
 
-      const student = card.querySelector("p strong").nextSibling.textContent.trim();
-      const notes = card.querySelector(".notes-input").value.trim();
-      const action = target.classList.contains("accept-btn") ? "accepted" : "rejected";
+      // Handle checkboxes (get all checked nature_of_concerns)
+      const concerns = [];
+      document.querySelectorAll('input[name="nature_of_concerns"]:checked').forEach(cb => {
+        if (cb.value === "Others") {
+          const otherText = formData.get("others_text");
+          if (otherText) concerns.push(`Others: ${otherText}`);
+        } else {
+          concerns.push(cb.value);
+        }
+      });
 
-      alert(`Appointment for ${student} has been ${action}.\nNotes: ${notes}`);
+      // Final payload
+      const payload = {
+        names: data.names,
+        date: data.date,
+        start_time: data.start_time,
+        end_time: data.end_time,
+        program: data.program,
+        course_code: data.course_code,
+        venue: data.venue,
+        term: data.term,
+        course_concerns: data.course_concerns,
+        intervention: data.intervention,
+        nature_of_concerns: concerns.join(", ")
+      };
 
-      card.style.opacity = "0.6";
-      card.style.pointerEvents = "none";
-    }
-  });
+      try {
+        const res = await fetch("http://localhost:3000/api/consultation", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
 
-  // Load consultation form dynamically
-  const formButton = document.getElementById("load-consultation-form");
-  if (formButton) {
-    formButton.addEventListener("click", () => {
-      const mainContent = document.getElementById("main-content");
-      if (mainContent) {
-        fetch("form/form.html")
-          .then(response => response.text())
-          .then(html => {
-            mainContent.innerHTML = html;
-            window.history.pushState({}, '', '#/consultation-form'); // Optional: update URL hash
-          })
-          .catch(error => {
-            console.error("Error loading form:", error);
-            mainContent.innerHTML = "<p>Failed to load the consultation form.</p>";
-          });
+        if (!res.ok) throw new Error("Failed to submit consultation");
+
+        alert("Consultation submitted!");
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        alert("An error occurred.");
       }
     });
   }
 });
-//end of form.js
+//  ----- END OF FORM.JS -----
