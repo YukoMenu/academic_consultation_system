@@ -1,3 +1,4 @@
+// ----- START OF LOGIN.JS -----
 // Theme switcher
 const themeButton = document.getElementById('theme-button');
 
@@ -108,6 +109,15 @@ signupForm.addEventListener('submit', (e) => {
         return;
     }
 
+    console.log({
+        name: fullName,
+        email,
+        password,
+        role,
+        program: role === 'student' ? 'BSCS' : null,
+        year_level: role === 'student' ? 1 : null
+    });
+
     fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -115,7 +125,9 @@ signupForm.addEventListener('submit', (e) => {
             name: fullName, 
             email, 
             password, 
-            role 
+            role,
+            program: role === 'student' ? 'BSCS' : null,        // Replace with dynamic value if needed
+            year_level: role === 'student' ? 1 : null
         })
     })
     .then(res => res.json())
@@ -129,4 +141,4 @@ signupForm.addEventListener('submit', (e) => {
         alert('Signup failed. Try again.');
     });
 });
-
+// ----- END OF LOGIN.JS -----

@@ -1,4 +1,14 @@
 /* START OF FORM.CSS */
+:root {
+  --button-bg: #f0f0f0;
+  --border-color: #ccc;
+}
+
+body.dark-theme {
+  --button-bg: hsl(228, 24%, 24%);
+  --border-color: hsl(228, 16%, 32%);
+}
+
 .form-page {
   padding: 2rem;
   font-family: var(--body-font);
@@ -139,5 +149,44 @@ body.dark-theme .form-page select {
   align-items: flex-start;
   gap: 0.5rem;
   margin-top: 1rem;
+}
+
+.names-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.name-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.name-input-group input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.name-input-group button {
+  padding: 0.3rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-light, #ccc);
+  border-radius: 6px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.name-input-group button:hover {
+  background-color: #ddd;
+}
+
+.name-input-group button {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 /* END OF FORM.CSS */

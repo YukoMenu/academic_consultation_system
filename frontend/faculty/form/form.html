@@ -3,9 +3,14 @@
   <div class="form-page">
     <div class="consultation-report">
       
-      <div class="row">
-        <label for="names">NAME/S:</label>
-        <input type="text" id="names" name="names" />
+      <div class="row" id="names-container">
+        <label for="name-0" style="min-width: 80px;">NAME/S:</label>
+        <div class="names-wrapper">
+          <div class="name-input-group">
+            <input type="text" id="name-0" name="names" class="names-input" />
+            <button type="button" class="add-name-btn">+</button>
+          </div>
+        </div>
       </div>
 
       <div class="row">

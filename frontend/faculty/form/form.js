@@ -1,6 +1,26 @@
 // ----- START OF FORM.JS -----
 console.log('Form is loaded');
 
+function attachNameFieldAdder() {
+  const container = document.getElementById("names-container");
+  const addBtn = container.querySelector(".add-name-btn");
+  const wrapper = container.querySelector(".names-wrapper");
+
+  addBtn.addEventListener("click", () => {
+    const newGroup = document.createElement("div");
+    newGroup.classList.add("name-input-group");
+    newGroup.innerHTML = `
+      <input type="text" name="names" class="names-input" />
+      <button type="button" class="remove-name-btn">−</button>
+    `;
+    wrapper.appendChild(newGroup); // inserts below existing ones
+
+    newGroup.querySelector(".remove-name-btn").addEventListener("click", () => {
+      newGroup.remove();
+    });
+  });
+}
+
 function attachFormListener() {
   const form = document.getElementById("consultation-form");
   console.log('Submit listener attached:', !!form);
@@ -11,7 +31,9 @@ function attachFormListener() {
     e.preventDefault();
 
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+    const names = formData.getAll("names"); // Get all student namess
+
+    const data = Object.fromEntries(formData.entries()); // still useful for others
 
     // Handle checkboxes (get all checked nature_of_concerns)
     const concerns = [];
@@ -26,7 +48,7 @@ function attachFormListener() {
 
     // Final payload
     const payload = {
-      names: data.names,
+      names, // array of names
       date: data.date,
       start_time: data.start_time,
       end_time: data.end_time,
@@ -57,7 +79,6 @@ function attachFormListener() {
   });
 }
 
-// Attach listener immediately when script runs (since form is dynamically loaded)
 attachFormListener();
-
+attachNameFieldAdder();
 //----- END OF FORM.JS -----
