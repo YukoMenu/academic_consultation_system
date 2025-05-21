@@ -1,3 +1,4 @@
+/* START OF FORM.CSS */
 .form-page {
   padding: 2rem;
   font-family: var(--body-font);
@@ -98,7 +99,6 @@ body.dark-theme .form-page textarea {
   width: 200px;
 }
 
-/* Standard input widths */
 .form-page input[type="text"],
 .form-page input[type="date"],
 .form-page input[type="time"] {
@@ -107,12 +107,26 @@ body.dark-theme .form-page textarea {
   flex: 1;
 }
 
-/* Shorter inputs (like TIME and TERM) */
 .form-page .input-short {
   width: 120px;
 }
 
-/* Allow input groups to stretch evenly */
+.form-page select {
+  padding: 0.5rem;
+  border: 1px solid var(--border-light, #ccc);
+  border-radius: 6px;
+  font-size: var(--normal-font-size, 1rem);
+  min-width: 200px;
+  flex: 1;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .form-page select {
+  background-color: hsl(228, 24%, 24%);
+  color: var(--text-dark);
+  border-color: var(--border-dark, #555);
+}
+
 .form-page .row div {
   display: flex;
   align-items: center;
@@ -126,3 +140,4 @@ body.dark-theme .form-page textarea {
   gap: 0.5rem;
   margin-top: 1rem;
 }
+/* END OF FORM.CSS */

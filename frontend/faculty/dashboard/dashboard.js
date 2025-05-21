@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user && user.name) {
         const heading = document.getElementById('dashboard-heading')
         if (heading) {
-            heading.textContent = `Welcome, ${user.name}`
+            heading.textContent = `Welcome, ${user.name}!`
         }
     }
 })

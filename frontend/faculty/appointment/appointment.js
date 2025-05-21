@@ -1,4 +1,4 @@
-//start of appointments.js
+// ----- START OF APPOINTMENT.JS -----
 (() => {
   console.log("Appointments page script loaded");
 
@@ -53,4 +53,4 @@
       });
    }
 })();
-//end of appointment.js
+// ----- END OF APPOINTMENT.JS -----
