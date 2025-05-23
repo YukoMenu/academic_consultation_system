@@ -1,0 +1,54 @@
+<!-- START OF USER-MANAGEMENT.HTML -->
+<div class="user-management-content">
+    <!-- Filter above user list and form -->
+    <div class="filter-container">
+        <label for="roleFilter">Filter by Role:</label>
+        <select id="roleFilter">
+            <option value="all">All</option>
+            <option value="faculty">Faculty</option>
+            <option value="student">Student</option>
+        </select>
+    </div>
+
+    <div class="user-management-panels">
+        <!-- Left panel: User list -->
+        <div class="user-list-panel">
+            <h2>User List</h2>
+            <ul id="userList"></ul>
+        </div>
+
+        <!-- Right panel: User details -->
+        <div class="user-details-panel">
+            <h2>User Details</h2>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <label>Name: <input type="text" id="name" required></label>
+                <label>Email: <input type="email" id="email" required></label>
+                <label>Role:
+                    <select id="role" required>
+                        <option value="faculty">Faculty</option>
+                        <option value="student">Student</option>
+                    </select>
+                </label>
+
+                <!-- Student-only fields -->
+                <div id="studentFields" class="role-fields">
+                    <label>Program: <input type="text" id="program"></label>
+                    <label>Year Level: <input type="number" id="year_level" min="1" max="5"></label>
+                </div>
+
+                <!-- Faculty-only fields -->
+                <div id="facultyFields" class="role-fields">
+                    <label>Department: <input type="text" id="department"></label>
+                    <label>Specialization: <input type="text" id="specialization"></label>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit">Update</button>
+                    <button type="button" id="deleteBtn">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END OF USER-MANAGEMENT.HTML -->

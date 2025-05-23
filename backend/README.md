@@ -21,7 +21,8 @@
 |   |   |   |   activity-logs.js
 |   |   ├───classes/
 |   |   ├───dashboard/
-|   |   ├───activity-logs/
+|   |   ├───settings/
+|   |   ├───user-management/
 |
 |   |   index.html
 |   |   main.js
