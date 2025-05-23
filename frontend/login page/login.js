@@ -94,6 +94,24 @@ function redirectUser(role) {
 // Signup form handling
 const signupForm = document.getElementById('signupForm');
 
+const studentFields = document.getElementById('studentFields');
+const facultyFields = document.getElementById('facultyFields');
+const roleOptions = signupForm.querySelectorAll('input[name="role"]');
+
+roleOptions.forEach((option) => {
+    option.addEventListener('change', () => {
+        if (option.checked) {
+            if (option.value === 'student') {
+                studentFields.style.display = 'block';
+                facultyFields.style.display = 'none';
+            } else if (option.value === 'faculty') {
+                facultyFields.style.display = 'block';
+                studentFields.style.display = 'none';
+            }
+        }
+    });
+});
+
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -102,6 +120,10 @@ signupForm.addEventListener('submit', (e) => {
     const email = signupForm.querySelector('input[type="email"]').value;
     const password = signupForm.querySelectorAll('input[type="password"]')[0].value;
     const confirmPassword = signupForm.querySelectorAll('input[type="password"]')[1].value;
+    const program = document.getElementById('studentProgram')?.value || null;
+    const yearLevel = parseInt(document.getElementById('studentYear')?.value) || null;
+    const department = document.getElementById('facultyDepartment')?.value || null;
+    const specialization = document.getElementById('facultySpecialization')?.value || null;
 
     // Validate passwords match
     if (password !== confirmPassword) {
@@ -126,10 +148,10 @@ signupForm.addEventListener('submit', (e) => {
             email, 
             password, 
             role,
-            department: role === 'faculty' ? 'DEPARTMENT' : null,
-            specialization: role === 'faculty' ? 'SPECIALIZATION' : null,
-            program: role === 'student' ? 'PROGRAM' : null,        // Replace with dynamic value if needed
-            year_level: role === 'student' ? 1 : null
+            department: role === 'faculty' ? department : null,
+            specialization: role === 'faculty' ? specialization : null,
+            program: role === 'student' ? program : null,
+            year_level: role === 'student' ? yearLevel : null
         })
     })
     .then(res => res.json())
