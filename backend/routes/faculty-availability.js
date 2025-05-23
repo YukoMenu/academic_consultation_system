@@ -24,8 +24,8 @@ router.post('/', (req, res) => {
   }
 
   const stmt = db.prepare(`
-    INSERT INTO faculty_availability (faculty_id, day_of_week, start_time, end_time)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO faculty_availability (faculty_id, day_of_week, start_time, end_time, course)
+    VALUES (?, ?, ?, ?, ?)
   `);
 
   try {
@@ -34,9 +34,10 @@ router.post('/', (req, res) => {
         if (
           typeof entry.day_of_week === 'number' &&
           entry.start_time &&
-          entry.end_time
+          entry.end_time &&
+          entry.course
         ) {
-          stmt.run(faculty_id, entry.day_of_week, entry.start_time, entry.end_time);
+          stmt.run(faculty_id, entry.day_of_week, entry.start_time, entry.end_time, entry.course);
         }
       });
     });

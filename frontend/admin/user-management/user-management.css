@@ -182,13 +182,4 @@
     background-color: var(--first-color);
     color: white;
 }
-
-#newUserBtn {
-  background-color: var(--first-color);
-  color: white;
-}
-
-#newUserBtn:hover {
-  background-color: hsl(228, 85%, 55%);
-}
 /* ----- END OF USER-MANAGEMENT.CSS ----- */
