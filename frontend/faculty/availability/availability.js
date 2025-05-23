@@ -1,35 +1,35 @@
 // START OF AVAILABILITY.JS
-console.log('Availability Page Loaded!')
-console.log('DOMContentLoaded')
+console.log('Availability Page Loaded!');
 const daysOfWeek = [
-"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+  "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 ];
 
 const container = document.getElementById("availability-container");
 const addBtn = document.getElementById("add-day-btn");
 
 function createDayRow() {
-const row = document.createElement("div");
-row.className = "availability-row";
+  const row = document.createElement("div");
+  row.className = "availability-row";
 
-row.innerHTML = `
+  row.innerHTML = `
+    <input type="text" name="course" placeholder="Course (e.g., CS101)" required>
     <select name="day_of_week" required>
-    ${daysOfWeek.map((day, i) => `<option value="${i}">${day}</option>`).join("")}
+      ${daysOfWeek.map((day, i) => `<option value="${i}">${day}</option>`).join("")}
     </select>
     <label>From:
-    <input type="time" name="start_time" required>
+      <input type="time" name="start_time" required>
     </label>
     <label>To:
-    <input type="time" name="end_time" required>
+      <input type="time" name="end_time" required>
     </label>
     <button type="button" class="remove-btn">−</button>
-`;
+  `;
 
-row.querySelector(".remove-btn").addEventListener("click", () => {
+  row.querySelector(".remove-btn").addEventListener("click", () => {
     row.remove();
-});
+  });
 
-container.appendChild(row);
+  container.appendChild(row);
 }
 
 addBtn.addEventListener("click", createDayRow);
@@ -48,12 +48,14 @@ document.getElementById("availability-form").addEventListener("submit", async (e
   const availability = [];
 
   rows.forEach(row => {
+    const course = row.querySelector('input[name="course"]').value.trim();
     const day = row.querySelector("select").value;
     const start = row.querySelector('input[name="start_time"]').value;
     const end = row.querySelector('input[name="end_time"]').value;
 
-    if (start && end) {
+    if (course && start && end) {
       availability.push({
+        course,
         day_of_week: parseInt(day),
         start_time: start,
         end_time: end

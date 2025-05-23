@@ -86,6 +86,9 @@ function redirectUser(role) {
         case 'faculty':
             window.location.href = '../faculty/index.html';
             break;
+        case 'admin':
+            window.location.href = '../admin/index.html';
+            break;
         default:
             showWarning('Unknown user role.');
     }
