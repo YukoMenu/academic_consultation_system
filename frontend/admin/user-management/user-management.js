@@ -21,7 +21,7 @@ let users = [];
 // Fetch all users from backend
 async function fetchUsers() {
     try {
-        const res = await fetch('/api/users');
+        const res = await fetch('http://localhost:3000/users');
         const data = await res.json();
         users = data.data || [];
         renderUserList();
@@ -60,13 +60,13 @@ async function populateForm(id) {
     roleField.value = user.role;
 
     if (user.role === 'student') {
-        const student = await fetch(`/api/getuser/students/${user.id}`).then(res => res.json());
+        const student = await fetch(`http://localhost:3000/api/getuser/students/${user.id}`).then(res => res.json());
         programField.value = student.program || '';
         yearLevelField.value = student.year_level || '';
         studentFields.style.display = 'block';
         facultyFields.style.display = 'none';
     } else if (user.role === 'faculty') {
-        const faculty = await fetch(`/api/getuser/faculty/${user.id}`).then(res => res.json());
+        const faculty = await fetch(`http://localhost:3000/api/getuser/faculty/${user.id}`).then(res => res.json());
         departmentField.value = faculty.department || '';
         specializationField.value = faculty.specialization || '';
         studentFields.style.display = 'none';
@@ -87,6 +87,7 @@ roleField.addEventListener('change', () => {
 // Refetch list when role filter is changed
 roleFilter.addEventListener('change', renderUserList);
 fetchUsers();
+
 // Handle form submission (Update user)
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -108,7 +109,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     try {
-        const res = await fetch(`/api/setuser/${id}`, {
+        const res = await fetch(`http://localhost:3000/api/setuser/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -134,7 +135,7 @@ document.getElementById('deleteBtn').addEventListener('click', async () => {
     if (!id || !confirm('Are you sure you want to delete this user?')) return;
 
     try {
-        const res = await fetch(`/api/setuser/${id}`, { method: 'DELETE' });
+        const res = await fetch(`http://localhost:3000/api/setuser/${id}`, { method: 'DELETE' });
         if (res.ok) {
             alert('User deleted successfully');
             form.reset();
