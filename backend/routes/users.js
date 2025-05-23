@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const sql = `INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, ?)`;
+        const sql = `INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)`;
         db.run(sql, [name, email, hashedPassword, role], function(err) {
             if (err) {
                 if (err.message.includes('UNIQUE constraint failed')) {

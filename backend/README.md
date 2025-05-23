@@ -22,6 +22,7 @@
 |   |   |   |   appointment.html
 |   |   |   |   appointment.js
 |   |   |
+|   |   ├───appointment/
 |   |   ├───dashboard/                          [comment]: # Same content with appointment files (dashboard.html, css, you get the gist), along with other folders
 |   |   ├───documents/
 |   |   ├───feedback/

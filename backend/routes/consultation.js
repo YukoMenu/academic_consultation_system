@@ -82,9 +82,10 @@ router.post('/', (req, res) => {
 
       // Case-insensitive, trimmed match
       db.get(
-        `SELECT id FROM users WHERE TRIM(LOWER(full_name)) = TRIM(LOWER(?))`,
+        `SELECT id FROM users WHERE TRIM(LOWER(name)) = TRIM(LOWER(?)) AND role = 'student'`,
         [name],
         (err, row) => {
+          console.log(`Searching for student: "${name}"`);
           if (err) {
             console.error(`Error finding user "${name}":`, err.message);
             return insertNextStudent(index + 1); // Skip on error
@@ -96,7 +97,7 @@ router.post('/', (req, res) => {
           }
 
           const user_id = row.id;
-
+          console.log(`Matched student "${name}" with user_id = ${user_id}`);
           db.run(
             `INSERT INTO consultation_students (consultation_id, student_id) VALUES (?, ?)`,
             [consultation_id, user_id],
