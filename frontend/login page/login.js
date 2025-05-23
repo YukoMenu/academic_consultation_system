@@ -126,7 +126,9 @@ signupForm.addEventListener('submit', (e) => {
             email, 
             password, 
             role,
-            program: role === 'student' ? 'BSCS' : null,        // Replace with dynamic value if needed
+            department: role === 'faculty' ? 'DEPARTMENT' : null,
+            specialization: role === 'faculty' ? 'SPECIALIZATION' : null,
+            program: role === 'student' ? 'PROGRAM' : null,        // Replace with dynamic value if needed
             year_level: role === 'student' ? 1 : null
         })
     })

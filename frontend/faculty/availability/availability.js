@@ -36,37 +36,43 @@ addBtn.addEventListener("click", createDayRow);
 createDayRow(); // Add one by default
 
 document.getElementById("availability-form").addEventListener("submit", async (e) => {
-e.preventDefault();
+  e.preventDefault();
 
-const rows = document.querySelectorAll(".availability-row");
-const availability = [];
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user || user.role !== "faculty") {
+    alert("Only faculty members can submit availability.");
+    return;
+  }
 
-rows.forEach(row => {
+  const rows = document.querySelectorAll(".availability-row");
+  const availability = [];
+
+  rows.forEach(row => {
     const day = row.querySelector("select").value;
     const start = row.querySelector('input[name="start_time"]').value;
     const end = row.querySelector('input[name="end_time"]').value;
 
     if (start && end) {
-    availability.push({
+      availability.push({
         day_of_week: parseInt(day),
         start_time: start,
         end_time: end
-    });
+      });
     }
-});
+  });
 
-try {
+  try {
     const res = await fetch("http://localhost:3000/api/faculty-availability", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ availability })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ faculty_id: user.id, availability })
     });
 
     if (!res.ok) throw new Error("Failed to save availability");
     alert("Availability saved!");
-} catch (err) {
+  } catch (err) {
     console.error(err);
     alert("Error saving availability.");
-}
+  }
 });
 // END OF AVAILABILITY.JS

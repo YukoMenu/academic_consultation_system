@@ -17,9 +17,9 @@ router.get('/', (req, res) => {
     });
 });
 
-// Register user (extended: also adds to students table if role is student)
+// Register user (extended: adds to students or faculty table based on role)
 router.post('/', async (req, res) => {
-    const { name, email, password, role, program, year_level } = req.body;
+    const { name, email, password, role, program, year_level, department, specialization } = req.body;
 
     if (!name || !email || !password || !role) {
         return res.status(400).json({ error: 'All fields are required' });
@@ -40,7 +40,6 @@ router.post('/', async (req, res) => {
             const userId = this.lastID;
 
             if (role === 'student') {
-                console.log(`Registering student with user ID: ${userId}`);
                 const insertStudentSql = `
                     INSERT INTO students (user_id, program, year_level)
                     VALUES (?, ?, ?)
@@ -51,14 +50,28 @@ router.post('/', async (req, res) => {
                         return res.status(500).json({ error: 'Failed to insert student record' });
                     }
 
-                    console.log('Successfully added student record');
                     return res.status(201).json({
                         message: 'Student registered successfully',
                         user: { id: userId, name, email, role }
                     });
                 });
-            }
-            else {
+            } else if (role === 'faculty') {
+                const insertFacultySql = `
+                    INSERT INTO faculty (user_id, department, specialization)
+                    VALUES (?, ?, ?)
+                `;
+                db.run(insertFacultySql, [userId, department || '', specialization || ''], function(err) {
+                    if (err) {
+                        console.error('Error inserting into faculty table:', err.message);
+                        return res.status(500).json({ error: 'Failed to insert faculty record' });
+                    }
+
+                    return res.status(201).json({
+                        message: 'Faculty registered successfully',
+                        user: { id: userId, name, email, role }
+                    });
+                });
+            } else {
                 return res.status(201).json({
                     message: 'User registered successfully',
                     user: { id: userId, name, email, role }
@@ -66,6 +79,7 @@ router.post('/', async (req, res) => {
             }
         });
     } catch (err) {
+        console.error('Server error:', err.message);
         res.status(500).json({ error: 'Server error' });
     }
 });
