@@ -19,11 +19,15 @@
 
         <!-- Right panel: User details -->
         <div class="user-details-panel">
-            <h2>User Details</h2>
+            <h2 id="formTitle">User Details</h2>
             <form id="userForm">
                 <input type="hidden" id="userId">
                 <label>Name: <input type="text" id="name" required></label>
                 <label>Email: <input type="email" id="email" required></label>
+                <div id="passwordContainer">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password">
+                </div>
                 <label>Role:
                     <select id="role" required>
                         <option value="faculty">Faculty</option>
@@ -43,9 +47,13 @@
                     <label>Specialization: <input type="text" id="specialization"></label>
                 </div>
 
+                <!-- User Management Controls -->
                 <div class="form-buttons">
-                    <button type="submit">Update</button>
-                    <button type="button" id="deleteBtn">Delete</button>
+                <button type="button" id="newUserBtn">New User</button>
+
+                <button type="submit" id="createBtn" style="display: none;">Create</button>
+                <button type="submit" id="updateBtn">Update</button>
+                <button type="button" id="deleteBtn">Delete</button>
                 </div>
             </form>
         </div>

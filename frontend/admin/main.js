@@ -55,10 +55,15 @@ sidebarLinks.forEach(link => {
                 css.id = 'dynamic-style'
                 document.head.appendChild(css)
  
+                // Remove previously injected script (if any)
+                const existingScript = document.getElementById('dynamic-script')
+                if (existingScript) existingScript.remove()
+
                 // Load JS
                 const script = document.createElement('script')
                 script.src = jsSrc
                 script.defer = true
+                script.id = 'dynamic-script'
                 document.body.appendChild(script)
              })
              .catch(err => {
