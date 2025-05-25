@@ -50,6 +50,34 @@ router.post('/', (req, res) => {
   }
 });
 
+// PUT: update a single availability entry
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const { course, day_of_week, start_time, end_time } = req.body;
+
+  if (
+    typeof day_of_week !== 'number' ||
+    !start_time || !end_time || !course
+  ) {
+    return res.status(400).json({ error: 'Missing or invalid fields' });
+  }
+
+  const query = `
+    UPDATE faculty_availability
+    SET course = ?, day_of_week = ?, start_time = ?, end_time = ?
+    WHERE id = ?
+  `;
+
+  db.run(query, [course, day_of_week, start_time, end_time, id], function (err) {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: 'Failed to update availability' });
+    }
+
+    res.json({ message: 'Availability updated', changes: this.changes });
+  });
+});
+
 // Optional: DELETE availability
 router.delete('/:id', (req, res) => {
   const id = req.params.id;

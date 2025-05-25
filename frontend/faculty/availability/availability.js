@@ -1,5 +1,33 @@
 // START OF AVAILABILITY.JS
 console.log('Availability Page Loaded!');
+const createForm = document.getElementById("availability-form");
+const viewList = document.getElementById("availability-view");
+const editSection = document.getElementById("availability-edit");
+const availabilityList = document.getElementById("availability-list");
+
+// Mode toggle
+document.querySelectorAll(".sidebar-btn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    document.querySelectorAll(".sidebar-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    // Hide all sections first
+    createForm.classList.add("hidden");
+    viewList.classList.add("hidden");
+    editSection.classList.add("hidden");
+
+    if (btn.id === "create-btn") {
+      createForm.classList.remove("hidden");
+    } else if (btn.id === "view-btn") {
+      viewList.classList.remove("hidden");
+      await loadAvailability(); // load view list from server
+    } else if (btn.id === "edit-btn") {
+      editSection.classList.remove("hidden");
+      await loadAvailabilityForEdit();
+    }
+  });
+});
+
 const daysOfWeek = [
   "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 ];
@@ -89,4 +117,116 @@ document.getElementById("availability-form").addEventListener("submit", async (e
     alert("Error saving availability.");
   }
 });
+
+async function loadAvailability() {
+  availabilityList.innerHTML = ""; // clear old
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user || user.role !== "faculty") return;
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/faculty-availability/${user.id}`);
+    if (!res.ok) throw new Error("Failed to load availability");
+
+    const data = await res.json();
+
+    if (data.length === 0) {
+      availabilityList.innerHTML = "<li>No availability found.</li>";
+    } else {
+      data.forEach(slot => {
+        const item = document.createElement("li");
+        item.className = "availability-list-item";
+        item.innerHTML = `
+          <i class="ri-book-2-line"></i> <strong>${slot.course}</strong><br>
+          <i class="ri-calendar-line"></i> ${daysOfWeek[slot.day_of_week]}<br>
+          <i class="ri-time-line"></i> ${slot.start_time} &rarr; ${slot.end_time}
+        `;
+        availabilityList.appendChild(item);
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    availabilityList.innerHTML = "<li>Error loading availability.</li>";
+  }
+}
+
+async function loadAvailabilityForEdit() {
+  editSection.innerHTML = ""; // clear previous content
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user || user.role !== "faculty") return;
+
+  try {
+    const res = await fetch(`http://localhost:3000/api/faculty-availability/${user.id}`);
+    if (!res.ok) throw new Error("Failed to load availability");
+
+    const data = await res.json();
+
+    if (data.length === 0) {
+      editSection.innerHTML = "<p>No availability found to edit.</p>";
+    } else {
+      data.forEach(slot => {
+        const row = document.createElement("div");
+        row.className = "availability-edit-row";
+
+        row.innerHTML = `
+          <input type="text" value="${slot.course}" placeholder="Course">
+          <select>
+            ${daysOfWeek.map((day, i) =>
+              `<option value="${i}" ${slot.day_of_week === i ? "selected" : ""}>${day}</option>`).join("")}
+          </select>
+          <input type="time" value="${slot.start_time}">
+          <input type="time" value="${slot.end_time}">
+          <button class="save-btn" title="Save"><i class="ri-check-line"></i></button>
+          <button class="delete-btn" title="Delete"><i class="ri-delete-bin-line"></i></button>
+        `;
+
+        // Save button
+        row.querySelector(".save-btn").addEventListener("click", async () => {
+          const course = row.querySelector("input[type='text']").value;
+          const day = parseInt(row.querySelector("select").value);
+          const start = row.querySelectorAll("input[type='time']")[0].value;
+          const end = row.querySelectorAll("input[type='time']")[1].value;
+
+          try {
+            const res = await fetch(`http://localhost:3000/api/faculty-availability/${slot.id}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ course, day_of_week: day, start_time: start, end_time: end })
+            });
+
+            if (!res.ok) throw new Error("Failed to update");
+            alert("Availability updated!");
+            await loadAvailabilityForEdit(); // Refresh list
+          } catch (err) {
+            console.error(err);
+            alert("Error updating availability.");
+          }
+        });
+
+        // Delete button
+        row.querySelector(".delete-btn").addEventListener("click", async () => {
+          if (!confirm("Are you sure you want to delete this entry?")) return;
+          try {
+            const res = await fetch(`http://localhost:3000/api/faculty-availability/${slot.id}`, {
+              method: "DELETE"
+            });
+
+            if (!res.ok) throw new Error("Failed to delete");
+            alert("Entry deleted!");
+            await loadAvailabilityForEdit(); // Refresh list
+          } catch (err) {
+            console.error(err);
+            alert("Error deleting entry.");
+          }
+        });
+
+        editSection.appendChild(row);
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    editSection.innerHTML = "<p>Error loading entries.</p>";
+  }
+}
 // END OF AVAILABILITY.JS
