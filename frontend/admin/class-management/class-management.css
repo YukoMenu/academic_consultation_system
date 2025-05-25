@@ -194,4 +194,130 @@ form button[type="submit"]:hover {
   margin-bottom: 0.25rem;
 }
 
+.class-management-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--first-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.class-management-controls button:hover {
+  background-color: hsl(228, 85%, 55%);
+}
+
+.class-management-controls button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+#class-list-ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--shadow-color);
+  cursor: pointer;
+  background-color: var(--body-color);
+  color: var(--text-color);
+  transition: background-color 0.2s ease;
+}
+
+#class-list-ul li i {
+  font-size: 1.2rem;
+  color: var(--first-color);
+}
+
+#class-list-ul li:hover {
+  background-color: hsl(228, 100%, 95%);
+}
+
+body.dark-theme #class-list-ul li:hover {
+  background-color: hsl(228, 20%, 25%);
+}
+
+.class-view-label {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.25rem;
+  color: var(--first-color);
+}
+
+.class-view-item {
+  margin-bottom: 1rem;
+}
+
+.class-view-value {
+  padding-left: 1.25rem;
+  display: block;
+  color: var(--text-color);
+}
+
+.class-sidebar {
+  background-color: var(--body-color);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border: 1px solid var(--shadow-color);
+}
+
+.class-sidebar h2 {
+  font-size: 1.2rem;
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 1rem;
+  color: var(--title-color);
+  border-bottom: 2px solid var(--first-color);
+  padding-bottom: 0.5rem;
+}
+
+#class-list-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#class-list-ul li {
+  background-color: hsl(228, 100%, 97%);
+  color: var(--text-color);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: var(--normal-font-size);
+  box-shadow: 0 1px 4px var(--shadow-color);
+}
+
+body.dark-theme #class-list-ul li {
+  background-color: hsl(228, 24%, 24%);
+}
+
+#class-list-ul li:hover {
+  background-color: var(--first-color);
+  color: white;
+}
+
+#class-list-ul li.selected {
+  background-color: hsl(228, 85%, 85%);
+  border: 1px solid var(--first-color);
+  font-weight: var(--font-semi-bold);
+}
+
+body.dark-theme #class-list-ul li.selected {
+  background-color: hsl(228, 24%, 30%);
+}
 /* ----- END OF CLASS-MANAGEMENT.CSS ----- */

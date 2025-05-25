@@ -1,11 +1,16 @@
 <!-- START OF CLASS-MANAGEMENT.HTML -->
 <div class="class-management-controls">
-  <button id="view-classes-btn">View Classes</button>
-  <button id="create-class-btn">Create Class</button>
-  <button id="edit-class-btn" disabled>Edit Class</button>
+  <button id="view-classes-btn">
+    <i class="ri-eye-line"></i> View Classes
+  </button>
+  <button id="create-class-btn">
+    <i class="ri-add-box-line"></i> Create Class
+  </button>
+  <button id="edit-class-btn" disabled>
+    <i class="ri-edit-box-line"></i> Edit Class
+  </button>
 </div>
 
-<!-- View Section -->
 <div class="class-sidebar">
   <h2>All Classes</h2>
   <ul id="class-list-ul"></ul>
@@ -20,27 +25,25 @@
     </div>
     <div id="class-view" class="class-view-section" style="display: block;">
     <h2>View Class</h2>
-    <div id="class-view-details">
-      <div class="class-view-item">
-        <span class="class-view-label">Class Code:</span>
-        <span class="class-view-value" id="view-class-code"></span>
-      </div>
-      <div class="class-view-item">
-        <span class="class-view-label">Class Name:</span>
-        <span class="class-view-value" id="view-class-name"></span>
-      </div>
-      <div class="class-view-item">
-        <span class="class-view-label">Description:</span>
-        <span class="class-view-value" id="view-description"></span>
-      </div>
-      <div class="class-view-item">
-        <span class="class-view-label">Assigned Faculty:</span>
-        <span class="class-view-value" id="view-faculty"></span>
-      </div>
-      <div class="class-view-item">
-        <span class="class-view-label">Enrolled Students:</span>
-        <span class="class-view-value" id="view-students"></span>
-      </div>
+    <div class="class-view-item">
+      <span class="class-view-label"><i class="ri-hashtag"></i> Class Code:</span>
+      <span class="class-view-value" id="view-class-code"></span>
+    </div>
+    <div class="class-view-item">
+      <span class="class-view-label"><i class="ri-book-line"></i> Class Name:</span>
+      <span class="class-view-value" id="view-class-name"></span>
+    </div>
+    <div class="class-view-item">
+      <span class="class-view-label"><i class="ri-file-text-line"></i> Description:</span>
+      <span class="class-view-value" id="view-description"></span>
+    </div>
+    <div class="class-view-item">
+      <span class="class-view-label"><i class="ri-user-star-line"></i> Assigned Faculty:</span>
+      <span class="class-view-value" id="view-faculty"></span>
+    </div>
+    <div class="class-view-item">
+      <span class="class-view-label"><i class="ri-team-line"></i> Enrolled Students:</span>
+      <span class="class-view-value" id="view-students"></span>
     </div>
   </div>
   </div>

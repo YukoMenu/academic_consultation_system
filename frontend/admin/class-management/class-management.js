@@ -38,7 +38,10 @@
     }
 
     viewBtn.addEventListener("click", () => switchView("view"));
-    createBtn.addEventListener("click", () => switchView("create"));
+    createBtn.addEventListener("click", () => {
+        switchView("create")
+        document.getElementById("delete-class-btn").style.display = "inline-block";
+    });
     editBtn.addEventListener("click", async () => {
         if (!editingClassId && classes.length > 0) {
             editingClassId = classes[0].id;
