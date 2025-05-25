@@ -125,5 +125,53 @@ router.delete('/:id', (req, res) => {
   });
 });
 
+// UPDATE a class
+router.put('/:id', (req, res) => {
+  const classId = req.params.id;
+  const { class_code, class_name, description, faculty_ids, student_ids } = req.body;
+
+  if (!class_code || !class_name || !Array.isArray(faculty_ids) || !Array.isArray(student_ids)) {
+    return res.status(400).json({ error: 'Missing or invalid fields' });
+  }
+
+  // Update class info
+  db.run(
+    'UPDATE classes SET class_code = ?, class_name = ?, description = ? WHERE id = ?',
+    [class_code, class_name, description, classId],
+    function (err) {
+      if (err) {
+        if (err.message.includes('UNIQUE constraint failed')) {
+          return res.status(400).json({ error: 'Class code already exists' });
+        }
+
+        console.error('DB Update Error:', err.message);
+        return res.status(500).json({ error: 'Failed to update class', details: err.message });
+      }
+
+      if (this.changes === 0) {
+        return res.status(404).json({ error: 'Class not found' });
+      }
+
+      // Continue with clearing and reinserting faculty/students
+      db.run('DELETE FROM class_faculty WHERE class_id = ?', [classId]);
+      db.run('DELETE FROM class_students WHERE class_id = ?', [classId]);
+
+      if (faculty_ids.length > 0) {
+        const insertFaculty = db.prepare('INSERT INTO class_faculty (class_id, faculty_id) VALUES (?, ?)');
+        faculty_ids.forEach(fid => insertFaculty.run(classId, fid));
+        insertFaculty.finalize();
+      }
+
+      if (student_ids.length > 0) {
+        const insertStudents = db.prepare('INSERT INTO class_students (class_id, student_id) VALUES (?, ?)');
+        student_ids.forEach(sid => insertStudents.run(classId, sid));
+        insertStudents.finalize();
+      }
+
+      res.json({ message: 'Class updated successfully' });
+    }
+  );
+});
+
 module.exports = router;
 // ----- END OF CLASSES.JS -----

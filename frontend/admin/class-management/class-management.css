@@ -1,45 +1,197 @@
 /* ----- START OF CLASS-MANAGEMENT.CSS ----- */
-.class-management {
+.class-management-controls {
   display: flex;
-  gap: 2rem;
-  padding: 1rem;
-}
-
-.class-list {
-  width: 30%;
-  border-right: 1px solid #ccc;
-}
-
-.class-detail {
-  width: 70%;
-}
-
-.user-select-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
-.user-select-list label {
-  background: #eee;
-  padding: 0.5rem;
-  border-radius: 4px;
+.class-management-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
-.dynamic-input-group .input-wrapper {
+.class-sidebar {
+  float: left;
+  width: 25%;
+  border-right: 1px solid var(--shadow-color);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.class-sidebar h2 {
+  margin-top: 0;
+}
+
+#class-list-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#class-list-ul li {
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--shadow-color);
+  cursor: pointer;
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+#class-list-ul li:hover {
+  background-color: hsl(228, 100%, 95%); /* Light hover based on theme tone */
+}
+
+body.dark-theme #class-list-ul li:hover {
+  background-color: hsl(228, 20%, 25%);
+}
+
+.class-management {
+  margin-left: 26%;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+.class-create-section,
+.class-edit-section {
+  max-width: 700px;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--shadow-color);
+  border-radius: 6px;
+  background-color: var(--body-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 6px var(--shadow-color);
+}
+
+form {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.dynamic-input-group input {
-  flex: 1;
-}
-
-.dynamic-input-group button {
-  padding: 0 0.5rem;
+form input[type="text"],
+form textarea {
+  width: 100%;
+  padding: 0.5rem;
   font-size: 1rem;
+  border: 1px solid var(--shadow-color);
+  border-radius: 4px;
+  background-color: var(--body-color);
+  color: var(--text-color);
 }
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-color);
+  opacity: 0.6; /* Optional: adjust for subtlety */
+}
+
+form button[type="submit"] {
+  padding: 0.6rem;
+  background-color: var(--first-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+form button[type="submit"]:hover {
+  background-color: hsl(228, 85%, 55%);
+}
+
+#delete-class-btn {
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: hsl(0, 70%, 50%);
+  color: white;
+}
+
+#delete-class-btn:hover {
+  background-color: hsl(0, 70%, 40%);
+}
+
+.dynamic-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.input-wrapper input {
+  flex: 1;
+  background-color: var(--body-color);
+  color: var(--text-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.input-wrapper button {
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: var(--first-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.input-wrapper button:hover {
+  background-color: hsl(228, 85%, 55%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .class-sidebar {
+    float: none;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--shadow-color);
+  }
+
+  .class-management {
+    margin-left: 0;
+  }
+}
+
+.class-view-section {
+  max-width: 700px;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--shadow-color);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  font-size: 1rem;
+  line-height: 1.6;
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+.class-view-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.class-view-item {
+  margin-bottom: 0.75rem;
+}
+
+.class-view-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
 /* ----- END OF CLASS-MANAGEMENT.CSS ----- */
