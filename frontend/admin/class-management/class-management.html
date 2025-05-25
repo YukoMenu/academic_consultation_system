@@ -11,96 +11,121 @@
   </button>
 </div>
 
-<div class="class-sidebar">
-  <h2>All Classes</h2>
-  <ul id="class-list-ul"></ul>
-</div>
-
-<div class="class-management">
-  <!-- View Section -->
-  <div id="class-view" class="class-view-section" style="display: block;">
-    <h2>View Class</h2>
-    <div id="class-view-details">
-      <p>Select a class from the left to view its details.</p>
-    </div>
+<div class="class-layout-container">
+  <div class="class-sidebar">
+    <h2>All Classes</h2>
+    <ul id="class-list-ul"></ul>
+  </div>
+  <div class="class-management">
+    <!-- View Section -->
     <div id="class-view" class="class-view-section" style="display: block;">
-    <h2>View Class</h2>
-    <div class="class-view-item">
-      <span class="class-view-label"><i class="ri-hashtag"></i> Class Code:</span>
-      <span class="class-view-value" id="view-class-code"></span>
-    </div>
-    <div class="class-view-item">
-      <span class="class-view-label"><i class="ri-book-line"></i> Class Name:</span>
-      <span class="class-view-value" id="view-class-name"></span>
-    </div>
-    <div class="class-view-item">
-      <span class="class-view-label"><i class="ri-file-text-line"></i> Description:</span>
-      <span class="class-view-value" id="view-description"></span>
-    </div>
-    <div class="class-view-item">
-      <span class="class-view-label"><i class="ri-user-star-line"></i> Assigned Faculty:</span>
-      <span class="class-view-value" id="view-faculty"></span>
-    </div>
-    <div class="class-view-item">
-      <span class="class-view-label"><i class="ri-team-line"></i> Enrolled Students:</span>
-      <span class="class-view-value" id="view-students"></span>
-    </div>
-  </div>
-  </div>
-
-  <!-- Create Section -->
-  <div id="class-create" class="class-create-section" style="display: none;">
-    <h2>Create New Class</h2>
-    <form id="class-form-create">
-      <input type="text" name="class_code" placeholder="Class Code" required />
-      <input type="text" name="class_name" placeholder="Class Name" required />
-      <textarea name="description" placeholder="Description"></textarea>
-
-      <label>Faculty</label>
-      <div class="dynamic-input-group" id="create-faculty-container">
-        <div class="input-wrapper">
-          <input type="text" name="faculty" class="faculty-input" list="faculty-list" />
-          <button type="button" class="add-faculty-btn">+</button>
-        </div>
+      <h2>View Class</h2>
+      <div id="class-view-details">
+        <p>Select a class from the left to view its details.</p>
       </div>
-
-      <label>Students</label>
-      <div class="dynamic-input-group" id="create-student-container">
-        <div class="input-wrapper">
-          <input type="text" name="students" class="student-input" list="student-list" />
-          <button type="button" class="add-student-btn">+</button>
-        </div>
+      <div id="class-view" class="class-view-section" style="display: block;">
+      <h2>View Class</h2>
+      <div class="class-view-item">
+        <span class="class-view-label"><i class="ri-hashtag"></i> Class Code:</span>
+        <span class="class-view-value" id="view-class-code"></span>
       </div>
+      <div class="class-view-item">
+        <span class="class-view-label"><i class="ri-book-line"></i> Class Name:</span>
+        <span class="class-view-value" id="view-class-name"></span>
+      </div>
+      <div class="class-view-item">
+        <span class="class-view-label"><i class="ri-file-text-line"></i> Description:</span>
+        <span class="class-view-value" id="view-description"></span>
+      </div>
+      <div class="class-view-item">
+        <span class="class-view-label"><i class="ri-user-star-line"></i> Assigned Faculty:</span>
+        <span class="class-view-value" id="view-faculty"></span>
+      </div>
+      <div class="class-view-item">
+        <span class="class-view-label"><i class="ri-team-line"></i> Enrolled Students:</span>
+        <span class="class-view-value" id="view-students"></span>
+      </div>
+    </div>
+    </div>
 
-      <datalist id="faculty-list"></datalist>
-      <datalist id="student-list"></datalist>
+    <!-- Create Section -->
+    <div id="class-create" class="class-create-section" style="display: none;">
+      <h2><i class="ri-add-box-line"></i> Create New Class</h2>
+      <form id="class-form-create">
 
-      <button type="submit">Save Class</button>
-      <button type="button" id="delete-class-btn" style="display:none; background-color: red; color: white;">
-        Delete Class
-      </button>
-    </form>
-  </div>
+        <label class="class-view-label">
+          <span class="label-text"><i class="ri-hashtag"></i> Class Code:</span>
+          <input type="text" name="class_code" placeholder="Class Code" required />
+        </label>
 
-  <!-- Edit Section -->
-  <div id="class-edit" class="class-edit-section" style="display: none;">
-    <h2 id="form-title">Edit Class</h2>
-    <form id="class-form-edit">
-      <input type="text" name="class_code" placeholder="Class Code" required />
-      <input type="text" name="class_name" placeholder="Class Name" required />
-      <textarea name="description" placeholder="Description"></textarea>
+        <label class="class-view-label">
+          <span class="label-text"><i class="ri-book-line"></i> Class Name:</span>
+          <input type="text" name="class_name" placeholder="Class Name" required />
+        </label>
 
-      <label>Faculty</label>
-      <div class="dynamic-input-group" id="edit-faculty-container"></div>
+        <label class="class-view-label">
+          <span class="label-text"><i class="ri-file-text-line"></i> Description:</span>
+          <textarea name="description" placeholder="Description"></textarea>
+        </label>
 
-      <label>Students</label>
-      <div class="dynamic-input-group" id="edit-student-container"></div>
+        <label class="class-view-label"><i class="ri-user-star-line"></i> Faculty</label>
+        <div class="dynamic-input-group" id="create-faculty-container">
+          <div class="input-wrapper">
+            <input type="text" name="faculty" class="faculty-input" list="faculty-list" />
+            <button type="button" class="add-faculty-btn">+</button>
+          </div>
+        </div>
 
-      <datalist id="faculty-list"></datalist>
-      <datalist id="student-list"></datalist>
+        <label class="class-view-label"><i class="ri-team-line"></i> Students</label>
+        <div class="dynamic-input-group" id="create-student-container">
+          <div class="input-wrapper">
+            <input type="text" name="students" class="student-input" list="student-list" />
+            <button type="button" class="add-student-btn">+</button>
+          </div>
+        </div>
 
-      <button type="submit">Update Class</button>
-    </form>
+        <datalist id="faculty-list"></datalist>
+        <datalist id="student-list"></datalist>
+
+        <button type="submit"><i class="ri-save-line"></i> Save Class</button>
+      </form>
+    </div>
+
+    <!-- Edit Section -->
+    <div id="class-edit" class="class-edit-section" style="display: none;">
+      <h2 id="form-title"><i class="ri-edit-box-line"></i> Edit Class</h2>
+      <form id="class-form-edit">
+
+        <label class="class-view-label">
+          <span class="label-text"><i class="ri-hashtag"></i> Class Code:</span>
+          <input type="text" name="class_code" placeholder="Class Code" required />
+        </label>
+
+        <label class="class-view-label">
+          <span class="label-text"><i class="ri-book-line"></i> Class Name:</span>
+          <input type="text" name="class_name" placeholder="Class Name" required />
+        </label>
+
+        <label class="class-view-label">
+          <span class="label-text"><i class="ri-file-text-line"></i> Description:</span>
+          <textarea name="description" placeholder="Description"></textarea>
+        </label>
+
+        <label class="class-view-label"><i class="ri-user-star-line"></i> Faculty</label>
+        <div class="dynamic-input-group" id="edit-faculty-container"></div>
+
+        <label class="class-view-label"><i class="ri-team-line"></i> Students</label>
+        <div class="dynamic-input-group" id="edit-student-container"></div>
+
+        <datalist id="faculty-list"></datalist>
+        <datalist id="student-list"></datalist>
+
+        <button type="submit"><i class="ri-save-line"></i> Update Class</button>
+        <button type="button" id="delete-class-btn" style="display:none; background-color: red; color: white;">
+          <i class="ri-delete-bin-6-line"></i> Delete Class
+        </button>
+      </form>
+    </div>
   </div>
 </div>
 <!-- END OF CLASS-MANAGEMENT.HTML -->

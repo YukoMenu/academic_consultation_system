@@ -116,12 +116,34 @@ router.post('/', (req, res) => {
   );
 });
 
-// DELETE a class
+// DELETE a class along with related entries in join tables
 router.delete('/:id', (req, res) => {
   const classId = req.params.id;
-  db.run('DELETE FROM classes WHERE id = ?', [classId], function (err) {
-    if (err) return res.status(500).json({ error: 'Failed to delete class' });
-    res.json({ message: 'Class deleted', changes: this.changes });
+  db.serialize(() => {
+    db.run('BEGIN TRANSACTION');
+    db.run('DELETE FROM class_faculty WHERE class_id = ?', [classId], function(err) {
+      if (err) {
+        db.run('ROLLBACK');
+        return res.status(500).json({ error: 'Failed to delete class faculty' });
+      }
+      
+      db.run('DELETE FROM class_students WHERE class_id = ?', [classId], function(err) {
+        if (err) {
+          db.run('ROLLBACK');
+          return res.status(500).json({ error: 'Failed to delete class students' });
+        }
+
+        db.run('DELETE FROM classes WHERE id = ?', [classId], function(err) {
+          if (err) {
+            db.run('ROLLBACK');
+            return res.status(500).json({ error: 'Failed to delete class' });
+          }
+
+          db.run('COMMIT');
+          return res.json({ message: 'Class and related data deleted' });
+        });
+      });
+    });
   });
 });
 

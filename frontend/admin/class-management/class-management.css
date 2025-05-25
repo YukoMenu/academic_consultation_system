@@ -11,14 +11,6 @@
   cursor: pointer;
 }
 
-.class-sidebar {
-  float: left;
-  width: 25%;
-  border-right: 1px solid var(--shadow-color);
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
 .class-sidebar h2 {
   margin-top: 0;
 }
@@ -43,14 +35,6 @@
 
 body.dark-theme #class-list-ul li:hover {
   background-color: hsl(228, 20%, 25%);
-}
-
-.class-management {
-  margin-left: 26%;
-  padding: 1rem;
-  box-sizing: border-box;
-  background-color: var(--body-color);
-  color: var(--text-color);
 }
 
 .class-create-section,
@@ -154,15 +138,14 @@ form button[type="submit"]:hover {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .class-sidebar {
-    float: none;
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--shadow-color);
+  .class-layout-container {
+    flex-direction: column;
   }
 
+  .class-sidebar,
   .class-management {
-    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -262,19 +245,6 @@ body.dark-theme #class-list-ul li:hover {
   color: var(--text-color);
 }
 
-.class-sidebar {
-  background-color: var(--body-color);
-  padding: 1.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  width: 100%;
-  max-width: 300px;
-  height: 100%;
-  overflow-y: auto;
-  box-sizing: border-box;
-  border: 1px solid var(--shadow-color);
-}
-
 .class-sidebar h2 {
   font-size: 1.2rem;
   font-weight: var(--font-semi-bold);
@@ -320,4 +290,63 @@ body.dark-theme #class-list-ul li {
 body.dark-theme #class-list-ul li.selected {
   background-color: hsl(228, 24%, 30%);
 }
+
+.class-layout-container {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.class-sidebar {
+  width: 25%;
+  max-width: 300px;
+  min-width: 220px;
+  background-color: var(--body-color);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border: 1px solid var(--shadow-color);
+}
+
+.class-management {
+  flex: 1;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+.class-view-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+  color: var(--first-color);
+}
+
+.class-view-label .label-text {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;  
+  flex-shrink: 0;    
+}
+
+.class-view-label input,
+.class-view-label textarea {
+  flex: 1;               
+  font-weight: normal;
+  color: var(--text-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 4px;
+  padding: 0.5rem;
+  background-color: var(--body-color);
+}
+
 /* ----- END OF CLASS-MANAGEMENT.CSS ----- */
