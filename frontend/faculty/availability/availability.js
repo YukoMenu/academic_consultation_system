@@ -12,17 +12,29 @@ function createDayRow() {
   row.className = "availability-row";
 
   row.innerHTML = `
-    <input type="text" name="course" placeholder="Course (e.g., CS101)" required>
-    <select name="day_of_week" required>
-      ${daysOfWeek.map((day, i) => `<option value="${i}">${day}</option>`).join("")}
-    </select>
-    <label>From:
+    <div class="icon-input">
+      <i class="ri-book-open-line"></i>
+      <input type="text" name="course" placeholder="Course (e.g., CS101)" required>
+    </div>
+
+    <div class="icon-input">
+      <i class="ri-calendar-event-line"></i>
+      <select name="day_of_week" required>
+        ${daysOfWeek.map((day, i) => `<option value="${i}">${day}</option>`).join("")}
+      </select>
+    </div>
+
+    <label class="icon-input">
+      <i class="ri-time-line"></i> From:
       <input type="time" name="start_time" required>
     </label>
-    <label>To:
+
+    <label class="icon-input">
+      <i class="ri-time-line"></i> To:
       <input type="time" name="end_time" required>
     </label>
-    <button type="button" class="remove-btn">−</button>
+
+    <button type="button" class="remove-btn" title="Remove"><i class="ri-close-line"></i></button>
   `;
 
   row.querySelector(".remove-btn").addEventListener("click", () => {
