@@ -84,5 +84,29 @@ router.post('/', async (req, res) => {
     }
 });
 
+// GET all faculty users
+router.get('/faculty', (req, res) => {
+    const sql = `SELECT users.*, faculty.department, faculty.specialization
+                 FROM users
+                 JOIN faculty ON users.id = faculty.user_id
+                 WHERE users.role = 'faculty'`;
+    db.all(sql, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+
+// GET all student users
+router.get('/students', (req, res) => {
+    const sql = `SELECT users.*, students.program, students.year_level
+                 FROM users
+                 JOIN students ON users.id = students.user_id
+                 WHERE users.role = 'student'`;
+    db.all(sql, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+});
+
 module.exports = router;
 // ----- END OF USERS.JS -----

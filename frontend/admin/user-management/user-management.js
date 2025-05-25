@@ -30,7 +30,7 @@
     // Fetch all users from backend
     async function fetchUsers() {
         try {
-            const res = await fetch('http://localhost:3000/users');
+            const res = await fetch('http://localhost:3000/api/users');
             if (!res.ok) {
                 console.error('Fetch failed with status:', res.status);
                 return;
@@ -135,7 +135,7 @@
         try {
             const method = isCreating ? 'POST' : 'PUT';
             const url = isCreating
-                ? `http://localhost:3000/users`
+                ? `http://localhost:3000/api/users`
                 : `http://localhost:3000/api/setuser/${id}`;
 
             const res = await fetch(url, {

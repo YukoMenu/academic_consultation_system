@@ -1,0 +1,45 @@
+/* ----- START OF CLASS-MANAGEMENT.CSS ----- */
+.class-management {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.class-list {
+  width: 30%;
+  border-right: 1px solid #ccc;
+}
+
+.class-detail {
+  width: 70%;
+}
+
+.user-select-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.user-select-list label {
+  background: #eee;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dynamic-input-group .input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dynamic-input-group input {
+  flex: 1;
+}
+
+.dynamic-input-group button {
+  padding: 0 0.5rem;
+  font-size: 1rem;
+}
+/* ----- END OF CLASS-MANAGEMENT.CSS ----- */

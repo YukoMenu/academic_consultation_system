@@ -143,7 +143,7 @@ signupForm.addEventListener('submit', (e) => {
         year_level: role === 'student' ? 1 : null
     });
 
-    fetch('http://localhost:3000/users', {
+    fetch('http://localhost:3000/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

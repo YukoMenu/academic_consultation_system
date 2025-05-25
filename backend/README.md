@@ -7,6 +7,11 @@
 |   |   |   database.js
 |   ├───routes/
 |   |   |   auth.js
+|   |   |   classes.js
+|   |   |   consultation.js
+|   |   |   faculty-availability.js
+|   |   |   getuser.js
+|   |   |   setuser.js
 |   |   |   users.js
 |   |   package-lock.json
 |   |   package.json
@@ -19,7 +24,7 @@
 |   |   |   |   activity-logs.css           [comment]: # Same content with appointment files (dashboard.html, css, you get the gist), along with other folders
 |   |   |   |   activity-logs.html
 |   |   |   |   activity-logs.js
-|   |   ├───classes/
+|   |   ├───class-management/
 |   |   ├───dashboard/
 |   |   ├───settings/
 |   |   ├───user-management/
