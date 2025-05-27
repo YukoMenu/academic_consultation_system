@@ -20,6 +20,7 @@ const facultyAvailabilityRoutes = require('./routes/faculty-availability');
 const getUserRoutes = require('./routes/getuser');
 const setUserRoutes = require('./routes/setuser');
 const classManagementRoutes = require('./routes/classes');
+const coursesRoute = require('./routes/courses');
 
 app.use('/api/consultation', consultationRoutes);
 app.use('/api/users', usersRoute);
@@ -28,6 +29,7 @@ app.use('/api/faculty-availability', facultyAvailabilityRoutes);
 app.use('/api/getuser', getUserRoutes);
 app.use('/api/setuser', setUserRoutes);
 app.use('/api/classes', classManagementRoutes);
+app.use('/api/courses', coursesRoute);
 
 // Start server
 app.listen(port, () => {

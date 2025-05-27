@@ -349,4 +349,46 @@ body.dark-theme #class-list-ul li.selected {
   background-color: var(--body-color);
 }
 
+.class-view-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.class-view-label {
+  width: 200px; /* Fixed width ensures all labels align */
+  font-weight: bold;
+}
+
+.class-view-value {
+  flex: 1; /* Fills the rest of the row */
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-row .label-text {
+  width: 150px;
+  font-weight: bold;
+  color: var(--first-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.form-row input,
+.form-row textarea {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--shadow-color);
+  border-radius: 4px;
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
 /* ----- END OF CLASS-MANAGEMENT.CSS ----- */
