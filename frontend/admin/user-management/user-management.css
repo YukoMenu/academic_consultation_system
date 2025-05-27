@@ -182,4 +182,22 @@
     background-color: var(--first-color);
     color: white;
 }
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap; /* Optional: allows wrapping on small screens */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 1rem auto; /* Center and add spacing */
+  padding: 0 1rem;
+}
+
+.filter-container {
+  margin-bottom: 0; /* remove default bottom margin if any */
+}
+
 /* ----- END OF USER-MANAGEMENT.CSS ----- */
