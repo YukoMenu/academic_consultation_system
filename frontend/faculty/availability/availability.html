@@ -1,11 +1,32 @@
 <!-- START OF AVAILABILITY.HTML -->
-<form id="availability-form">
-  <h2>Set Your Weekly Availability</h2>
-  <div id="availability-container">
-    <!-- Rows will be added here dynamically -->
+<div class="availability-layout">
+  <div class="availability-sidebar">
+    <button class="sidebar-btn" id="view-btn">View List</button>
+    <button class="sidebar-btn" id="edit-btn">Edit</button>
+    <button class="sidebar-btn active" id="create-btn">Create</button>
   </div>
-  <button type="button" id="add-day-btn">+ Add Availability</button>
-  <br><br>
-  <button type="submit">Save Availability</button>
-</form>
+
+  <div class="availability-content">
+    <!-- CREATE MODE -->
+    <form id="availability-form">
+      <h2>Set Your Weekly Availability</h2>
+      <div id="availability-container"></div>
+      <button type="button" id="add-day-btn">+ Add Availability</button>
+      <br><br>
+      <button type="submit" class="availability-submit">Save Availability</button>
+    </form>
+
+    <!-- VIEW MODE -->
+    <div id="availability-view" class="hidden">
+      <h2>Your Availability List</h2>
+      <ul id="availability-list"></ul>
+    </div>
+
+    <!-- EDIT MODE -->
+    <div id="availability-edit" class="hidden">
+      <h2>Edit Availability (Coming Soon)</h2>
+      <p>Editing existing availability will be supported soon.</p>
+    </div>
+  </div>
+</div>
 <!-- END OF AVAILABILITY.HTML -->

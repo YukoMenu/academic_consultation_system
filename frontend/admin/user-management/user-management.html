@@ -1,0 +1,61 @@
+<!-- START OF USER-MANAGEMENT.HTML -->
+<div class="user-management-content">
+    <div class="top-controls">
+        <div class="filter-container">
+            <label for="roleFilter"><i class="ri-filter-3-line" style="vertical-align: middle;"></i> Filter by Role:</label>
+            <select id="roleFilter">
+                <option value="all">All</option>
+                <option value="faculty">Faculty</option>
+                <option value="student">Student</option>
+            </select>
+        </div>
+
+        <div class="form-buttons">
+            <button type="button" id="newUserBtn"><i class="ri-add-line"></i> New User</button>
+            <button type="submit" id="createBtn" style="display: none;"><i class="ri-checkbox-circle-line"></i> Create</button>
+            <button type="submit" id="updateBtn"><i class="ri-edit-line"></i> Update</button>
+            <button type="button" id="deleteBtn"><i class="ri-delete-bin-line"></i> Delete</button>
+        </div>
+    </div>
+
+    <div class="user-management-panels">
+        <!-- Left panel: User list -->
+        <div class="user-list-panel">
+            <h2><i class="ri-user-3-line" style="vertical-align: middle;"></i> User List</h2>
+            <ul id="userList"></ul>
+        </div>
+
+        <!-- Right panel: User details -->
+        <div class="user-details-panel">
+            <h2 id="formTitle"><i class="ri-file-list-3-line" style="vertical-align: middle;"></i> User Details</h2>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <label><i class="ri-user-line"></i> Name: <input type="text" id="name" required></label>
+                <label><i class="ri-mail-line"></i> Email: <input type="email" id="email" required></label>
+                <div id="passwordContainer">
+                    <label for="password"><i class="ri-lock-line"></i> Password:</label>
+                    <input type="password" id="password">
+                </div>
+                <label><i class="ri-shield-user-line"></i> Role:
+                    <select id="role" required>
+                        <option value="faculty">Faculty</option>
+                        <option value="student">Student</option>
+                    </select>
+                </label>
+
+                <!-- Student-only fields -->
+                <div id="studentFields" class="role-fields">
+                    <label><i class="ri-book-line"></i> Program: <input type="text" id="program"></label>
+                    <label><i class="ri-numbers-line"></i> Year Level: <input type="number" id="year_level" min="1" max="5"></label>
+                </div>
+
+                <!-- Faculty-only fields -->
+                <div id="facultyFields" class="role-fields">
+                    <label><i class="ri-building-line"></i> Department: <input type="text" id="department"></label>
+                    <label><i class="ri-customer-service-2-line"></i> Specialization: <input type="text" id="specialization"></label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END OF USER-MANAGEMENT.HTML -->

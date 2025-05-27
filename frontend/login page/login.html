@@ -99,6 +99,30 @@
                     <i class="ri-lock-line"></i>
                     <input type="password" placeholder="Confirm Password" required>
                 </div>
+
+                <!-- Student Fields -->
+                <div id="studentFields" style="display: none;">
+                    <div class="signup__input-group">
+                        <i class="ri-graduation-cap-line"></i>
+                        <input type="text" id="studentProgram" placeholder="Program (e.g., BSCS)">
+                    </div><br>
+                    <div class="signup__input-group">
+                        <i class="ri-calendar-line"></i>
+                        <input type="number" id="studentYear" placeholder="Year Level" min="1" max="5">
+                    </div>
+                </div>
+
+                <!-- Faculty Fields -->
+                <div id="facultyFields" style="display: none;">
+                    <div class="signup__input-group">
+                        <i class="ri-building-line"></i>
+                        <input type="text" id="facultyDepartment" placeholder="Department">
+                    </div><br>
+                    <div class="signup__input-group">
+                        <i class="ri-star-line"></i>
+                        <input type="text" id="facultySpecialization" placeholder="Specialization">
+                    </div>
+                </div>
                 
                 <button type="submit" class="signup__button">
                     <span>Create Account</span>

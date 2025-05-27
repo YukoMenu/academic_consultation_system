@@ -219,4 +219,42 @@ body.dark-theme .form-page button[type="submit"] {
   color: #fff;
 }
 
+.form-page label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-color);
+}
+
+body.dark-theme .form-page label {
+  color: var(--text-dark);
+}
+
+.form-page label i {
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+body.dark-theme .form-page label i {
+  color: var(--text-dark);
+}
+
+.form-page .row label {
+  min-width: 120px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.form-page .checkbox-group > p {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.form-page .box label {
+  margin-bottom: 0.4rem;
+}
 /* END OF FORM.CSS */

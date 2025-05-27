@@ -16,10 +16,20 @@ app.use(express.json());
 const usersRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const consultationRoutes = require('./routes/consultation');
+const facultyAvailabilityRoutes = require('./routes/faculty-availability');
+const getUserRoutes = require('./routes/getuser');
+const setUserRoutes = require('./routes/setuser');
+const classManagementRoutes = require('./routes/classes');
+const coursesRoute = require('./routes/courses');
 
 app.use('/api/consultation', consultationRoutes);
-app.use('/users', usersRoute);
-app.use('/', authRoute); // POST /login
+app.use('/api/users', usersRoute);
+app.use('/', authRoute);
+app.use('/api/faculty-availability', facultyAvailabilityRoutes);
+app.use('/api/getuser', getUserRoutes);
+app.use('/api/setuser', setUserRoutes);
+app.use('/api/classes', classManagementRoutes);
+app.use('/api/courses', coursesRoute);
 
 // Start server
 app.listen(port, () => {

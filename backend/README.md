@@ -7,6 +7,11 @@
 |   |   |   database.js
 |   ├───routes/
 |   |   |   auth.js
+|   |   |   classes.js
+|   |   |   consultation.js
+|   |   |   faculty-availability.js
+|   |   |   getuser.js
+|   |   |   setuser.js
 |   |   |   users.js
 |   |   package-lock.json
 |   |   package.json
@@ -15,6 +20,18 @@
 |
 ├───frontend/
 |   ├───admin/
+|   |   ├───activity-logs/
+|   |   |   |   activity-logs.css           [comment]: # Same content with appointment files (dashboard.html, css, you get the gist), along with other folders
+|   |   |   |   activity-logs.html
+|   |   |   |   activity-logs.js
+|   |   ├───class-management/
+|   |   ├───dashboard/
+|   |   ├───settings/
+|   |   ├───user-management/
+|
+|   |   index.html
+|   |   main.js
+|   |   styles.css
 |   
 |   ├───faculty/
 |   |   ├───appointment/
@@ -23,7 +40,7 @@
 |   |   |   |   appointment.js
 |   |   |
 |   |   ├───appointment/
-|   |   ├───dashboard/                          [comment]: # Same content with appointment files (dashboard.html, css, you get the gist), along with other folders
+|   |   ├───dashboard/                          
 |   |   ├───documents/
 |   |   ├───feedback/
 |   |   ├───form/

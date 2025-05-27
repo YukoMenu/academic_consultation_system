@@ -1,4 +1,4 @@
-/*start of appointments.css */
+/* ----- START OF APPOINTMENT.CSS ----- */
 :root {
   --card-bg-light: var(--body-color);
   --card-bg-dark: hsl(228, 24%, 16%);
@@ -135,6 +135,4 @@ body.dark-theme .notes-input {
 #load-consultation-form:hover {
   background-color: hsl(230, 80%, 45%);
 }
-
-
-/*end of appointments.css */
+/* ----- END OF APPOINTMENT.CSS ----- */

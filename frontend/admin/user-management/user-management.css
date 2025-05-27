@@ -1,0 +1,203 @@
+/* ----- START OF APPOINTMENT.CSS ----- */
+.user-management-content {
+  padding: 1rem;
+  color: var(--text-color);
+}
+
+.filter-container {
+  margin-bottom: 1rem;
+  color: var(--title-color);
+}
+
+.filter-container label {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--title-color);
+  margin-right: 1rem;
+}
+
+#roleFilter {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background-color: var(--body-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease;
+}
+
+#roleFilter:focus {
+  border-color: var(--first-color);
+  outline: none;
+}
+
+.user-management-panels {
+  display: flex;
+  gap: 2rem;
+}
+
+.user-list-panel {
+  flex: 1;
+  background-color: var(--body-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  max-height: 600px;
+  overflow-y: auto;
+  box-shadow: 0 0 10px var(--shadow-color);
+}
+
+#userList {
+  list-style: none;
+  padding: 0;
+}
+
+#userList li {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--shadow-color);
+}
+
+#userList li:hover {
+  background-color: var(--first-color);
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.user-details-panel {
+  flex: 2;
+  background-color: var(--body-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px var(--shadow-color);
+}
+
+.user-details-panel form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.user-details-panel input,
+.user-details-panel select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--shadow-color);
+  border-radius: 0.5rem;
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Text headings and labels */
+.user-details-panel h2,
+.user-list-panel h2,
+.filter-container label {
+  color: var(--title-color);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.user-details-panel form label {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--title-color);
+  margin-bottom: 0.75rem;
+}
+
+/* Inputs and Selects */
+.user-details-panel input,
+.user-details-panel select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background-color: var(--body-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.user-details-panel input:focus,
+.user-details-panel select:focus {
+  border-color: var(--first-color);
+  outline: none;
+}
+
+/* Buttons */
+.form-buttons button {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.form-buttons button[type="submit"] {
+  background-color: var(--first-color);
+  color: white;
+}
+
+.form-buttons button:hover {
+  transform: translateY(-2px);
+}
+
+.form-buttons button[type="submit"]:hover {
+  background-color: hsl(228, 85%, 55%);
+}
+
+#deleteBtn {
+  background-color: hsl(0, 70%, 60%);
+  color: white;
+}
+
+#deleteBtn:hover {
+  background-color: hsl(0, 70%, 50%);
+}
+
+.user-list-item {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--body-color);
+    border: 1px solid var(--shadow-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-list-item:hover {
+    background-color: var(--first-color);
+    color: white;
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap; /* Optional: allows wrapping on small screens */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 1rem auto; /* Center and add spacing */
+  padding: 0 1rem;
+}
+
+.filter-container {
+  margin-bottom: 0; /* remove default bottom margin if any */
+}
+
+/* ----- END OF USER-MANAGEMENT.CSS ----- */
