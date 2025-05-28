@@ -5,14 +5,21 @@
 // ----- START OF SERVER.JS -----
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Serve frontend static files
+app.use('/login page', express.static(path.join(__dirname, 'frontend', 'login page')));
+app.use('/admin', express.static(path.join(__dirname, 'frontend', 'admin')));
+app.use('/faculty', express.static(path.join(__dirname, 'frontend', 'faculty')));
+app.use('/student', express.static(path.join(__dirname, 'frontend', 'student')));
+
+// API Routes
 const usersRoute = require('./routes/users');
 const authRoute = require('./routes/auth');
 const consultationRoutes = require('./routes/consultation');
@@ -31,8 +38,25 @@ app.use('/api/setuser', setUserRoutes);
 app.use('/api/classes', classManagementRoutes);
 app.use('/api/courses', coursesRoute);
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+});
+
+// SPA fallback for sub-apps
+app.get('/admin/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'admin', 'index.html'));
+});
+
+app.get('/faculty/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'faculty', 'index.html'));
+});
+
+app.get('/student/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'student', 'index.html'));
+});
+
 // Start server
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log('Server is running at http://localhost:${PORT}');
 });
 // ----- END OF SERVER.JS -----
