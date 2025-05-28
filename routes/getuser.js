@@ -90,5 +90,28 @@ router.post('/verify-password/:id', async (req, res) => {
     }
 });
 
+// PUT /api/getuser/changepassword/:id
+router.put('/changepassword/:id', async (req, res) => {
+    const { newPassword } = req.body;
+    const userId = req.params.id;
+
+    if (!newPassword) {
+        return res.status(400).json({ error: "New password is required" });
+    }
+
+    try {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        const sql = `UPDATE users SET password = ? WHERE id = ?`;
+        db.run(sql, [hashedPassword, userId], function (err) {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res.status(200).json({ message: "Password updated successfully" });
+        });
+    } catch (err) {
+        res.status(500).json({ error: "Failed to hash password" });
+    }
+});
+
 module.exports = router;
 // ----- END OF getuser.js -----
