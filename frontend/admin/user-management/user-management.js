@@ -46,11 +46,14 @@
     // Render user list based on role filter
     function renderUserList() {
         const selectedRole = roleFilter.value;
+        const searchQuery = document.getElementById('userSearch').value.toLowerCase();
         userList.innerHTML = '';
 
-        const filteredUsers = selectedRole === 'all'
-            ? users
-            : users.filter(user => user.role === selectedRole);
+        const filteredUsers = users.filter(user => {
+            const matchesRole = selectedRole === 'all' || user.role === selectedRole;
+            const matchesSearch = user.name.toLowerCase().includes(searchQuery);
+            return matchesRole && matchesSearch;
+        });
 
         filteredUsers.forEach(user => {
             const li = document.createElement('li');
@@ -219,5 +222,6 @@
         passwordContainer.style.display = createMode ? 'block' : 'none';
     }
 
+    document.getElementById('userSearch').addEventListener('input', renderUserList);
 })();
 // ----- END OF USER-MANAGEMENT.JS -----

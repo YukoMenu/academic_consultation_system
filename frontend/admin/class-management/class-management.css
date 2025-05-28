@@ -11,8 +11,12 @@
   cursor: pointer;
 }
 
+.class-sidebar{
+  margin-top: 1rem;
+}
+
 .class-sidebar h2 {
-  margin-top: 0;
+  margin-top: 1rem;
 }
 
 #class-list-ul {
@@ -40,7 +44,6 @@ body.dark-theme #class-list-ul li:hover {
 .class-create-section,
 .class-edit-section {
   max-width: 700px;
-  margin-top: 1rem;
   padding: 1rem;
   border: 1px solid var(--shadow-color);
   border-radius: 6px;
@@ -150,8 +153,7 @@ form button[type="submit"]:hover {
 }
 
 .class-view-section {
-  max-width: 700px;
-  margin-top: 1rem;
+  max-width: 700px; 
   padding: 1rem;
   border: 1px solid var(--shadow-color);
   border-radius: 6px;
@@ -391,4 +393,18 @@ body.dark-theme #class-list-ul li.selected {
   color: var(--text-color);
 }
 
+#search-class-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--shadow-color);
+  background-color: var(--body-color);
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border 0.3s ease;
+}
+
+#search-class-input:focus {
+  border-color: #007bff;
+}
 /* ----- END OF CLASS-MANAGEMENT.CSS ----- */

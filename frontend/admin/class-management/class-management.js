@@ -70,6 +70,16 @@
         classList.appendChild(li);
     });
 
+    document.getElementById("search-class-input").addEventListener("input", function () {
+        const searchValue = this.value.toLowerCase();
+        const items = classList.querySelectorAll("li");
+
+        items.forEach(li => {
+            const className = li.textContent.toLowerCase();
+            li.style.display = className.includes(searchValue) ? "list-item" : "none";
+        });
+    });
+
     // Auto-select first class after loading
     if (classes.length > 0) {
         const firstLi = classList.querySelector("li");

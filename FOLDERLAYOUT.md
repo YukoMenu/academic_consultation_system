@@ -1,7 +1,8 @@
 [Folder Layout of Project]
 
 |root-project/
-|───backend/
+|   ├───data/
+|   |   |   courses.json
 |   ├───db/
 |   |   |   database.db
 |   |   |   database.js
