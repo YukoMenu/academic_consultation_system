@@ -14,10 +14,6 @@
 |   |   |   getuser.js
 |   |   |   setuser.js
 |   |   |   users.js
-|   |   package-lock.json
-|   |   package.json
-|   |   README.md
-|   |   server.js
 |
 ├───frontend/
 |   ├───admin/
@@ -76,4 +72,7 @@
 |   |   styles.css
 |
 |   .gitignore
+|   package-lock.json
+|   package.json
 |   README.md
+|   server.js

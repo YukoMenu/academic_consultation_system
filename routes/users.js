@@ -108,5 +108,77 @@ router.get('/students', (req, res) => {
     });
 });
 
+// Get single user by ID (with joined student/faculty info)
+router.get('/getuser/:id', (req, res) => {
+    const id = req.params.id;
+
+    // Query user base info
+    const userSql = `SELECT * FROM users WHERE id = ?`;
+    db.get(userSql, [id], (err, user) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        // Based on role, join student or faculty info
+        if (user.role === 'student') {
+            const studentSql = `SELECT program, year_level FROM students WHERE user_id = ?`;
+            db.get(studentSql, [id], (err, student) => {
+                if (err) return res.status(500).json({ error: err.message });
+                res.json({ ...user, ...student });
+            });
+        } else if (user.role === 'faculty') {
+            const facultySql = `SELECT department, specialization FROM faculty WHERE user_id = ?`;
+            db.get(facultySql, [id], (err, faculty) => {
+                if (err) return res.status(500).json({ error: err.message });
+                res.json({ ...user, ...faculty });
+            });
+        } else {
+            res.json(user);
+        }
+    });
+});
+
+// Update user basic info by ID (name, email, optionally password)
+router.put('/getuser/update/:id', async (req, res) => {
+    const id = req.params.id;
+    const { name, email, password } = req.body;
+
+    if (!name || !email) {
+        return res.status(400).json({ error: 'Name and email are required' });
+    }
+
+    try {
+        // Check if email is already used by other users
+        const emailCheckSql = `SELECT id FROM users WHERE email = ? AND id != ?`;
+        db.get(emailCheckSql, [email, id], async (err, row) => {
+            if (err) return res.status(500).json({ error: err.message });
+            if (row) return res.status(409).json({ error: 'Email already in use' });
+
+            // Hash password if provided
+            let hashedPassword = null;
+            if (password) {
+                const bcrypt = require('bcrypt');
+                hashedPassword = await bcrypt.hash(password, 10);
+            }
+
+            // Update SQL and params
+            let updateSql, params;
+            if (hashedPassword) {
+                updateSql = `UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?`;
+                params = [name, email, hashedPassword, id];
+            } else {
+                updateSql = `UPDATE users SET name = ?, email = ? WHERE id = ?`;
+                params = [name, email, id];
+            }
+
+            db.run(updateSql, params, function(err) {
+                if (err) return res.status(500).json({ error: err.message });
+                res.json({ message: 'User updated successfully' });
+            });
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 module.exports = router;
 // ----- END OF USERS.JS -----
