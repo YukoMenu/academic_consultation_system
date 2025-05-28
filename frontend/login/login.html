@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Consultation - Login</title>
+    
+    <!--=============== REMIXICONS ===============-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login__container">
+        <div class="login__content">
+            <div class="login__header">
+                <img src="../student/img/logo.webp" alt="Academic Consultation Logo" class="login__logo">
+                <h1>Academic Consultation</h1>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="login__form" id="loginForm">
+                <p id="loginWarning" class="login__warning" style="display: none; color: red; margin-bottom: 0px; text-align: center;"></p>
+                <div class="login__input-group">
+                    <i class="ri-user-line"></i>
+                    <input type="text" placeholder="Username" required>
+                </div>
+                
+                <div class="login__input-group">
+                    <i class="ri-lock-line"></i>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                
+                <div class="login__options">
+                    <div class="login__remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="login__forgot">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="login__button">
+                    <span>Login</span>
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </form>
+            
+            <div class="login__register">
+                <p>Don't have an account? <a href="#" id="showSignup">Register</a></p>
+            </div>
+            <button class="theme__toggle">
+                <i class="ri-moon-clear-fill theme__icon" id="theme-button">
+                    <span>Theme</span>
+                </i>
+            </button>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="signup__content" id="signupContent" style="display: none;">
+            <div class="signup__header">
+                <i class="ri-cloud-fill"></i>
+                <h1>Create Account</h1>
+            </div>
+            
+            <form class="signup__form" id="signupForm">
+                <div class="signup__role">
+                    <h3>I am a:</h3>
+                    <div class="role__options">
+                        <label class="role__option">
+                            <input type="radio" name="role" value="student" required>
+                            <i class="ri-user-line"></i>
+                            <span>Student</span>
+                        </label>
+                        <label class="role__option">
+                            <input type="radio" name="role" value="faculty" required>
+                            <i class="ri-user-star-line"></i>
+                            <span>Faculty</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="signup__input-group">
+                    <i class="ri-user-line"></i>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+
+                <div class="signup__input-group">
+                    <i class="ri-mail-line"></i>
+                    <input type="email" placeholder="Email" required>
+                </div>
+                
+                <div class="signup__input-group">
+                    <i class="ri-lock-line"></i>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                
+                <div class="signup__input-group">
+                    <i class="ri-lock-line"></i>
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+
+                <!-- Student Fields -->
+                <div id="studentFields" style="display: none;">
+                    <div class="signup__input-group">
+                        <i class="ri-graduation-cap-line"></i>
+                        <input type="text" id="studentProgram" placeholder="Program (e.g., BSCS)">
+                    </div><br>
+                    <div class="signup__input-group">
+                        <i class="ri-calendar-line"></i>
+                        <input type="number" id="studentYear" placeholder="Year Level" min="1" max="5">
+                    </div>
+                </div>
+
+                <!-- Faculty Fields -->
+                <div id="facultyFields" style="display: none;">
+                    <div class="signup__input-group">
+                        <i class="ri-building-line"></i>
+                        <input type="text" id="facultyDepartment" placeholder="Department">
+                    </div><br>
+                    <div class="signup__input-group">
+                        <i class="ri-star-line"></i>
+                        <input type="text" id="facultySpecialization" placeholder="Specialization">
+                    </div>
+                </div>
+                
+                <button type="submit" class="signup__button">
+                    <span>Create Account</span>
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </form>
+            
+            <div class="signup__login">
+                <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="login.js"></script>
+</body>
+</html>

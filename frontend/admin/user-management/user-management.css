@@ -200,4 +200,53 @@
   margin-bottom: 0; /* remove default bottom margin if any */
 }
 
+#userSearch {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background-color: var(--body-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+#userSearch::placeholder {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+#userSearch:focus {
+  border-color: var(--first-color);
+  outline: none;
+  background-color: var(--body-color); /* Optional: reinforce theme */
+}
+
+
+#userList li.active,
+.user-list-item.active {
+  background-color: var(--first-color);
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+.user-list-panel h2 i {
+  color: var(--first-color);
+  margin-right: 0.5rem;
+}
+
+.user-list-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.user-list-panel::-webkit-scrollbar-thumb {
+  background-color: var(--first-color);
+  border-radius: 4px;
+}
+
+.user-list-panel::-webkit-scrollbar-track {
+  background: var(--body-color);
+}
 /* ----- END OF USER-MANAGEMENT.CSS ----- */

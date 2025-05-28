@@ -127,7 +127,7 @@ logoutButton.addEventListener('click', () => {
     // Clear all stored data
     localStorage.clear()
     
-    // Redirect to login page
-    window.location.href = '../login page/login.html'
+    // Redirect to login
+    window.location.href = '../login/login.html'
 })
 // ----- END OF MAIN.JS (ADMIN) -----

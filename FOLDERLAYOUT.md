@@ -1,7 +1,8 @@
 [Folder Layout of Project]
 
 |root-project/
-|───backend/
+|   ├───data/
+|   |   |   courses.json
 |   ├───db/
 |   |   |   database.db
 |   |   |   database.js
@@ -54,7 +55,7 @@
 |   |   main.js
 |   |   styles.css
 |   
-|   ├───login page/
+|   ├───login/
 |   |   login.css
 |   |   login.html
 |   |   login.js
