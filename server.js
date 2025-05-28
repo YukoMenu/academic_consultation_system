@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve frontend static files
-app.use('/login page', express.static(path.join(__dirname, 'frontend', 'login page')));
+app.use('/', express.static(path.join(__dirname, 'frontend', 'login')));
 app.use('/admin', express.static(path.join(__dirname, 'frontend', 'admin')));
 app.use('/faculty', express.static(path.join(__dirname, 'frontend', 'faculty')));
 app.use('/student', express.static(path.join(__dirname, 'frontend', 'student')));
@@ -39,7 +39,7 @@ app.use('/api/classes', classManagementRoutes);
 app.use('/api/courses', coursesRoute);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+  res.sendFile(path.join(__dirname, 'frontend', 'login', 'login.html'));
 });
 
 // SPA fallback for sub-apps
@@ -57,6 +57,6 @@ app.get('/student/', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log('Server is running at http://localhost:${PORT}');
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
 // ----- END OF SERVER.JS -----

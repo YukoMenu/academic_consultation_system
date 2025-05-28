@@ -55,9 +55,9 @@
     });
 
     // Fetch data
-    faculty = await fetch('http://localhost:3000/api/users/faculty').then(res => res.json());
-    students = await fetch('http://localhost:3000/api/users/students').then(res => res.json());
-    classes = await fetch('http://localhost:3000/api/classes').then(res => res.json());
+    faculty = await fetch('/api/users/faculty').then(res => res.json());
+    students = await fetch('/api/users/students').then(res => res.json());
+    classes = await fetch('/api/classes').then(res => res.json());
 
     facultyList.innerHTML = faculty.map(f => `<option value="${f.name}"></option>`).join("");
     studentList.innerHTML = students.map(s => `<option value="${s.name}"></option>`).join("");
@@ -124,7 +124,7 @@
         student_ids: resolveIdsFromInputs(studentInputs, students)
         };
 
-        const res = await fetch('http://localhost:3000/api/classes', {
+        const res = await fetch('/api/classes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)

@@ -30,7 +30,7 @@
     // Fetch all users from backend
     async function fetchUsers() {
         try {
-            const res = await fetch('http://localhost:3000/api/users');
+            const res = await fetch('/api/users');
             if (!res.ok) {
                 console.error('Fetch failed with status:', res.status);
                 return;

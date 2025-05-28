@@ -54,7 +54,7 @@
 |   |   main.js
 |   |   styles.css
 |   
-|   ├───login page/
+|   ├───login/
 |   |   login.css
 |   |   login.html
 |   |   login.js
