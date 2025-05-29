@@ -14,7 +14,13 @@
     const viewSection = document.getElementById("class-view");
     const createSection = document.getElementById("class-create");
     const editSection = document.getElementById("class-edit");
+
+    const classCodeInput = document.getElementById("class-code-input-create");
+    const classNameInput = document.getElementById("class-name-input-create");
+    const classCodeInputEdit = document.getElementById("class-code-input-edit");
+    const classNameInputEdit = document.getElementById("class-name-input-edit");
     const courseDatalist = document.getElementById("course-code-list");
+    const classNameDatalist = document.getElementById("class-name-list");
 
     let faculty = [];
     let students = [];
@@ -56,7 +62,19 @@
     });
 
     const courses = await fetch('/api/courses').then(res => res.json());
+    
     courseDatalist.innerHTML = courses.map(c => `<option value="${c.id}"></option>`).join("");
+    classNameDatalist.innerHTML = courses.map(c => `<option value="${c.name}"></option>`).join("");
+   
+    classCodeInput.addEventListener("input", () => {
+        const selected = courses.find(c => c.id === classCodeInput.value);
+        if (selected) classNameInput.value = selected.name;
+    });
+
+    classNameInput.addEventListener("input", () => {
+        const selected = courses.find(c => c.name === classNameInput.value);
+        if (selected) classCodeInput.value = selected.id;
+    });
 
     // Fetch data
     faculty = await fetch('/api/users/faculty').then(res => res.json());
