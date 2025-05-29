@@ -2,6 +2,9 @@
 (() => {
     console.log("Profile page loaded!");
 
+    document.getElementById('profileForm').style.display = 'none';
+    document.getElementById('switchToView').style.display = 'none';
+
     const user = JSON.parse(localStorage.getItem('user'));
     const userId = user?.id;
 
@@ -70,5 +73,36 @@
             alert("An error occurred while saving changes.");
         }
     });
+
+        // Fill static view with current user info
+    document.getElementById('viewDisplayName').textContent = user.name || '';
+    document.getElementById('viewEmail').textContent = user.email || '';
+    document.getElementById('viewNotifications').textContent = "Enabled"; // default for now
+
+    // Toggle forms
+    const profileForm = document.getElementById('profileForm');
+    const profileViewForm = document.getElementById('profileViewForm');
+    const switchToEdit = document.getElementById('switchToEdit');
+    const switchToView = document.getElementById('switchToView');
+
+    switchToEdit.addEventListener('click', () => {
+        profileViewForm.style.display = 'none';
+        profileForm.style.display = 'flex';
+        switchToEdit.style.display = 'none';
+        switchToView.style.display = 'inline-block';
+    });
+
+    switchToView.addEventListener('click', () => {
+        profileViewForm.style.display = 'flex';
+        profileForm.style.display = 'none';
+        switchToEdit.style.display = 'inline-block';
+        switchToView.style.display = 'none';
+
+        // Also update view-only fields after edit
+        const updatedUser = JSON.parse(localStorage.getItem('user'));
+        document.getElementById('viewDisplayName').textContent = updatedUser.name || '';
+        document.getElementById('viewEmail').textContent = updatedUser.email || '';
+    });
+
 })();
 // ----- END OF PROFILE.JS -----

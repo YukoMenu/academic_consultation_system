@@ -1,3 +1,4 @@
+/* ----- START OF PROFILE.CSS ----- */
 .profile-page {
   padding: 2rem;
   color: var(--text-color);
@@ -49,3 +50,24 @@
 .profile-save:hover {
   background-color: var(--first-color-alt);
 }
+
+.profile-static {
+  padding: 0.75rem 1rem;
+  background-color: var(--container-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  color: var(--text-color);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.profile-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+/* ----- START OF PROFILE.CSS ----- */

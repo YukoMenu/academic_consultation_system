@@ -52,9 +52,9 @@
 |   |   styles.css
 |   
 |   ├───login/
-|   |   login.css
-|   |   login.html
-|   |   login.js
+|   |   |   login.css
+|   |   |   login.html
+|   |   |   login.js
 |   
 |   ├───student/
 |   |   ├───appointment/

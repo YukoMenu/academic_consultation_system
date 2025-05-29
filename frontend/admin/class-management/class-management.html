@@ -27,7 +27,6 @@
         <p>Select a class from the left to view its details.</p>
       </div>
       <div id="class-view" class="class-view-section" style="display: block;">
-      <h2>View Class</h2>
       <div class="class-view-item">
         <span class="class-view-label"><i class="ri-hashtag"></i> Class Code:</span>
         <span class="class-view-value" id="view-class-code"></span>
@@ -60,7 +59,8 @@
           <label class="label-text">
             <i class="ri-hashtag"></i> Class Code:
           </label>
-          <input type="text" name="class_code" placeholder="Class Code" required />
+          <input type="text" name="class_code" placeholder="Class Code" list="course-code-list" required />
+          <datalist id="course-code-list"></datalist>
         </div>
 
         <div class="form-row">
@@ -88,7 +88,7 @@
         <label class="class-view-label"><i class="ri-team-line"></i> Students</label>
         <div class="dynamic-input-group" id="create-student-container">
           <div class="input-wrapper">
-            <input type="text" name="students" class="student-input" list="student-list" />
+            <input type="text" name="student" class="student-input" list="student-list" />
             <button type="button" class="add-student-btn">+</button>
           </div>
         </div>
@@ -109,7 +109,8 @@
           <label class="label-text">
             <i class="ri-hashtag"></i> Class Code:
           </label>
-          <input type="text" name="class_code" placeholder="Class Code" required />
+          <input type="text" name="class_code" placeholder="Class Code" list="course-code-list" required />
+          <datalist id="course-code-list"></datalist>
         </div>
 
         <div class="form-row">

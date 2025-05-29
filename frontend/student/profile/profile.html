@@ -1,40 +1,65 @@
 <!-- START OF PROFILE.HTML -->
 <section class="profile-page">
-<h2>Profile</h2>
-
-<form id="profileForm" class="profile-form">
-    <div class="profile-group">
-        <label for="displayName">Display Name</label>
-        <input type="text" id="displayName" placeholder="Enter your name" />
+    <div class="profile-header">
+        <h2>Profile</h2>
+        <div class="profile-toggle">
+            <button id="switchToEdit" class="profile-save">Edit Profile</button>
+            <button id="switchToView" class="profile-save" style="display: none;">Cancel Edit</button>
+        </div>
     </div>
 
-    <div class="profile-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="you@example.com" />
-    </div>
 
-    <div class="profile-group">
-        <label for="oldPassword">Old Password</label>
-        <span id="passwordWarning" style="color: red; display: none; font-size: 0.9rem; margin-bottom: 0.5rem;">
-            Incorrect current password.
-        </span>
-        <input type="password" id="oldPassword" placeholder="Enter current password" />
-    </div>
+    <!-- View-Only Profile Form -->
+    <form id="profileViewForm" class="profile-form">
+        <div class="profile-group">
+            <label>Display Name</label>
+            <p id="viewDisplayName" class="profile-static"></p>
+        </div>
 
-    <div class="profile-group">
-        <label for="newPassword">New Password</label>
-        <input type="password" id="newPassword" placeholder="Enter new password" />
-    </div>
+        <div class="profile-group">
+            <label>Email</label>
+            <p id="viewEmail" class="profile-static"></p>
+        </div>
 
-    <div class="profile-group">
-        <label for="notifications">Email Notifications</label>
-        <select id="notifications">
-            <option value="enabled">Enabled</option>
-            <option value="disabled">Disabled</option>
-        </select>
-    </div>
+        <div class="profile-group">
+            <label>Notifications</label>
+            <p id="viewNotifications" class="profile-static"></p>
+        </div>
+    </form>
 
-    <button type="submit" class="profile-save">Save Changes</button>
-</form>
+    <form id="profileForm" class="profile-form">
+        <div class="profile-group">
+            <label for="displayName">Display Name</label>
+            <input type="text" id="displayName" placeholder="Enter your name" />
+        </div>
+
+        <div class="profile-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="profile-group">
+            <label for="oldPassword">Old Password</label>
+            <span id="passwordWarning" style="color: red; display: none; font-size: 0.9rem; margin-bottom: 0.5rem;">
+                Incorrect current password.
+            </span>
+            <input type="password" id="oldPassword" placeholder="Enter current password" />
+        </div>
+
+        <div class="profile-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" placeholder="Enter new password" />
+        </div>
+
+        <div class="profile-group">
+            <label for="notifications">Email Notifications</label>
+            <select id="notifications">
+                <option value="enabled">Enabled</option>
+                <option value="disabled">Disabled</option>
+            </select>
+        </div>
+
+        <button type="submit" class="profile-save">Save Changes</button>
+    </form>
 </section>
 <!-- END OF PROFILE.HTML -->

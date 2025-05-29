@@ -14,6 +14,7 @@
     const viewSection = document.getElementById("class-view");
     const createSection = document.getElementById("class-create");
     const editSection = document.getElementById("class-edit");
+    const courseDatalist = document.getElementById("course-code-list");
 
     let faculty = [];
     let students = [];
@@ -53,6 +54,9 @@
             loadClassForEditing(cls);
         }
     });
+
+    const courses = await fetch('/api/courses').then(res => res.json());
+    courseDatalist.innerHTML = courses.map(c => `<option value="${c.id}"></option>`).join("");
 
     // Fetch data
     faculty = await fetch('/api/users/faculty').then(res => res.json());
