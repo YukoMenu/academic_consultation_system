@@ -77,13 +77,13 @@
         passwordContainer.style.display = 'none';
 
         if (user.role === 'student') {
-            const student = await fetch(`http://localhost:3000/api/getuser/students/${user.id}`).then(res => res.json());
+            const student = await fetch(`/api/getuser/students/${user.id}`).then(res => res.json());
             programField.value = student.program || '';
             yearLevelField.value = student.year_level || '';
             studentFields.style.display = 'block';
             facultyFields.style.display = 'none';
         } else if (user.role === 'faculty') {
-            const faculty = await fetch(`http://localhost:3000/api/getuser/faculty/${user.id}`).then(res => res.json());
+            const faculty = await fetch(`/api/getuser/faculty/${user.id}`).then(res => res.json());
             departmentField.value = faculty.department || '';
             specializationField.value = faculty.specialization || '';
             studentFields.style.display = 'none';
@@ -138,8 +138,8 @@
         try {
             const method = isCreating ? 'POST' : 'PUT';
             const url = isCreating
-                ? `http://localhost:3000/api/users`
-                : `http://localhost:3000/api/setuser/${id}`;
+                ? `/api/users`
+                : `/api/setuser/${id}`;
 
             const res = await fetch(url, {
                 method,
@@ -174,7 +174,7 @@
         if (!id || !confirm('Are you sure you want to delete this user?')) return;
 
         try {
-            const res = await fetch(`http://localhost:3000/api/setuser/${id}`, { method: 'DELETE' });
+            const res = await fetch(`/api/setuser/${id}`, { method: 'DELETE' });
             if (res.ok) {
                 alert('User deleted successfully');
                 form.reset();

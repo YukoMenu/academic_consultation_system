@@ -55,7 +55,7 @@
         }
 
         if (editingClassId) {
-            const cls = await fetch(`http://localhost:3000/api/classes/${editingClassId}`).then(res => res.json());
+            const cls = await fetch(`/api/classes/${editingClassId}`).then(res => res.json());
             switchView("edit");
             loadClassForEditing(cls);
         }
@@ -180,7 +180,7 @@
         // Detect current visible section
         if (viewSection.style.display === "block") {
             // View mode – fetch and show read-only class info
-            const cls = await fetch(`http://localhost:3000/api/classes/${classId}`).then(res => res.json());
+            const cls = await fetch(`/api/classes/${classId}`).then(res => res.json());
 
             // Update individual spans instead of replacing innerHTML
             document.getElementById("view-class-code").textContent = cls.class_code || "";
@@ -190,7 +190,7 @@
             document.getElementById("view-students").textContent = cls.students.map(s => s.name).join(", ");
         } else if (editSection.style.display === "block") {
             // Edit mode – fetch full class data before loading
-            const cls = await fetch(`http://localhost:3000/api/classes/${classId}`).then(res => res.json());
+            const cls = await fetch(`/api/classes/${classId}`).then(res => res.json());
             loadClassForEditing(cls);
         }
         });
@@ -266,7 +266,7 @@
         student_ids: resolveIdsFromInputs(studentInputs, students)
         };
 
-        const res = await fetch(`http://localhost:3000/api/classes/${editingClassId}`, {
+        const res = await fetch(`/api/classes/${editingClassId}`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -287,7 +287,7 @@
         const confirmed = confirm("Are you sure you want to delete this class?");
         if (!confirmed) return;
 
-        const res = await fetch(`http://localhost:3000/api/classes/${editingClassId}`, {
+        const res = await fetch(`/api/classes/${editingClassId}`, {
         method: 'DELETE'
         });
 

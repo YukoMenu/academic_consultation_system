@@ -126,7 +126,7 @@
     if (!user || user.role !== "faculty") return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/faculty-availability/${user.id}`);
+      const res = await fetch(`/api/faculty-availability/${user.id}`);
       if (!res.ok) throw new Error("Failed to load availability");
 
       const data = await res.json();
@@ -158,7 +158,7 @@
     if (!user || user.role !== "faculty") return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/faculty-availability/${user.id}`);
+      const res = await fetch(`/api/faculty-availability/${user.id}`);
       if (!res.ok) throw new Error("Failed to load availability");
 
       const data = await res.json();
@@ -190,7 +190,7 @@
             const end = row.querySelectorAll("input[type='time']")[1].value;
 
             try {
-              const res = await fetch(`http://localhost:3000/api/faculty-availability/${slot.id}`, {
+              const res = await fetch(`/api/faculty-availability/${slot.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ course, day_of_week: day, start_time: start, end_time: end })
@@ -209,7 +209,7 @@
           row.querySelector(".delete-btn").addEventListener("click", async () => {
             if (!confirm("Are you sure you want to delete this entry?")) return;
             try {
-              const res = await fetch(`http://localhost:3000/api/faculty-availability/${slot.id}`, {
+              const res = await fetch(`/api/faculty-availability/${slot.id}`, {
                 method: "DELETE"
               });
 

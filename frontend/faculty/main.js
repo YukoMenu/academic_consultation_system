@@ -120,6 +120,6 @@ const logoutButton = document.querySelector('.sidebar__actions button:last-child
 
 logoutButton.addEventListener('click', () => {
     localStorage.clear()
-    window.location.href = '/'
+    window.location.href = '/login'
 })
 //  ----- END OF MAIN.JS -----

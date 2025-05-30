@@ -56,9 +56,9 @@ loginForm.addEventListener('submit', async (e) => {
         const body = await res.json(); // Only parse once
 
         if (res.status === 200 && body.user) {
+            console.log('User object:', body.user);
             localStorage.setItem('user', JSON.stringify(body.user));
-            window.location.href = '../student/index.html';
-            redirectUser(body.user.role);
+            redirectUser(body.user.user_type);  // This might be undefined
         } else {
             showWarning(body.error || 'Login failed');
         }
