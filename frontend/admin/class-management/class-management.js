@@ -15,6 +15,13 @@
     const createSection = document.getElementById("class-create");
     const editSection = document.getElementById("class-edit");
 
+    const classCodeInputCreate = document.getElementById("class-code-input-create");
+    const classNameInputCreate = document.getElementById("class-name-input-create");
+    const classCodeInputEdit = document.getElementById("class-code-input-edit");
+    const classNameInputEdit = document.getElementById("class-name-input-edit");
+    const courseDatalist = document.getElementById("course-code-list");
+    const classNameDatalist = document.getElementById("class-name-list");
+
     let faculty = [];
     let students = [];
     let classes = [];
@@ -48,10 +55,35 @@
         }
 
         if (editingClassId) {
-            const cls = await fetch(`http://localhost:3000/api/classes/${editingClassId}`).then(res => res.json());
+            const cls = await fetch(`/api/classes/${editingClassId}`).then(res => res.json());
             switchView("edit");
             loadClassForEditing(cls);
         }
+    });
+
+    const courses = await fetch('/api/courses').then(res => res.json());
+    
+    courseDatalist.innerHTML = courses.map(c => `<option value="${c.id}"></option>`).join("");
+    classNameDatalist.innerHTML = courses.map(c => `<option value="${c.name}"></option>`).join("");
+   
+    classCodeInputCreate.addEventListener("input", () => {
+        const selected = courses.find(c => c.id === classCodeInputCreate.value);
+        if (selected) classNameInputCreate.value = selected.name;
+    });
+
+    classNameInputCreate.addEventListener("input", () => {
+        const selected = courses.find(c => c.name === classNameInputCreate.value);
+        if (selected) classCodeInputCreate.value = selected.id;
+    });
+
+    classCodeInputEdit.addEventListener("input", () => {
+        const selected = courses.find(c => c.id === classCodeInputEdit.value);
+        if (selected) classNameInputEdit.value = selected.name;
+    });
+
+    classNameInputEdit.addEventListener("input", () => {
+        const selected = courses.find(c => c.name === classNameInputEdit.value);
+        if (selected) classCodeInputEdit.value = selected.id;
     });
 
     // Fetch data
@@ -125,27 +157,29 @@
         e.preventDefault();
         const facultyInputs = formCreate.querySelectorAll(".faculty-input");
         const studentInputs = formCreate.querySelectorAll(".student-input");
+        const classCodeInputCreate = formCreate.querySelector('[name="class_code"]');
+        const classNameInputCreate = formCreate.querySelector('[list="class-name-list"]');
 
         const data = {
-        class_code: formCreate.class_code.value,
-        class_name: formCreate.class_name.value,
-        description: formCreate.description.value,
-        faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
-        student_ids: resolveIdsFromInputs(studentInputs, students)
+            class_code: classCodeInputCreate?.value,
+            class_name: classNameInputCreate?.value,
+            description: formCreate.description.value,
+            faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
+            student_ids: resolveIdsFromInputs(studentInputs, students)
         };
 
         const res = await fetch('/api/classes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-        });
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+            });
 
-        if (res.ok) {
-        alert("Class created!");
-        location.reload();
-        } else {
-        alert("Failed to create class.");
-        }
+            if (res.ok) {
+                alert("Class created!");
+                location.reload();
+            } else {
+                alert("Failed to create class.");
+            }
     });
 
     classList.addEventListener("click", async (e) => {
@@ -155,10 +189,13 @@
         editBtn.disabled = false;
         editingClassId = classId;
 
+        classList.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
+        li.classList.add("selected");
+
         // Detect current visible section
         if (viewSection.style.display === "block") {
             // View mode – fetch and show read-only class info
-            const cls = await fetch(`http://localhost:3000/api/classes/${classId}`).then(res => res.json());
+            const cls = await fetch(`/api/classes/${classId}`).then(res => res.json());
 
             // Update individual spans instead of replacing innerHTML
             document.getElementById("view-class-code").textContent = cls.class_code || "";
@@ -168,7 +205,7 @@
             document.getElementById("view-students").textContent = cls.students.map(s => s.name).join(", ");
         } else if (editSection.style.display === "block") {
             // Edit mode – fetch full class data before loading
-            const cls = await fetch(`http://localhost:3000/api/classes/${classId}`).then(res => res.json());
+            const cls = await fetch(`/api/classes/${classId}`).then(res => res.json());
             loadClassForEditing(cls);
         }
         });
@@ -235,27 +272,29 @@
 
         const facultyInputs = formEdit.querySelectorAll(".faculty-input");
         const studentInputs = formEdit.querySelectorAll(".student-input");
+        const classCodeInputEdit = formEdit.querySelector('[name="class_code"]');
+        const classNameInputEdit = formEdit.querySelector('[list="class-name-list"]');
 
         const data = {
-        class_code: formEdit.class_code.value,
-        class_name: formEdit.class_name.value,
-        description: formEdit.description.value,
-        faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
-        student_ids: resolveIdsFromInputs(studentInputs, students)
+            class_code: classCodeInputEdit?.value,
+            class_name: classNameInputEdit?.value,
+            description: formEdit.description.value,
+            faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
+            student_ids: resolveIdsFromInputs(studentInputs, students)
         };
 
-        const res = await fetch(`http://localhost:3000/api/classes/${editingClassId}`, {
-        method: "PUT",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        const res = await fetch(`/api/classes/${editingClassId}`, {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
         });
 
         if (res.ok) {
-        alert("Class updated!");
-        editingClassId = null;
-        location.reload();
+            alert("Class updated!");
+            editingClassId = null;
+            location.reload();
         } else {
-        alert("Failed to update class.");
+            alert("Failed to update class.");
         }
     });
 
@@ -265,7 +304,7 @@
         const confirmed = confirm("Are you sure you want to delete this class?");
         if (!confirmed) return;
 
-        const res = await fetch(`http://localhost:3000/api/classes/${editingClassId}`, {
+        const res = await fetch(`/api/classes/${editingClassId}`, {
         method: 'DELETE'
         });
 

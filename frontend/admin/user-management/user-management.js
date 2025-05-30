@@ -5,6 +5,7 @@
     const roleFilter = document.getElementById('roleFilter');
 
     const form = document.getElementById('userForm');
+    const form_btn = document.getElementById('form-btn');
     const userIdField = document.getElementById('userId');
     const nameField = document.getElementById('name');
     const emailField = document.getElementById('email');
@@ -20,7 +21,7 @@
     const facultyFields = document.getElementById('facultyFields');
 
     const createBtn = document.getElementById('createBtn');
-    const updateBtn = document.getElementById('updateBtn');
+    const updateBtn = document.getElementById('updateBtn'); 
     const deleteBtn = document.getElementById('deleteBtn');
     const newUserBtn = document.getElementById('newUserBtn');
 
@@ -63,6 +64,11 @@
             li.addEventListener('click', () => populateForm(user.id));
             userList.appendChild(li);
         });
+
+        const firstUserItem = userList.querySelector('.user-list-item');
+        if (firstUserItem) {
+            firstUserItem.click();
+        }
     }
 
     // Populate the form on the right
@@ -77,13 +83,13 @@
         passwordContainer.style.display = 'none';
 
         if (user.role === 'student') {
-            const student = await fetch(`http://localhost:3000/api/getuser/students/${user.id}`).then(res => res.json());
+            const student = await fetch(`/api/getuser/students/${user.id}`).then(res => res.json());
             programField.value = student.program || '';
             yearLevelField.value = student.year_level || '';
             studentFields.style.display = 'block';
             facultyFields.style.display = 'none';
         } else if (user.role === 'faculty') {
-            const faculty = await fetch(`http://localhost:3000/api/getuser/faculty/${user.id}`).then(res => res.json());
+            const faculty = await fetch(`/api/getuser/faculty/${user.id}`).then(res => res.json());
             departmentField.value = faculty.department || '';
             specializationField.value = faculty.specialization || '';
             studentFields.style.display = 'none';
@@ -107,7 +113,7 @@
     fetchUsers();
 
     // Handle form submission (Update user)
-    form.addEventListener('submit', async (e) => {
+    form_btn.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const id = userIdField.value;
@@ -138,8 +144,8 @@
         try {
             const method = isCreating ? 'POST' : 'PUT';
             const url = isCreating
-                ? `http://localhost:3000/api/users`
-                : `http://localhost:3000/api/setuser/${id}`;
+                ? `/api/users`
+                : `/api/setuser/${id}`;
 
             const res = await fetch(url, {
                 method,
@@ -150,6 +156,12 @@
             if (res.ok) {
                 const successMsg = isCreating ? 'User created successfully' : 'User updated successfully';
                 alert(successMsg);
+                if (isCreating) {
+                    form.reset();
+                    studentFields.style.display = 'none';
+                    facultyFields.style.display = 'none';
+                    setFormMode(false);
+                }
                 isCreating = false;
                 document.getElementById('formTitle').textContent = 'User Details';
                 await fetchUsers();
@@ -174,10 +186,10 @@
         if (!id || !confirm('Are you sure you want to delete this user?')) return;
 
         try {
-            const res = await fetch(`http://localhost:3000/api/setuser/${id}`, { method: 'DELETE' });
+            const res = await fetch(`/api/setuser/${id}`, { method: 'DELETE' });
             if (res.ok) {
                 alert('User deleted successfully');
-                form.reset();
+                document.getElementById('userForm').reset();
                 studentFields.style.display = 'none';
                 facultyFields.style.display = 'none';
                 await fetchUsers(); // refresh list
@@ -201,12 +213,14 @@
             passwordField.value = '';
             studentFields.style.display = 'none';
             facultyFields.style.display = 'none';
+            roleField.dispatchEvent(new Event('change'));
             setFormMode(true);
         } else {
             // Switch back to edit mode
             form.reset();
             studentFields.style.display = 'none';
             facultyFields.style.display = 'none';
+            roleField.dispatchEvent(new Event('change'));
             setFormMode(false);
         }
     });

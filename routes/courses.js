@@ -7,9 +7,14 @@ const router = express.Router();
 const dataPath = path.join(__dirname, '../data/courses.json');
 
 // GET all courses
-router.get('/', (req, res) => {
-  const courses = JSON.parse(fs.readFileSync(dataPath));
-  res.json(courses);
+router.get('/', async (req, res) => {
+  try {
+    const data = await fs.promises.readFile(dataPath);
+    const courses = JSON.parse(data);
+    res.json(courses);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to read courses' });
+  }
 });
 
 // ADD a course

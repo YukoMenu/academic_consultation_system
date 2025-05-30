@@ -17,6 +17,7 @@
 
 .class-sidebar h2 {
   margin-top: 1rem;
+  color: var(--text-color);
 }
 
 #class-list-ul {
@@ -299,6 +300,12 @@ body.dark-theme #class-list-ul li.selected {
   align-items: flex-start;
   width: 100%;
   box-sizing: border-box;
+  color: var(--text-color);
+  box-shadow: var(--shadow-color);
+}
+
+#search-class-input{
+  color: var(--text-color);
 }
 
 .class-sidebar {

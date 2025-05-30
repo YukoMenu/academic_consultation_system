@@ -1,0 +1,46 @@
+<!-- START OF CLASS-LIST.HTML -->
+<div class="class-list-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h1>My Classes</h1>
+        <button id="create-classes-btn" class="btn-accent">Create</button>
+    </div>
+    <div id="class-list" class="class-list"></div>
+</div>
+
+<!-- Modal for create/edit class -->
+<div id="class-modal" class="modal-overlay">
+  <div class="modal-content">
+    <form id="class-form">
+      <input type="hidden" name="class_id" />
+      <div class="form-group">
+        <label>Class Code:<br>
+          <input type="text" name="class_code" id="class-code-input" list="course-code-list" required />
+          <datalist id="course-code-list"></datalist>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Class Name:<br>
+          <input type="text" name="class_name" id="class-name-input" list="class-name-list" required />
+          <datalist id="class-name-list"></datalist>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Description:<br>
+          <textarea name="description"></textarea>
+        </label>
+      </div>
+      <div class="form-group">
+        <label>Enrolled Students:</label>
+        <div id="student-container"></div>
+        <button type="button" id="add-student-btn" class="btn-outline" style="margin-top:0.5rem;">Add Student</button>
+        <datalist id="student-list"></datalist>
+      </div>
+      <div style="margin-top:1rem; display: flex; gap: 1rem;">
+        <button type="submit" id="save-class-btn" class="btn-accent">Save</button>
+        <button type="button" id="delete-class-btn" class="btn-danger" style="display:none;">Delete</button>
+        <button type="button" id="cancel-class-btn" class="btn-outline">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- END OF CLASS-LIST.HTML -->

@@ -27,6 +27,20 @@ router.post('/login', (req, res) => {
                 return res.status(500).json({ error: 'Server error' });
             }
 
+            if (isMatch) {
+                req.session.user = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role 
+                };
+                console.log("User logged in:", req.session.user);
+                return res.json({
+                    message: 'Login successful',
+                    user: req.session.user 
+                });
+            }
+
             if (!isMatch) {
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
