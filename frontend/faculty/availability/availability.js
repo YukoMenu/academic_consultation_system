@@ -29,6 +29,23 @@
     });
   });
 
+  const courseList = []; // Will hold fetched courses
+  const courseDatalist = document.createElement("datalist");
+  courseDatalist.id = "course-options";
+  document.body.appendChild(courseDatalist);
+
+  (async () => {
+    try {
+      const res = await fetch('/api/courses');
+      if (!res.ok) throw new Error("Failed to fetch courses");
+      const courses = await res.json();
+      courseList.push(...courses); // Save to variable if needed later
+      courseDatalist.innerHTML = courses.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
+    } catch (err) {
+      console.error("Error loading courses:", err);
+    }
+  })();
+
   const daysOfWeek = [
     "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
   ];
@@ -43,7 +60,7 @@
     row.innerHTML = `
       <div class="icon-input">
         <i class="ri-book-open-line"></i>
-        <input type="text" name="course" placeholder="Course (e.g., CS101)" required>
+        <input type="text" name="course" placeholder="Course (e.g., CS101)" list="course-options" required>
       </div>
 
       <div class="icon-input">
@@ -105,7 +122,7 @@
     });
 
     try {
-      const res = await fetch("http://localhost:3000/api/faculty-availability", {
+      const res = await fetch(`/api/faculty-availability`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ faculty_id: user.id, availability })
@@ -171,7 +188,7 @@
           row.className = "availability-edit-row";
 
           row.innerHTML = `
-            <input type="text" value="${slot.course}" placeholder="Course">
+            <input type="text" value="${slot.course}" placeholder="Course" list="course-options">
             <select>
               ${daysOfWeek.map((day, i) =>
                 `<option value="${i}" ${slot.day_of_week === i ? "selected" : ""}>${day}</option>`).join("")}

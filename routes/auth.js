@@ -32,9 +32,9 @@ router.post('/login', (req, res) => {
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    user_type: user.role 
+                    role: user.role 
                 };
-
+                console.log("User logged in:", req.session.user);
                 return res.json({
                     message: 'Login successful',
                     user: req.session.user 

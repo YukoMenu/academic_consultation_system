@@ -58,7 +58,7 @@ loginForm.addEventListener('submit', async (e) => {
         if (res.status === 200 && body.user) {
             console.log('User object:', body.user);
             localStorage.setItem('user', JSON.stringify(body.user));
-            redirectUser(body.user.user_type);  // This might be undefined
+            redirectUser(body.user.role);  // This might be undefined
         } else {
             showWarning(body.error || 'Login failed');
         }

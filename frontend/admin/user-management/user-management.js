@@ -5,6 +5,7 @@
     const roleFilter = document.getElementById('roleFilter');
 
     const form = document.getElementById('userForm');
+    const form_btn = document.getElementById('form-btn');
     const userIdField = document.getElementById('userId');
     const nameField = document.getElementById('name');
     const emailField = document.getElementById('email');
@@ -20,7 +21,7 @@
     const facultyFields = document.getElementById('facultyFields');
 
     const createBtn = document.getElementById('createBtn');
-    const updateBtn = document.getElementById('updateBtn');
+    const updateBtn = document.getElementById('updateBtn'); 
     const deleteBtn = document.getElementById('deleteBtn');
     const newUserBtn = document.getElementById('newUserBtn');
 
@@ -63,6 +64,11 @@
             li.addEventListener('click', () => populateForm(user.id));
             userList.appendChild(li);
         });
+
+        const firstUserItem = userList.querySelector('.user-list-item');
+        if (firstUserItem) {
+            firstUserItem.click();
+        }
     }
 
     // Populate the form on the right
@@ -107,7 +113,7 @@
     fetchUsers();
 
     // Handle form submission (Update user)
-    form.addEventListener('submit', async (e) => {
+    form_btn.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const id = userIdField.value;
@@ -150,6 +156,12 @@
             if (res.ok) {
                 const successMsg = isCreating ? 'User created successfully' : 'User updated successfully';
                 alert(successMsg);
+                if (isCreating) {
+                    form.reset();
+                    studentFields.style.display = 'none';
+                    facultyFields.style.display = 'none';
+                    setFormMode(false);
+                }
                 isCreating = false;
                 document.getElementById('formTitle').textContent = 'User Details';
                 await fetchUsers();
@@ -177,7 +189,7 @@
             const res = await fetch(`/api/setuser/${id}`, { method: 'DELETE' });
             if (res.ok) {
                 alert('User deleted successfully');
-                form.reset();
+                document.getElementById('userForm').reset();
                 studentFields.style.display = 'none';
                 facultyFields.style.display = 'none';
                 await fetchUsers(); // refresh list
@@ -201,12 +213,14 @@
             passwordField.value = '';
             studentFields.style.display = 'none';
             facultyFields.style.display = 'none';
+            roleField.dispatchEvent(new Event('change'));
             setFormMode(true);
         } else {
             // Switch back to edit mode
             form.reset();
             studentFields.style.display = 'none';
             facultyFields.style.display = 'none';
+            roleField.dispatchEvent(new Event('change'));
             setFormMode(false);
         }
     });

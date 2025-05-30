@@ -15,8 +15,8 @@
     const createSection = document.getElementById("class-create");
     const editSection = document.getElementById("class-edit");
 
-    const classCodeInput = document.getElementById("class-code-input-create");
-    const classNameInput = document.getElementById("class-name-input-create");
+    const classCodeInputCreate = document.getElementById("class-code-input-create");
+    const classNameInputCreate = document.getElementById("class-name-input-create");
     const classCodeInputEdit = document.getElementById("class-code-input-edit");
     const classNameInputEdit = document.getElementById("class-name-input-edit");
     const courseDatalist = document.getElementById("course-code-list");
@@ -66,14 +66,24 @@
     courseDatalist.innerHTML = courses.map(c => `<option value="${c.id}"></option>`).join("");
     classNameDatalist.innerHTML = courses.map(c => `<option value="${c.name}"></option>`).join("");
    
-    classCodeInput.addEventListener("input", () => {
-        const selected = courses.find(c => c.id === classCodeInput.value);
-        if (selected) classNameInput.value = selected.name;
+    classCodeInputCreate.addEventListener("input", () => {
+        const selected = courses.find(c => c.id === classCodeInputCreate.value);
+        if (selected) classNameInputCreate.value = selected.name;
     });
 
-    classNameInput.addEventListener("input", () => {
-        const selected = courses.find(c => c.name === classNameInput.value);
-        if (selected) classCodeInput.value = selected.id;
+    classNameInputCreate.addEventListener("input", () => {
+        const selected = courses.find(c => c.name === classNameInputCreate.value);
+        if (selected) classCodeInputCreate.value = selected.id;
+    });
+
+    classCodeInputEdit.addEventListener("input", () => {
+        const selected = courses.find(c => c.id === classCodeInputEdit.value);
+        if (selected) classNameInputEdit.value = selected.name;
+    });
+
+    classNameInputEdit.addEventListener("input", () => {
+        const selected = courses.find(c => c.name === classNameInputEdit.value);
+        if (selected) classCodeInputEdit.value = selected.id;
     });
 
     // Fetch data
@@ -147,27 +157,29 @@
         e.preventDefault();
         const facultyInputs = formCreate.querySelectorAll(".faculty-input");
         const studentInputs = formCreate.querySelectorAll(".student-input");
+        const classCodeInputCreate = formCreate.querySelector('[name="class_code"]');
+        const classNameInputCreate = formCreate.querySelector('[list="class-name-list"]');
 
         const data = {
-        class_code: formCreate.class_code.value,
-        class_name: formCreate.class_name.value,
-        description: formCreate.description.value,
-        faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
-        student_ids: resolveIdsFromInputs(studentInputs, students)
+            class_code: classCodeInputCreate?.value,
+            class_name: classNameInputCreate?.value,
+            description: formCreate.description.value,
+            faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
+            student_ids: resolveIdsFromInputs(studentInputs, students)
         };
 
         const res = await fetch('/api/classes', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-        });
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+            });
 
-        if (res.ok) {
-        alert("Class created!");
-        location.reload();
-        } else {
-        alert("Failed to create class.");
-        }
+            if (res.ok) {
+                alert("Class created!");
+                location.reload();
+            } else {
+                alert("Failed to create class.");
+            }
     });
 
     classList.addEventListener("click", async (e) => {
@@ -257,27 +269,29 @@
 
         const facultyInputs = formEdit.querySelectorAll(".faculty-input");
         const studentInputs = formEdit.querySelectorAll(".student-input");
+        const classCodeInputEdit = formEdit.querySelector('[name="class_code"]');
+        const classNameInputEdit = formEdit.querySelector('[list="class-name-list"]');
 
         const data = {
-        class_code: formEdit.class_code.value,
-        class_name: formEdit.class_name.value,
-        description: formEdit.description.value,
-        faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
-        student_ids: resolveIdsFromInputs(studentInputs, students)
+            class_code: classCodeInputEdit?.value,
+            class_name: classNameInputEdit?.value,
+            description: formEdit.description.value,
+            faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
+            student_ids: resolveIdsFromInputs(studentInputs, students)
         };
 
         const res = await fetch(`/api/classes/${editingClassId}`, {
-        method: "PUT",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
         });
 
         if (res.ok) {
-        alert("Class updated!");
-        editingClassId = null;
-        location.reload();
+            alert("Class updated!");
+            editingClassId = null;
+            location.reload();
         } else {
-        alert("Failed to update class.");
+            alert("Failed to update class.");
         }
     });
 
