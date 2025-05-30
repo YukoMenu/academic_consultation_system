@@ -3,5 +3,7 @@
   { "id": "MATH201", "name": "Calculus I" },
   { "id": "MATH303", "name": "Numerical Methods" },
   { "id": "RZL023", "name": "Buhay at Akda ni Rizal" },
-  { "id": "CPE123C", "name": "Software Design" }
+  { "id": "CPE123C", "name": "Software Design" },
+  { "id": "GEC023", "name": "The Contemporary World" },
+  { "id": "GEC043", "name": "Mga Babasahin Hinggil Sa Kasaysayan Ng Pilipinas" }
 ]

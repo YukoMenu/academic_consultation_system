@@ -36,6 +36,13 @@ app.use(session({
     cookie: { secure: false }   // secure: process.env.NODE_ENV === "production"
 }));
 
+app.use((req, res, next) => {
+  if (req.session && req.session.user) {
+    req.user = req.session.user;
+  }
+  next();
+});
+
 // Serve frontend static files
 app.use('/login', express.static(path.join(__dirname, 'frontend', 'login')));
 app.use('/admin', express.static(path.join(__dirname, 'frontend', 'admin')));

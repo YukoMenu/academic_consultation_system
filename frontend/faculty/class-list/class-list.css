@@ -1,2 +1,209 @@
 /* ----- START OF CLASS-LIST.CSS ----- */
+h1 {
+    color: var(--title-color);
+}
+
+.class-list-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  color: var(--text-color);
+  position: relative;
+}
+
+.class-list h1 {
+  margin-bottom: 1rem;
+}
+
+.class-card {
+  background-color: var(--body-color);
+  border-radius: 10px;
+  border-color: var(--shadow-color);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: transform 0.2s;
+}
+
+.class-card:hover {
+  transform: scale(1.01);
+}
+
+.class-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.class-info {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+/* Modal overlay and content */
+.modal-overlay {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay[style*="flex"] {
+  display: flex !important;
+  align-items: flex-start; /* Align to top */
+  justify-content: center;
+  padding-top: 4rem;       /* Add space from the top */
+}
+
+.modal-content {
+  background: var(--body-color, #fff);
+  color: var(--text-color, #222);
+  padding: 2.5rem 3rem;
+  border-radius: 18px;
+  min-width: 40vw;
+  max-width: 700px;
+  width: 60vw;
+  box-shadow: 0 4px 32px var(--shadow-color, rgba(0,0,0,0.15));
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+@media (max-width: 900px) {
+  .modal-content {
+    min-width: 0;
+    width: 90vw;
+    max-width: 98vw;
+    padding: 1.5rem 0.8rem;
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--title-color);
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 6px;
+  background: var(--body-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus, textarea:focus {
+  border-color: var(--first-color);
+  outline: none;
+}
+
+.btn-accent {
+  background: var(--first-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-accent:hover {
+  background: hsl(228, 75%, 55%);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--first-color);
+  border: 1.5px solid var(--first-color);
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-outline:hover {
+  background: var(--first-color);
+  color: #fff;
+}
+
+.class-card {
+  background-color: var(--body-color);
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #ccc);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.class-card:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 4px 16px var(--shadow-color);
+}
+
+.class-title {
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: var(--title-color);
+}
+
+.class-info {
+  font-size: 0.98rem;
+  color: var(--text-color);
+}
+
+.edit-btn {
+  align-self: flex-end;
+  margin-top: 0.5rem;
+  background: var(--first-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.35rem 1rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-btn:hover {
+  background: hsl(228, 75%, 55%);
+}
+
+#student-container .student-input {
+  min-width: 180px;
+}
+#student-container .remove-student-btn {
+  margin-left: 0.5rem;
+}
+
+.btn-danger {
+  background: hsl(0, 70%, 50%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-danger:hover {
+  background: hsl(0, 70%, 40%);
+}
 /* ----- END OF CLASS-LIST.CSS ----- */

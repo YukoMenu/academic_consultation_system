@@ -189,6 +189,9 @@
         editBtn.disabled = false;
         editingClassId = classId;
 
+        classList.querySelectorAll("li").forEach(el => el.classList.remove("selected"));
+        li.classList.add("selected");
+
         // Detect current visible section
         if (viewSection.style.display === "block") {
             // View mode – fetch and show read-only class info
