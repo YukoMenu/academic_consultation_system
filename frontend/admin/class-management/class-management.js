@@ -251,6 +251,7 @@
             wrapper.classList.add("input-wrapper");
             wrapper.innerHTML = `
                 <input type="text" name="student" class="student-input" value="${s.name}" list="student-list" />
+                <input type="password" name="student_password" class="student-password-input" placeholder="Password" autocomplete="new-password" />
                 <button type="button" class="remove-btn">−</button>
             `;
             studentContainer.appendChild(wrapper);
@@ -262,6 +263,7 @@
         addStudentWrapper.classList.add("input-wrapper");
         addStudentWrapper.innerHTML = `
             <input type="text" name="student" class="student-input" list="student-list" />
+            <input type="password" name="student_password" class="student-password-input" placeholder="Password" autocomplete="new-password" />
             <button type="button" class="add-student-btn">+</button>
         `;
         studentContainer.appendChild(addStudentWrapper);
@@ -272,15 +274,20 @@
 
         const facultyInputs = formEdit.querySelectorAll(".faculty-input");
         const studentInputs = formEdit.querySelectorAll(".student-input");
+        const passwordInputs = formEdit.querySelectorAll(".student-password-input");
         const classCodeInputEdit = formEdit.querySelector('[name="class_code"]');
         const classNameInputEdit = formEdit.querySelector('[list="class-name-list"]');
+
+        const student_ids = resolveIdsFromInputs(studentInputs, students);
+        const student_passwords = Array.from(passwordInputs).map(input => input.value);
 
         const data = {
             class_code: classCodeInputEdit?.value,
             class_name: classNameInputEdit?.value,
             description: formEdit.description.value,
             faculty_ids: resolveIdsFromInputs(facultyInputs, faculty),
-            student_ids: resolveIdsFromInputs(studentInputs, students)
+            student_ids,
+            student_passwords // send to backend if you want to update passwords
         };
 
         const res = await fetch(`/api/classes/${editingClassId}`, {

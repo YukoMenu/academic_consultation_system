@@ -32,7 +32,7 @@ body.dark-theme {
 
 h2 {
   margin-bottom: 1rem;
-  color: var(--accent);
+  color: var(--title-color);
 }
 
 .appointments-list {

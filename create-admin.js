@@ -3,7 +3,7 @@ const db = require('./db/database');
 
 const name = 'Admin';
 const email = 'admin@example.com';
-const plainPassword = 'admin123';
+const plainPassword = 'q';
 const role = 'admin';
 
 bcrypt.hash(plainPassword, 10, (err, hashedPassword) => {

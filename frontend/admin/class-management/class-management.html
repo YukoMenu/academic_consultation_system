@@ -133,7 +133,12 @@
         <div class="dynamic-input-group" id="edit-faculty-container"></div>
 
         <label class="class-view-label"><i class="ri-team-line"></i> Students</label>
-        <div class="dynamic-input-group" id="edit-student-container"></div>
+        <div class="dynamic-input-group" id="edit-student-container">
+          <div class="input-wrapper">
+            <input type="text" name="student" class="student-input" list="student-list" />
+            <button type="button" class="add-student-btn">+</button>
+          </div>
+        </div>
 
         <datalist id="faculty-list"></datalist>
         <datalist id="student-list"></datalist>

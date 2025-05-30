@@ -124,8 +124,10 @@
             role
         };
 
+        let passwordChanged = false;
+        const password = passwordField.value.trim();
+
         if (isCreating) {
-            const password = passwordField.value.trim();
             if (!password) {
                 alert('Password is required when creating a user.');
                 return;
@@ -147,14 +149,32 @@
                 ? `/api/users`
                 : `/api/setuser/${id}`;
 
+            // 1. Update user info (name, email, role, etc.)
             const res = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
+            // 2. If editing and password is provided, update password separately
+            if (!isCreating && password) {
+                const pwRes = await fetch(`/api/getuser/update/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                if (!pwRes.ok) {
+                    const error = await pwRes.json();
+                    alert(`Password update failed: ${error.error}`);
+                    return;
+                }
+                passwordChanged = true;
+            }
+
             if (res.ok) {
-                const successMsg = isCreating ? 'User created successfully' : 'User updated successfully';
+                const successMsg = isCreating
+                    ? 'User created successfully'
+                    : `User updated successfully${passwordChanged ? ' (password changed)' : ''}`;
                 alert(successMsg);
                 if (isCreating) {
                     form.reset();
@@ -162,6 +182,7 @@
                     facultyFields.style.display = 'none';
                     setFormMode(false);
                 }
+                passwordField.value = '';
                 isCreating = false;
                 document.getElementById('formTitle').textContent = 'User Details';
                 await fetchUsers();
@@ -233,7 +254,8 @@
         updateBtn.style.display = createMode ? 'none' : 'inline-block';
         deleteBtn.style.display = createMode ? 'none' : 'inline-block';
         newUserBtn.textContent = createMode ? 'Back' : 'New User';
-        passwordContainer.style.display = createMode ? 'block' : 'none';
+        // Always show password field for both create and edit
+        passwordContainer.style.display = 'block';
     }
 
     document.getElementById('userSearch').addEventListener('input', renderUserList);

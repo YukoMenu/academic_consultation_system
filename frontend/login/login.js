@@ -2,20 +2,29 @@
 // Theme switcher
 const themeButton = document.getElementById('theme-button');
 
+// Helper to get/set theme
+function setTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+    } else {
+        document.body.classList.remove('dark-theme');
+    }
+    localStorage.setItem('theme', theme);
+}
+
+function getTheme() {
+    return localStorage.getItem('theme') || 'light';
+}
+
+// Apply theme on load
+setTheme(getTheme());
+
 // Theme switch
 themeButton.addEventListener('click', () => {
-    document.body.classList.toggle('dark-theme');
-    
-    // Save theme preference
-    const isDark = document.body.classList.contains('dark-theme');
-    localStorage.setItem('dark-theme', isDark);
+    const current = getTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    setTheme(next);
 });
-
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('dark-theme');
-if (savedTheme === 'true') {
-    document.body.classList.add('dark-theme');
-}
 
 // Form switching
 const loginContent = document.querySelector('.login__content');
@@ -168,4 +177,8 @@ signupForm.addEventListener('submit', (e) => {
         alert('Signup failed. Try again.');
     });
 });
+
+const theme = localStorage.getItem('theme');
+localStorage.clear();
+if (theme) localStorage.setItem('theme', theme);
 // ----- END OF LOGIN.JS -----

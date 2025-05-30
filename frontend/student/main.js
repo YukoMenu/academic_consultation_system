@@ -77,22 +77,23 @@ const themeButton = document.getElementById('theme-button')
 const darkTheme = 'dark-theme'
 const iconTheme = 'ri-sun-fill'
 
-const selectedTheme = localStorage.getItem('selected-theme')
-const selectedIcon = localStorage.getItem('selected-icon')
+// Use a single key for theme across all pages
+const storedTheme = localStorage.getItem('theme') || 'light'
 
-const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
-const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-clear-fill' : 'ri-sun-fill'
-
-if (selectedTheme) {
-    document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
-    themeButton.classList[selectedIcon === 'ri-moon-clear-fill' ? 'add' : 'remove'](iconTheme)
+// Apply theme on load
+if (storedTheme === 'dark') {
+    document.body.classList.add(darkTheme)
+    themeButton.classList.add(iconTheme)
+} else {
+    document.body.classList.remove(darkTheme)
+    themeButton.classList.remove(iconTheme)
 }
 
+// Theme toggle
 themeButton.addEventListener('click', () => {
-    document.body.classList.toggle(darkTheme)
+    const isDark = document.body.classList.toggle(darkTheme)
     themeButton.classList.toggle(iconTheme)
-    localStorage.setItem('selected-theme', getCurrentTheme())
-    localStorage.setItem('selected-icon', getCurrentIcon())
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
 })
 
 /*=============== LOAD USER INFO ===============*/

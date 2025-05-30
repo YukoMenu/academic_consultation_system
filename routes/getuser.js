@@ -31,33 +31,51 @@ router.get('/faculty/:id', (req, res) => {
     });
 });
 
-// UPDATE user name and/or password
+// REMOVE or comment out this block:
+/*
 router.put('/update/:id', (req, res) => {
     const { name, password } = req.body;
     if (!name && !password) {
         return res.status(400).json({ error: 'No fields to update' });
     }
-
     const updates = [];
     const values = [];
-
     if (name) {
         updates.push(`name = ?`);
         values.push(name);
     }
-
     if (password) {
         updates.push(`password = ?`);
         values.push(password);
     }
-
     values.push(req.params.id);
-
     const sql = `UPDATE users SET ${updates.join(', ')} WHERE id = ?`;
     db.run(sql, values, function (err) {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: 'User updated successfully' });
     });
+});
+*/
+
+// KEEP this async version:
+router.put('/update/:id', async (req, res) => {
+    const userId = req.params.id;
+    const newPassword = req.body.password;
+    if (!newPassword) {
+        return res.status(400).json({ error: "New password is required" });
+    }
+    try {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        const sql = `UPDATE users SET password = ? WHERE id = ?`;
+        db.run(sql, [hashedPassword, userId], function (err) {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res.status(200).json({ message: "Password updated successfully" });
+        });
+    } catch (err) {
+        res.status(500).json({ error: "Failed to hash password" });
+    }
 });
 
 function getUserById(id) {
