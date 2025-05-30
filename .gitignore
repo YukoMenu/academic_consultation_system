@@ -136,6 +136,6 @@ dist
 .pnp.*
 
 # database
-*.db
+#*.db
 
 /cert/
