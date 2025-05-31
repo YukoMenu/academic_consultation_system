@@ -58,6 +58,7 @@ const getUserRoutes = require('./routes/getuser');
 const setUserRoutes = require('./routes/setuser');
 const classManagementRoutes = require('./routes/classes');
 const coursesRoute = require('./routes/courses');
+const consultationRequestRoutes = require('./routes/consultation-request');
 
 app.use('/api/consultation', consultationRoutes);
 app.use('/api/users', usersRoute);
@@ -67,6 +68,7 @@ app.use('/api/getuser', getUserRoutes);
 app.use('/api/setuser', setUserRoutes);
 app.use('/api/classes', classManagementRoutes);
 app.use('/api/courses', coursesRoute);
+app.use('/api/consultation-request', consultationRequestRoutes);
 
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'login', 'login.html'));
