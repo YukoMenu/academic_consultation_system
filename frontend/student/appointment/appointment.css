@@ -187,4 +187,14 @@ body.dark-theme {
   background: none;
   color: var(--text-secondary);
 }
+
+#calendarHeader, #calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.calendar-day-header, .calendar-day {
+  text-align: center;
+  padding: 8px;
+}
 /* ----- END OF APPOINTMENT.CSS ----- */

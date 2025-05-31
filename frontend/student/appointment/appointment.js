@@ -26,9 +26,9 @@
       const slots = await res.json();
       facultyAvailability = {};
       slots.forEach(slot => {
-        // slot.day_of_week is 0=Sun, 1=Mon, etc.
-        if (!facultyAvailability[slot.day_of_week]) facultyAvailability[slot.day_of_week] = [];
-        facultyAvailability[slot.day_of_week].push(slot);
+        const dow = Number(slot.day_of_week); // Ensure it's a number!
+        if (!facultyAvailability.hasOwnProperty(dow)) facultyAvailability[dow] = [];
+        facultyAvailability[dow].push(slot);
       });
       updateAvailability();
     }
@@ -111,7 +111,7 @@
       calendar.innerHTML = "";
       const firstDay = new Date(year, month, 1);
       const lastDay = new Date(year, month + 1, 0);
-      const startDay = firstDay.getDay();
+      const startDay = firstDay.getDay(); // 0=Sunday, ..., 6=Saturday
       const totalDays = lastDay.getDate();
 
       // Fill initial empty cells (before the 1st)
@@ -126,7 +126,11 @@
         const date = new Date(year, month, day);
         const cell = document.createElement("div");
         cell.className = "calendar-day";
-        cell.dataset.date = date.toISOString().split("T")[0];
+        cell.dataset.date = [
+          date.getFullYear(),
+          String(date.getMonth() + 1).padStart(2, '0'),
+          String(date.getDate()).padStart(2, '0')
+        ].join('-');
         cell.textContent = day;
         calendar.appendChild(cell);
       }
@@ -182,24 +186,9 @@
       showCalendar();
     });
   
-    // On page load, show the calendar
-    showCalendar();
-  
-    // When faculty changes, reload availability and refresh calendar
-    facultyDropdown.addEventListener("change", () => {
-      selectedFaculty = facultyDropdown.value;
-      if (selectedFaculty) {
-        loadFacultyAvailability(selectedFaculty).then(showCalendar);
-      } else {
-        facultyAvailability = {};
-        showCalendar();
-      }
-    });
-  
-    // Render the calendar header and current month on page load
-    const today = new Date();
+    // On page load, show the calendar and header
     renderCalendarHeader();
-    generateCalendar(today.getFullYear(), today.getMonth());
+    showCalendar();
   
     // Fetch faculty list on initial load
     loadFacultyList();
