@@ -1,3 +1,4 @@
+/* ----- START OF APPOINTMENT.CSS ----- */
 :root {
     --bg-main: #fff;
     --bg-card: #f9f9f9;
@@ -109,6 +110,29 @@ body.dark-theme {
     color: #fff;
 }
 
+.calendar-day.default {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.calendar-day.empty {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: transparent;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.calendar-day.past {
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 /* Appointment Form */
 .appointment-form {
     background-color: var(--bg-card);
@@ -163,3 +187,4 @@ body.dark-theme {
   background: none;
   color: var(--text-secondary);
 }
+/* ----- END OF APPOINTMENT.CSS ----- */

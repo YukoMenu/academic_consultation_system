@@ -1,3 +1,4 @@
+<!-- START OF APPOINTMENT.HTML -->
 <div class="appointment">
   <h2>Schedule an Appointment</h2>
 
@@ -12,11 +13,18 @@
     </select>
   </div>
 
-  <!-- Legend -->
-  <div class="calendar-legend">
-    <span class="legend-item available">Available</span>
-    <span class="legend-item scheduled">Scheduled</span>
-    <span class="legend-item unavailable">Not Available</span>
+  <!-- Legend + Calendar Controls in one row -->
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+    <div class="calendar-legend" style="display: flex; gap: 1rem;">
+      <span class="legend-item available">Available</span>
+      <span class="legend-item scheduled">Scheduled</span>
+      <span class="legend-item unavailable">Not Available</span>
+    </div>
+    <div id="calendarControls" style="display: flex; align-items: center; gap: 1rem;">
+      <button id="prevMonth" style="font-size: 1.2rem;">&#8592;</button>
+      <span id="monthYear" style="min-width: 140px; text-align: center; font-size: 1.2rem; font-weight: bold;"></span>
+      <button id="nextMonth" style="font-size: 1.2rem;">&#8594;</button>
+    </div>
   </div>
 
   <!-- Calendar Header -->
@@ -39,3 +47,4 @@
     <button id="confirmBtn">Confirm Appointment</button>
   </div>
 </div>
+<!-- END OF APPOINTMENT.HTML -->

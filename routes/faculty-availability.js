@@ -32,6 +32,34 @@ router.get('/:faculty_id', (req, res) => {
   });
 });
 
+// GET available time slots for a faculty member (grouped by date)
+router.get('/:faculty_id/slots', (req, res) => {
+  const facultyId = req.params.faculty_id;
+  db.all(
+    `SELECT day_of_week, start_time, end_time, course
+     FROM faculty_availability
+     WHERE faculty_id = ?`,
+    [facultyId],
+    (err, rows) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: 'Failed to fetch slots' });
+      }
+      // Group by day_of_week for frontend convenience
+      const slots = {};
+      rows.forEach(row => {
+        if (!slots[row.day_of_week]) slots[row.day_of_week] = [];
+        slots[row.day_of_week].push({
+          start_time: row.start_time,
+          end_time: row.end_time,
+          course: row.course
+        });
+      });
+      res.json(slots);
+    }
+  );
+});
+
 // POST new availability
 router.post('/', (req, res) => {
   const { faculty_id, availability } = req.body;
