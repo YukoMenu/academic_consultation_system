@@ -131,5 +131,14 @@ router.put('/changepassword/:id', async (req, res) => {
     }
 });
 
+// GET currently logged-in user from session
+router.get('/', (req, res) => {
+    if (req.session && req.session.user) {
+        res.json({ user: req.session.user });
+    } else {
+        res.status(401).json({ error: 'Not logged in' });
+    }
+});
+
 module.exports = router;
 // ----- END OF getuser.js -----

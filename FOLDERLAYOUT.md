@@ -20,7 +20,7 @@
 |   |   ├─── dashboard/
 |   |   ├─── settings/
 |   |   ├─── user-management/
-|   |
+|   |   |
 |   |   index.html
 |   |   main.js
 |   |   styles.css
@@ -38,7 +38,7 @@
 |   |   ├─── inbox/
 |   |   ├─── notifications/
 |   |   ├─── profile/
-|   |   
+|   |   |
 |   |   index.html
 |   |   main.js
 |   |   styles.css
@@ -58,7 +58,7 @@
 |   |   ├─── inbox/
 |   |   ├─── notifications/
 |   |   ├─── profile/
-|   |   
+|   |   |
 |   |   index.html
 |   |   main.js
 |   |   styles.css

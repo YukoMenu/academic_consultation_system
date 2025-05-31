@@ -124,4 +124,40 @@ logoutButton.addEventListener('click', () => {
     // Redirect to login
     window.location.href = '/login'
 })
+function loadPage(page) {
+    const mainContent = document.getElementById('main');
+    fetch(page)
+        .then(res => res.text())
+        .then(html => {
+            mainContent.innerHTML = html;
+
+            const pageBase = page.replace('.html', '');
+            const cssHref = `${pageBase}.css`;
+            const jsSrc = `${pageBase}.js`;
+
+            // Remove previous dynamic style
+            const existingStyle = document.getElementById('dynamic-style');
+            if (existingStyle) existingStyle.remove();
+
+            const css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = cssHref;
+            css.id = 'dynamic-style';
+            document.head.appendChild(css);
+
+            // Remove previously injected script (if any)
+            const existingScript = document.getElementById('dynamic-script');
+            if (existingScript) existingScript.remove();
+
+            // Load JS
+            const script = document.createElement('script');
+            script.src = jsSrc;
+            script.defer = true;
+            script.id = 'dynamic-script';
+            document.body.appendChild(script);
+        })
+        .catch(err => {
+            mainContent.innerHTML = `<p>Error loading page: ${err}</p>`;
+        });
+}
 // ----- END OF MAIN.JS (FACULTY) -----

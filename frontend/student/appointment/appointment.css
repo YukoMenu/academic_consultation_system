@@ -1,4 +1,4 @@
-/* ----- START OF APPOINTMENT.CSS ----- */
+/* ----- START OF APPOINTMENT.CSS (STUDENT) ----- */
 :root {
     --bg-main: #fff;
     --bg-card: #f9f9f9;
@@ -66,7 +66,7 @@ body.dark-theme {
 }
 
 .legend-item.scheduled {
-    background-color: var(--scheduled);
+    background-color: #3b82f6; /* Blue-500 */
 }
 
 .legend-item.unavailable {
@@ -101,7 +101,7 @@ body.dark-theme {
 }
 
 .calendar-day.scheduled {
-    background-color: var(--scheduled);
+    background-color: #3b82f6;
     color: #fff;
 }
 
@@ -370,4 +370,4 @@ body.dark-theme {
 .form-btn-cancel:hover {
     background: #b71c1c;
 }
-/* ----- END OF APPOINTMENT.CSS ----- */
+/* ----- END OF APPOINTMENT.CSS (STUDENT) ----- */
