@@ -142,10 +142,38 @@ body.dark-theme {
     max-width: 400px;
 }
 
+.appointment-form.card {
+    background: var(--bg-card);
+    border-radius: 1rem;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+    padding: 2.5rem 2rem 2rem 2rem;
+    max-width: 700px;      /* Increase this value for a wider modal */
+    min-width: 320px;
+    width: 100%;
+    margin: 0 auto;
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    border: 1.5px solid var(--border-color);
+}
+
+.appointment-form h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
 .appointment-form label {
     display: block;
     margin-bottom: 0.5rem;
     color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.appointment-form label:not(:first-child) {
+    margin-top: 0.7rem;
 }
 
 .appointment-form select {
@@ -158,19 +186,72 @@ body.dark-theme {
     color: var(--text-primary);
 }
 
-#confirmBtn {
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: var(--available);
-    color: white;
-    font-weight: bold;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
+#student-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-#confirmBtn:hover {
-    background-color: #388e3c;
+.student-input {
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-main);
+    color: var(--text-primary);
+    width: 100%;
+}
+
+.remove-student-btn {
+    margin-left: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #f44336;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.remove-student-btn:hover {
+    color: #b71c1c;
+}
+
+#add-student-btn {
+    align-self: flex-start;
+    margin-bottom: 0.5rem;
+    background: transparent;
+    border: 1.5px dashed var(--available);
+    color: var(--available);
+    padding: 0.4rem 1.2rem;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+#add-student-btn:hover, #add-student-btn:focus {
+    background: var(--available);
+    color: #fff;
+    border-color: var(--available);
+}
+
+#reason {
+    border-radius: 0.4rem;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    resize: vertical;
+}
+
+#timeSlot {
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--border-color);
+    background: var(--bg-main);
+    color: var(--text-primary);
+    margin-bottom: 1rem;
 }
 
 /* Calendar Header */
@@ -196,5 +277,97 @@ body.dark-theme {
 .calendar-day-header, .calendar-day {
   text-align: center;
   padding: 8px;
+}
+
+/* Modal Styles */
+/* Modal Overlay: keep only the semi-transparent background */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.3); /* Only overlay, no solid box */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Modal Content: centers the form, no background */
+.modal-content {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  min-width: 0;
+  max-width: 98vw;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Appointment Form Card: wider and responsive */
+.appointment-form.card {
+  background: var(--bg-card);
+  border-radius: 1rem;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.18);
+  padding: 2.5rem 2rem 2rem 2rem;
+  max-width: 700px;      /* Increase this value for a wider modal */
+  min-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  border: 1.5px solid var(--border-color);
+}
+
+/* Responsive: on small screens, use almost full width */
+@media (max-width: 900px) {
+  .appointment-form.card {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+}
+
+/* Button Styles */
+.form-btn-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.form-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+    font-size: 1.1rem;
+    padding: 0.8rem 0;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.form-btn-confirm {
+    background: #4caf50;
+    color: #fff;
+}
+
+.form-btn-confirm:hover {
+    background: #388e3c;
+}
+
+.form-btn-cancel {
+    background: #f44336;
+    color: #fff;
+}
+
+.form-btn-cancel:hover {
+    background: #b71c1c;
 }
 /* ----- END OF APPOINTMENT.CSS ----- */
