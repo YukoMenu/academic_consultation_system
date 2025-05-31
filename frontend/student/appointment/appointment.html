@@ -16,9 +16,18 @@
   <!-- Legend + Calendar Controls in one row -->
   <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
     <div class="calendar-legend" style="display: flex; gap: 1rem;">
-      <span class="legend-item available">Available</span>
-      <span class="legend-item scheduled">Scheduled</span>
-      <span class="legend-item unavailable">Not Available</span>
+      <span class="legend-item available">
+        <i class="ri-checkbox-circle-line" style="color:#fff;vertical-align:middle;margin-right:0.3rem;"></i>
+        Available
+      </span>
+      <span class="legend-item scheduled">
+        <i class="ri-time-line" style="color:#fff;vertical-align:middle;margin-right:0.3rem;"></i>
+        Scheduled
+      </span>
+      <span class="legend-item unavailable">
+        <i class="ri-close-circle-line" style="color:#fff;vertical-align:middle;margin-right:0.3rem;"></i>
+        Not Available
+      </span>
     </div>
     <div id="calendarControls" style="display: flex; align-items: center; gap: 1rem;">
       <button id="prevMonth" style="font-size: 1.2rem;">&#8592;</button>
@@ -38,20 +47,32 @@
 
 <!-- Appointment Modal -->
 <div id="appointment-modal" class="modal-overlay">
-  <div class="modal-content" style="max-width: 420px;">
+  <div class="modal-content" style="max-width: 700px;">
     <div class="appointment-form card" id="appointmentForm">
-      <h3>Book Appointment</h3>
-      <label>Students:</label>
+      <h3>
+        <i class="ri-calendar-check-line" style="margin-right:0.5rem;"></i>
+        Book Appointment
+      </h3>
+      <label>
+        <i class="ri-user-3-line" style="margin-right:0.3rem;"></i>
+        Students:
+      </label>
       <div id="student-container"></div>
-      <button id="add-student-btn" class="btn-outline" type="button" style="margin-bottom:1rem;">+ Add Student</button>
+      <button id="add-student-btn" class="btn-outline" type="button" style="margin-bottom:1rem;">
+        <i class="ri-user-add-line" style="margin-right:0.3rem;"></i>+ Add Student
+      </button>
       <datalist id="student-list"></datalist>
-      <label for="reason">Reason:</label>
+      <label for="reason"><i class="ri-chat-3-line" style="margin-right:0.3rem;"></i>Reason:</label>
       <textarea id="reason" name="reason" rows="2" style="width:100%;margin-bottom:1rem;" placeholder="Enter reason for appointment"></textarea>
-      <label for="timeSlot">Select Time:</label>
+      <label for="timeSlot"><i class="ri-time-line" style="margin-right:0.3rem;"></i>Select Time:</label>
       <select id="timeSlot"></select>
       <div class="form-btn-row">
-        <button id="confirmBtn" class="form-btn form-btn-confirm" type="button">Book Appointment</button>
-        <button id="cancelBtn" class="form-btn form-btn-cancel" type="button">Cancel</button>
+        <button id="confirmBtn" class="form-btn form-btn-confirm" type="button">
+          <i class="ri-checkbox-circle-line" style="margin-right:0.3rem;"></i>Book Appointment
+        </button>
+        <button id="cancelBtn" class="form-btn form-btn-cancel" type="button">
+          <i class="ri-close-circle-line" style="margin-right:0.3rem;"></i>Cancel
+        </button>
       </div>
     </div>
   </div>

@@ -201,8 +201,10 @@
         wrapper.style.marginBottom = "0.5rem";
         wrapper.innerHTML = `
             <input type="text" name="student" class="student-input" list="student-list" value="${value}" style="flex:1; margin-right:0.5rem;" />
-            <button type="button" class="remove-student-btn btn-outline" style="padding:0.2rem 0.7rem;">&times;</button>
-        `;
+            <button type="button" class="remove-student-btn btn-outline" style="padding:0.2rem 0.7rem;">
+              <i class="ri-close-line"></i>
+            </button>
+          `;
         wrapper.querySelector(".remove-student-btn").onclick = () => wrapper.remove();
 
         // Validate input on blur
