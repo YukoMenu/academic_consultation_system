@@ -1,4 +1,4 @@
-// ----- START OF APPOINTMENT.JS -----
+// ----- START OF APPOINTMENT.JS (STUDENT) -----
 (() => {
     console.log("Appointment loaded!");
 
@@ -16,6 +16,8 @@
     let selectedFaculty = "";
     let facultyAvailability = {};
     let allStudents = [];
+    let facultyUnavailableDays = [];
+    let facultyRequestStatusByDate = {};
 
     // Fetch and populate faculty dropdown
     async function loadFacultyList() {
@@ -37,6 +39,17 @@
             if (!facultyAvailability.hasOwnProperty(dow)) facultyAvailability[dow] = [];
             facultyAvailability[dow].push(slot);
         });
+
+        // Fetch unavailable days for the selected faculty and month
+        const monthStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`;
+        const unavailableRes = await fetch(`/api/faculty-unavailable/${facultyId}?month=${monthStr}`);
+        facultyUnavailableDays = await unavailableRes.json();
+
+        // Fetch request status for each date
+        const statusRes = await fetch(`/api/consultation-request/calendar-status?faculty_id=${facultyId}&month=${monthStr}`);
+        facultyRequestStatusByDate = await statusRes.json();
+
+        // Only update the calendar after all data is fetched
         updateAvailability();
     }
 
@@ -66,13 +79,30 @@
             } else {
                 day.classList.add("unavailable");
             }
+
+            const dateStr = day.dataset.date;
+            if (facultyUnavailableDays.includes(dateStr)) {
+                day.classList.add("unavailable");
+                day.classList.remove("available", "scheduled");
+                day.style.pointerEvents = "none";
+                day.style.cursor = "not-allowed";
+            } else if (facultyRequestStatusByDate[dateStr] === "pending" || facultyRequestStatusByDate[dateStr] === "accepted") {
+                day.classList.add("scheduled");
+            } else if (slots.length > 0) {
+                day.classList.add("available");
+            } else {
+                day.classList.add("default");
+            }
         });
     }
 
     // Calendar day click: show modal with available slots
     calendar.addEventListener("click", (e) => {
         if (!e.target.classList.contains("calendar-day")) return;
-        if (!e.target.classList.contains("available")) {
+        if (
+            !e.target.classList.contains("available") ||
+            e.target.classList.contains("unavailable")
+        ) {
             appointmentModal.style.display = "none";
             return;
         }
@@ -86,7 +116,9 @@
         const slots = facultyAvailability[dow] || [];
         timeSlotDropdown.innerHTML = "";
         slots.forEach(slot => {
-            timeSlotDropdown.innerHTML += `<option value="${slot.start_time}">${slot.start_time} - ${slot.end_time} (${slot.course})</option>`;
+            timeSlotDropdown.innerHTML += `<option value="${slot.start_time}" data-course="${slot.course}">
+                ${slot.start_time} - ${slot.end_time} (${slot.course})
+            </option>`;
         });
 
         appointmentModal.style.display = "flex";
@@ -99,6 +131,7 @@
             loadFacultyAvailability(selectedFaculty);
         } else {
             facultyAvailability = {};
+            facultyUnavailableDays = [];
             updateAvailability();
         }
     });
@@ -176,6 +209,7 @@
             currentMonth = 11;
             currentYear--;
         }
+        loadFacultyAvailability(selectedFaculty);
         showCalendar();
     });
 
@@ -185,6 +219,7 @@
             currentMonth = 0;
             currentYear++;
         }
+        loadFacultyAvailability(selectedFaculty);
         showCalendar();
     });
 
@@ -290,6 +325,10 @@
             return;
         }
 
+        // Get course code from selected time slot
+        const selectedOption = timeSlotDropdown.selectedOptions[0];
+        const courseCode = selectedOption ? selectedOption.getAttribute('data-course') : '';
+
         // Send POST request to backend
         try {
             const res = await fetch("/api/consultation-request", {
@@ -297,6 +336,7 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     faculty_id: facultyId,
+                    course_code: courseCode,
                     date_requested: dateRequested,
                     time_requested: timeRequested,
                     reason,
@@ -338,4 +378,4 @@
         timeSlotDropdown.selectedIndex = -1;
     }
 })();
-// ----- END OF APPOINTMENT.JS -----
+// ----- END OF APPOINTMENT.JS (STUDENT) -----

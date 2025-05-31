@@ -1,4 +1,4 @@
-/* ----- START OF APPOINTMENT.CSS ----- */
+/* ----- START OF APPOINTMENT.CSS (FACULTY) ----- */
 :root {
   --card-bg-light: var(--body-color);
   --card-bg-dark: hsl(228, 24%, 16%);
@@ -53,6 +53,22 @@ h2 {
   justify-content: space-between;
   align-items: flex-start;
   transition: background-color 0.4s, border-color 0.4s;
+}
+
+.appointment-card.inactive {
+  background: var(--bg-card, #222) !important;
+  color: var(--text-secondary, #888) !important;
+  opacity: 0.6;
+  pointer-events: none;
+  filter: grayscale(0.7);
+}
+
+body:not(.dark-theme) .appointment-card.inactive {
+  background: #e0e0e0 !important;
+  color: #888 !important;
+  opacity: 0.7;
+  pointer-events: none;
+  filter: grayscale(0.7);
 }
 
 body.dark-theme .appointment-card {
@@ -135,4 +151,196 @@ body.dark-theme .notes-input {
 #load-consultation-form:hover {
   background-color: hsl(230, 80%, 45%);
 }
-/* ----- END OF APPOINTMENT.CSS ----- */
+
+.appointments-main {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.calendar-panel, .requests-panel {
+  background: var(--card-bg-light);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  padding: 2rem 1.5rem;
+  border: 1.5px solid var(--border-light);
+}
+
+.calendar-panel {
+  flex: 1;
+  min-width: 340px;
+  background: transparent; /* Remove white background */
+  box-shadow: none;        /* Remove shadow if needed */
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  border: 1.5px solid var(--border-light); /* Add this line */
+}
+
+.requests-panel {
+  flex: 1.2;
+  min-width: 380px;
+  background: transparent;
+  box-shadow: none;
+  padding: 2rem 1.5rem;
+}
+
+body.dark-theme .calendar-panel,
+body.dark-theme .requests-panel {
+  background: var(--card-bg-dark);
+  border-color: var(--border-dark);
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+.calendar-legend,
+.calendar-header {
+  color: var(--text-light);
+}
+
+body.dark-theme .calendar-legend,
+body.dark-theme .calendar-header {
+  color: var(--text-dark);
+}
+
+.calendar-cell {
+  background: var(--card-bg-light);
+  border: 1.5px solid var(--border-light);
+  border-radius: 8px;
+  padding: 0.7rem 0;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text-light);
+  min-height: 2.2rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+body.dark-theme .calendar-cell {
+  background: var(--card-bg-dark);
+  border-color: var(--border-dark);
+  color: var(--text-dark);
+}
+
+/* Status cells override background and border as needed */
+.calendar-cell.available {
+  background: var(--btn-accept);
+  border-color: var(--btn-accept);
+  color: #fff;
+}
+.calendar-cell.scheduled {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.calendar-cell.unavailable {
+  background: var(--btn-reject);
+  border-color: var(--btn-reject);
+  color: #fff;
+}
+
+body.dark-theme .calendar-cell.available {
+  background: var(--btn-accept);
+  border-color: var(--btn-accept);
+  color: #fff;
+}
+body.dark-theme .calendar-cell.scheduled {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+body.dark-theme .calendar-cell.unavailable {
+  background: var(--btn-reject);
+  border-color: var(--btn-reject);
+  color: #fff;
+}
+
+.legend-item {
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+}
+
+.legend-item.available {
+  background-color: var(--btn-accept); /* Green */
+}
+
+.legend-item.scheduled {
+  background-color: var(--accent);     /* Accent/Blue */
+}
+
+.legend-item.unavailable {
+  background-color: var(--btn-reject); /* Red */
+}
+
+/* Fix for legend and calendar controls overflow */
+.calendar-panel > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+#calendarControls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* Prevent overflow of calendar-panel */
+.calendar-panel {
+  overflow: hidden;
+}
+
+.calendar-cell.past {
+  background-color: var(--bg-card) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-light) !important;
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+body.dark-theme .calendar-cell.past {
+  border-color: var(--border-dark) !important;
+}
+
+@media (max-width: 900px) {
+  .appointments-main {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .calendar-panel, .requests-panel {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+  }
+}
+/* ----- END OF APPOINTMENT.CSS (FACULTY) ----- */

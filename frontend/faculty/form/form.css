@@ -219,6 +219,36 @@ body.dark-theme .form-page button[type="submit"] {
   color: #fff;
 }
 
+/* Only apply default style to submit buttons that are not .submit-btn */
+.form-page button[type="submit"]:not(.submit-btn) {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.form-page button[type="submit"]:not(.submit-btn):hover {
+  filter: brightness(95%);
+  transform: translateY(-1px);
+}
+
+.form-page button[type="submit"]:not(.submit-btn):active {
+  filter: brightness(90%);
+  transform: translateY(0);
+}
+
+.form-page button[type="submit"]:not(.submit-btn) {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+}
+
 .form-page label {
   font-weight: 600;
   font-size: 0.95rem;
@@ -256,5 +286,55 @@ body.dark-theme .form-page label i {
 
 .form-page .box label {
   margin-bottom: 0.4rem;
+}
+
+/* Submit Button: Always blue */
+.submit-btn {
+  background: #3b82f6 !important;
+  color: #fff !important;
+  border: none;
+  padding: 0.7rem 2.2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.submit-btn:hover, .submit-btn:focus {
+  background: #2563eb;
+  box-shadow: 0 4px 16px rgba(59,130,246,0.15);
+}
+
+/* Back Button: Subtle, modern */
+.back-btn {
+  background: transparent;
+  color: #3b82f6;
+  border: 1.5px solid #3b82f6;
+  padding: 0.7rem 1.8rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  cursor: pointer;
+}
+.back-btn:hover, .back-btn:focus {
+  background: #e0edff;
+  color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Optional: Make both buttons align nicely */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
 }
 /* END OF FORM.CSS */

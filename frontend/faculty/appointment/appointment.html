@@ -1,27 +1,52 @@
-<!-- START OF APPOINTMENT.HTML -->
+<!-- START OF APPOINTMENT.HTML (FACULTY) -->
 <div class="appointments-page container">
-  <h2>Upcoming Appointment Requests</h2>
-
-  <div class="dashboard-actions">
-    <button id="load-consultation-form" class="btn">
+  <div class="appointments-header" style="display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-bottom: 0; font-size: 2rem;">Upcoming Appointment Requests</h2>
+    <button id="load-consultation-form" class="btn" style="padding: 0.5rem 1.2rem; font-size: 1rem;">
       Go to Consultation Form
     </button>
   </div>
 
-  <ul class="appointments-list">
-    <li class="appointment-card">
-      <div class="appointment-info">
-        <p><strong>Student:</strong> Jane Dela Cruz</p>
-        <p><strong>Date:</strong> May 20 2025</p>
-        <p><strong>Time:</strong> 10:00 AM – 10:30 AM</p>
-        <p><strong>Reason:</strong> Thesis Consultation</p>
-        <textarea id="notes-1" name="notes-1" class="notes-input" placeholder="Add notes…"></textarea>
+  <div class="appointments-main" style="display: flex; gap: 2rem; align-items: flex-start;">
+    <!-- Calendar Panel (left) -->
+    <div class="calendar-panel" style="flex: 1;">
+      <!-- Legend + Calendar Controls -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+        <div class="calendar-legend" style="display: flex; gap: 1rem;">
+          <span class="legend-item available">
+            <i class="ri-checkbox-circle-line" style="color:#fff;vertical-align:middle;margin-right:0.3rem;"></i>
+            Available
+          </span>
+          <span class="legend-item scheduled">
+            <i class="ri-time-line" style="color:#fff;vertical-align:middle;margin-right:0.3rem;"></i>
+            Scheduled
+          </span>
+          <span class="legend-item unavailable">
+            <i class="ri-close-circle-line" style="color:#fff;vertical-align:middle;margin-right:0.3rem;"></i>
+            Not Available
+          </span>
+        </div>
+        <div id="calendarControls" style="display: flex; align-items: center; gap: 1rem;">
+          <button id="prevMonth" style="font-size: 1.2rem;"><i class="ri-arrow-left-s-line"></i></button>
+          <span id="monthYear" style="min-width: 140px; text-align: center; font-size: 1.2rem; font-weight: bold;"></span>
+          <button id="nextMonth" style="font-size: 1.2rem;"><i class="ri-arrow-right-s-line"></i></button>
+        </div>
       </div>
-      <div class="appointment-actions">
-        <button class="btn accept-btn">Accept</button>
-        <button class="btn reject-btn">Reject</button>
+      <div class="calendar-header" id="calendarHeader"></div>
+      <div class="calendar" id="calendar"></div>
+    </div>
+
+    <!-- Requests Panel (right) -->
+    <div class="requests-panel">
+      <div id="appointment-requests">
+        <!-- Appointment requests will appear here when a date is clicked -->
+        <ul class="appointments-list">
+          <li class="appointment-card">
+            <p>Choose a date to see appointment requests</p>
+          </li>
+        </ul>
       </div>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>
-<!-- END OF APPOINTMENT.HTML -->
+<!-- END OF APPOINTMENT.HTML (FACULTY) -->

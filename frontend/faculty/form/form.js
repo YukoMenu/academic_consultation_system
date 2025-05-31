@@ -79,6 +79,15 @@ function attachFormListener() {
   });
 }
 
+document.getElementById('back-to-appointment')?.addEventListener('click', () => {
+  if (window.loadPage) {
+    loadPage('appointment/appointment.html');
+  } else {
+    // fallback: full reload if SPA loader is missing
+    window.location.href = '/faculty/appointment/appointment.html';
+  }
+});
+
 attachFormListener();
 attachNameFieldAdder();
 //----- END OF FORM.JS -----

@@ -5,9 +5,9 @@ const db = require('../db/database');
 
 // POST /api/consultation-request
 router.post('/', (req, res) => {
-  const { faculty_id, date_requested, time_requested, reason, student_ids } = req.body;
+  const { faculty_id, course_code, date_requested, time_requested, reason, student_ids } = req.body;
 
-  if (!faculty_id || !date_requested || !time_requested || !reason || !Array.isArray(student_ids) || student_ids.length === 0) {
+  if (!faculty_id || !course_code || !date_requested || !time_requested || !reason || !Array.isArray(student_ids) || student_ids.length === 0) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -19,8 +19,8 @@ router.post('/', (req, res) => {
   }
 
   db.run(
-    `INSERT INTO consultation_requests (faculty_id, date_requested, time_requested, reason) VALUES (?, ?, ?, ?)`,
-    [faculty_id, date_requested, time_requested, reason],
+    `INSERT INTO consultation_requests (faculty_id, course_code, date_requested, time_requested, reason) VALUES (?, ?, ?, ?, ?)`,
+    [faculty_id, course_code, date_requested, time_requested, reason],
     function (err) {
       if (err) {
         console.error('Error inserting consultation request:', err.message);
@@ -71,6 +71,46 @@ router.get('/', (req, res) => {
   });
 });
 
+// PATCH status (accept/reject/close)
+router.patch('/:id/status', (req, res) => {
+  const id = req.params.id;
+  const { status } = req.body;
+  if (!['pending', 'accepted', 'rejected'].includes(status)) {
+    return res.status(400).json({ error: 'Invalid status' });
+  }
+  db.run(
+    `UPDATE consultation_requests SET status = ?, date_closed = CASE WHEN ? = 'accepted' OR ? = 'rejected' THEN CURRENT_TIMESTAMP ELSE date_closed END WHERE id = ?`,
+    [status, status, status, id],
+    function (err) {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ message: 'Status updated', changes: this.changes });
+    }
+  );
+});
+
+// GET requests for a faculty for a given month (for calendar coloring)
+router.get('/calendar-status', (req, res) => {
+  const { faculty_id, month } = req.query;
+  if (!faculty_id || !month) return res.status(400).json({ error: 'Missing params' });
+  db.all(
+    `SELECT date_requested, status FROM consultation_requests WHERE faculty_id = ? AND date_requested LIKE ?`,
+    [faculty_id, `${month}%`],
+    (err, rows) => {
+      if (err) return res.status(500).json({ error: 'DB error' });
+      // Group by date, prioritize accepted > pending
+      const statusByDate = {};
+      rows.forEach(r => {
+        if (r.status === 'accepted') {
+          statusByDate[r.date_requested] = 'accepted';
+        } else if (r.status === 'pending' && statusByDate[r.date_requested] !== 'accepted') {
+          statusByDate[r.date_requested] = 'pending';
+        }
+      });
+      res.json(statusByDate); // { "2025-05-20": "accepted", ... }
+    }
+  );
+});
+
 // GET a single consultation request by ID (with students)
 router.get('/:id', (req, res) => {
   const id = req.params.id;
@@ -90,23 +130,6 @@ router.get('/:id', (req, res) => {
           res.json({ ...request, students });
         }
       );
-    }
-  );
-});
-
-// PATCH status (accept/reject/close)
-router.patch('/:id/status', (req, res) => {
-  const id = req.params.id;
-  const { status } = req.body;
-  if (!['pending', 'accepted', 'rejected'].includes(status)) {
-    return res.status(400).json({ error: 'Invalid status' });
-  }
-  db.run(
-    `UPDATE consultation_requests SET status = ?, date_closed = CASE WHEN ? = 'accepted' OR ? = 'rejected' THEN CURRENT_TIMESTAMP ELSE date_closed END WHERE id = ?`,
-    [status, status, status, id],
-    function (err) {
-      if (err) return res.status(500).json({ error: err.message });
-      res.json({ message: 'Status updated', changes: this.changes });
     }
   );
 });
