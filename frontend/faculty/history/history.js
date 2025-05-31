@@ -1,5 +1,5 @@
-// history.js
-document.addEventListener('DOMContentLoaded', () => {
+/* ----- START OF HISTORY.JS (FACULTY) ----- */
+(() => {
   const historyList = document.querySelector('.history-list');
 
   // Mock data - replace with your backend API call
@@ -56,4 +56,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = createHistoryCard(appointment);
     historyList.appendChild(card);
   });
-});
+
+  const tabButtons = [
+    { btn: 'past-appointments-btn', section: 'past-appointments-section' },
+    { btn: 'consultation-requests-btn', section: 'consultation-requests-section' },
+    { btn: 'consultation-reports-btn', section: 'consultation-reports-section' },
+    { btn: 'summary-report-btn', section: 'summary-report-section' }
+  ];
+
+  tabButtons.forEach(({ btn, section }) => {
+    document.getElementById(btn).addEventListener('click', () => {
+      // Set active button
+      tabButtons.forEach(({ btn: b }) =>
+        document.getElementById(b).classList.toggle('active', b === btn)
+      );
+      // Show the selected section, hide others
+      tabButtons.forEach(({ section: s }) =>
+        document.getElementById(s).style.display = (s === section) ? '' : 'none'
+      );
+    });
+  });
+})();
+/* ----- END OF HISTORY.JS (FACULTY) ----- */

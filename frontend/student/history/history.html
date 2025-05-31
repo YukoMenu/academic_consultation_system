@@ -1,10 +1,18 @@
+<!-- START OF HISTORY.HTML -->
 <section class="history-page">
-    <h2>Appointment History</h2>
+  <div class="history-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+    <button id="appointment-history-btn" class="history-tab-btn active">Appointment History</button>
+    <button id="consultation-history-btn" class="history-tab-btn">Consultation Request History</button>
+  </div>
+
+  <div id="appointment-history-section">
     <table class="history-table">
+      <!-- Appointment History Table -->
       <thead>
         <tr>
           <th>Date</th>
           <th>Faculty</th>
+          <th>Course</th>
           <th>Status</th>
           <th>Notes</th>
         </tr>
@@ -13,5 +21,26 @@
         <!-- Filled by JS -->
       </tbody>
     </table>
-  </section>
-  
+  </div>
+
+  <div id="consultation-history-section" style="display: none;">
+    <table class="history-table">
+      <!-- Consultation Request History Table -->
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Faculty</th>
+          <th>Course</th>
+          <th>Status</th>
+          <th>Request Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4" style="text-align:center;">No consultation requests yet.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- END OF HISTORY.HTML -->
