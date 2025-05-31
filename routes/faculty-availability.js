@@ -3,6 +3,23 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/database');
 
+// GET all faculty members (id, name)
+router.get('/faculty/list', (req, res) => {
+  db.all(
+    `SELECT f.user_id AS id, u.name 
+     FROM faculty f 
+     JOIN users u ON f.user_id = u.id`,
+    [],
+    (err, rows) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: 'Failed to fetch faculty list' });
+      }
+      res.json(rows);
+    }
+  );
+});
+
 // GET availability for a faculty member
 router.get('/:faculty_id', (req, res) => {
   const facultyId = req.params.faculty_id;
