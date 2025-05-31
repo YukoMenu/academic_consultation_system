@@ -1,4 +1,4 @@
-
+/* ----- START OF APPOINTMENT.CSS ----- */
 :root {
     --bg-main: #fff;
     --bg-card: #f9f9f9;
@@ -110,6 +110,29 @@ body.dark-theme {
     color: #fff;
 }
 
+.calendar-day.default {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.calendar-day.empty {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: transparent;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+.calendar-day.past {
+  background-color: var(--bg-card);
+  color: var(--text-secondary);
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 /* Appointment Form */
 .appointment-form {
     background-color: var(--bg-card);
@@ -149,3 +172,29 @@ body.dark-theme {
 #confirmBtn:hover {
     background-color: #388e3c;
 }
+
+/* Calendar Header */
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.calendar-day-header {
+  padding: 0.5rem 0;
+  background: none;
+  color: var(--text-secondary);
+}
+
+#calendarHeader, #calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+.calendar-day-header, .calendar-day {
+  text-align: center;
+  padding: 8px;
+}
+/* ----- END OF APPOINTMENT.CSS ----- */

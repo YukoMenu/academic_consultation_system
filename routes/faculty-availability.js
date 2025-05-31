@@ -3,6 +3,23 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db/database');
 
+// GET all faculty members (id, name)
+router.get('/faculty/list', (req, res) => {
+  db.all(
+    `SELECT f.user_id AS id, u.name 
+     FROM faculty f 
+     JOIN users u ON f.user_id = u.id`,
+    [],
+    (err, rows) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: 'Failed to fetch faculty list' });
+      }
+      res.json(rows);
+    }
+  );
+});
+
 // GET availability for a faculty member
 router.get('/:faculty_id', (req, res) => {
   const facultyId = req.params.faculty_id;
@@ -13,6 +30,34 @@ router.get('/:faculty_id', (req, res) => {
     }
     res.json(rows);
   });
+});
+
+// GET available time slots for a faculty member (grouped by date)
+router.get('/:faculty_id/slots', (req, res) => {
+  const facultyId = req.params.faculty_id;
+  db.all(
+    `SELECT day_of_week, start_time, end_time, course
+     FROM faculty_availability
+     WHERE faculty_id = ?`,
+    [facultyId],
+    (err, rows) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: 'Failed to fetch slots' });
+      }
+      // Group by day_of_week for frontend convenience
+      const slots = {};
+      rows.forEach(row => {
+        if (!slots[row.day_of_week]) slots[row.day_of_week] = [];
+        slots[row.day_of_week].push({
+          start_time: row.start_time,
+          end_time: row.end_time,
+          course: row.course
+        });
+      });
+      res.json(slots);
+    }
+  );
 });
 
 // POST new availability
