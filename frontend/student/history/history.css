@@ -1,4 +1,21 @@
-.history-page {
+/* ----- START OF HISTORY.CSS (STUDENT) ----- */
+:root {
+    --tab-bg: #f3f4f6;
+    --tab-bg-active: #3b82f6;
+    --tab-text: #222;
+    --tab-text-active: #fff;
+    --tab-border: #e0e7ef;
+  }
+  
+  body.dark-theme {
+    --tab-bg: #23273a;
+    --tab-bg-active: #3b82f6;
+    --tab-text: #cbd5e1;
+    --tab-text-active: #fff;
+    --tab-border: #2d3147;
+  }
+  
+  .history-page {
     padding: 1rem 2rem;
     color: var(--text-color);
   }
@@ -33,3 +50,24 @@
     border-bottom: none;
   }
   
+  .history-tab-btn {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 6px 6px 0 0;
+    background: var(--tab-bg);
+    color: var(--tab-text);
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    outline: none;
+    border-bottom: 2px solid var(--tab-border);
+    margin-bottom: -2px;
+  }
+  .history-tab-btn.active {
+    background: var(--tab-bg-active);
+    color: var(--tab-text-active);
+    border-bottom: 2px solid var(--tab-bg-active);
+    z-index: 1;
+  }
+/* ----- END OF HISTORY.CSS (STUDENT) ----- */

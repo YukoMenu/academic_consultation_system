@@ -46,11 +46,13 @@ router.post('/', (req, res) => {
 router.get('/', (req, res) => {
   const { faculty_id, student_id } = req.query;
   let sql = `
-    SELECT cr.*, group_concat(s.user_id) as student_ids, group_concat(u.name) as student_names
+    SELECT cr.*, group_concat(s.user_id) as student_ids, group_concat(u.name) as student_names, u_faculty.name as faculty_name
     FROM consultation_requests cr
     JOIN consultation_requests_students crs ON cr.id = crs.consultation_request_id
     JOIN students s ON crs.student_id = s.user_id
     JOIN users u ON s.user_id = u.id
+    JOIN faculty f ON cr.faculty_id = f.user_id
+    JOIN users u_faculty ON f.user_id = u_faculty.id
   `;
   const params = [];
   const where = [];

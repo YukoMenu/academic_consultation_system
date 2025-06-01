@@ -66,8 +66,11 @@
 ├─── routes/
 |   |   auth.js
 |   |   classes.js
+|   |   consultation-request.js
 |   |   consultation.js
+|   |   faculty-appointment.js
 |   |   faculty-availability.js
+|   |   faculty-unavailable.js
 |   |   getuser.js
 |   |   setuser.js
 |   |   users.js

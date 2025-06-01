@@ -1,8 +1,8 @@
 <!-- START OF FORM.HTML -->
 <form id="consultation-form">
+  <datalist id="student-names-datalist"></datalist>
+  <datalist id="courses-datalist"></datalist>
   <div class="form-page">
-    <div class="consultation-report">
-
       <div class="row" id="names-container">
         <label for="name-0" style="min-width: 80px;">
           <i class="ri-user-line"></i> NAME/S:
@@ -43,7 +43,8 @@
           <label for="course_code">
             <i class="ri-file-text-line"></i> COURSE CODE/TITLE:
           </label>
-          <input type="text" id="course_code" name="course_code" required />
+          <input type="text" id="course_code_input" name="course_code" list="courses-datalist" required placeholder="Type or select..." />
+          <datalist id="courses-datalist"></datalist>
         </div>
       </div>
 

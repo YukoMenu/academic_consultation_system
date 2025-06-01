@@ -259,6 +259,9 @@
   if (consultationBtn) {
     consultationBtn.addEventListener('click', () => {
       loadPage('form/form.html');
+      setTimeout(() => {
+        window.initConsultationForm();
+      }, 100); // 100ms delay, adjust if needed
     });
   }
 })();

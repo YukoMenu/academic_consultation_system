@@ -1,7 +1,16 @@
+<!-- START OF HISTORY.HTML (FACULTY) -->
 <div class="history-page container">
+  <div class="history-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+    <button id="past-appointments-btn" class="history-tab-btn active">Past Appointments</button>
+    <button id="consultation-requests-btn" class="history-tab-btn">Consultation Requests</button>
+    <button id="consultation-reports-btn" class="history-tab-btn">Consultation Reports</button>
+    <button id="summary-report-btn" class="history-tab-btn">Summary Report</button>
+  </div>
+
+  <div id="past-appointments-section">
     <h2>Past Appointments</h2>
     <ul class="history-list">
-      <!-- Example history item -->
+      <!-- Appointment cards will be rendered here by JS -->
       <li class="history-card">
         <div class="history-info">
           <p><strong>Student:</strong> Juan Garcia</p>
@@ -11,6 +20,35 @@
           <p><strong>Notes:</strong> Reviewed thesis draft and provided feedback.</p>
         </div>
       </li>
-      <!-- More history cards go here -->
     </ul>
   </div>
+
+  <div id="consultation-requests-section" style="display: none;">
+    <h2>Consultation Requests</h2>
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Student(s)</th>
+          <th>Course</th>
+          <th>Status</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody id="faculty-consultation-history-body">
+        <tr><td colspan="5" style="text-align:center;">No consultation requests to show.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="consultation-reports-section" style="display: none;">
+    <h2>Consultation Reports</h2>
+    <div class="placeholder">No consultation reports to show.</div>
+  </div>
+
+  <div id="summary-report-section" style="display: none;">
+    <h2>Summary Report</h2>
+    <div class="placeholder">No summary report available.</div>
+  </div>
+</div>
+<!-- END OF HISTORY.HTML (FACULTY) -->

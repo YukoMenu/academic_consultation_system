@@ -21,7 +21,10 @@ router.post('/', (req, res) => {
     nature_of_concerns
   } = req.body;
 
-  const faculty_id = 1; // Replace with actual faculty ID from session
+  const faculty_id = req.user?.id;
+  if (!faculty_id) {
+    return res.status(401).json({ error: 'Not authenticated as faculty' });
+  }
 
   if (!Array.isArray(names) || names.length === 0) {
     return res.status(400).json({ error: 'At least one name is required' });
