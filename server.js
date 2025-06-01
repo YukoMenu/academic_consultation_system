@@ -10,6 +10,7 @@
 // node server.js
 
 // ----- START OF SERVER.JS -----
+require('dotenv').config();
 const express = require('express');
 const session = require("express-session");
 const cors = require('cors');
@@ -62,6 +63,7 @@ const coursesRoute = require('./routes/courses');
 const consultationRequestRoutes = require('./routes/consultation-request');
 const facultyAppointmentRoutes = require('./routes/faculty-appointment');
 const facultyUnavailableRoutes = require('./routes/faculty-unavailable');
+const summaryRoute = require('./routes/summary');
 
 app.use('/api/consultation', consultationRoutes);
 app.use('/api/users', usersRoute);
@@ -75,6 +77,7 @@ app.use('/api/consultation-request', consultationRequestRoutes);
 app.use('/api/appointment', facultyAppointmentRoutes);
 app.use('/api/faculty-unavailable', facultyUnavailableRoutes);
 app.use('/api/consultation-form', require('./routes/consultation-form'));
+app.use('/api/summary', summaryRoute);
 
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'login', 'login.html'));
