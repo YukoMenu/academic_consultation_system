@@ -37,7 +37,6 @@ router.get('/', (req, res) => {
 
 // GET all classes assigned to the logged-in faculty
 router.get('/faculty', (req, res) => {
-  console.log('GET /faculty route hit, req.user:', req.user);
   const facultyId = req.user.id;
 
   db.all(`
