@@ -53,9 +53,6 @@ router.get('/faculty/:faculty_id/calendar', async (req, res) => {
             }
           });
 
-          console.log('Available dates:', Array.from(availableDates));
-          console.log('Date status:', dateStatus);
-
           const result = Object.entries(dateStatus).map(([date, status]) => ({ date, status }));
           res.json(result);
         }

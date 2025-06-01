@@ -112,6 +112,56 @@ router.get('/calendar-status', (req, res) => {
   );
 });
 
+// GET upcoming appointments and recent scheduled appointments for a student
+router.get('/student/:student_id/dashboard', (req, res) => {
+  const studentId = req.params.student_id;
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
+
+  // Fetch upcoming appointments (accepted or pending)
+  const upcomingAppointmentsQuery = `
+    SELECT cr.id, cr.date_requested, cr.time_requested, cr.course_code, u.name AS faculty_name
+    FROM consultation_requests cr
+    JOIN consultation_requests_students crs ON cr.id = crs.consultation_request_id
+    JOIN users u ON cr.faculty_id = u.id
+    WHERE crs.student_id = ?
+    AND cr.date_requested >= ?
+    AND cr.status IN ('accepted', 'pending')
+    ORDER BY cr.date_requested, cr.time_requested
+    LIMIT 5;
+  `;
+
+  // Fetch recent scheduled appointments (accepted or rejected in the last 7 days)
+  const recentAppointmentsQuery = `
+    SELECT cr.id, cr.date_requested, cr.time_requested, cr.course_code, u.name AS faculty_name, cr.status
+    FROM consultation_requests cr
+    JOIN consultation_requests_students crs ON cr.id = crs.consultation_request_id
+    JOIN users u ON cr.faculty_id = u.id
+    WHERE crs.student_id = ?
+    AND cr.date_closed BETWEEN DATE(?, '-7 days') AND ?
+    AND cr.status IN ('accepted', 'rejected')
+    ORDER BY cr.date_closed DESC
+    LIMIT 5;
+  `;
+
+  db.all(upcomingAppointmentsQuery, [studentId, today], (err, upcomingAppointments) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    db.all(recentAppointmentsQuery, [studentId, today, today], (err, recentAppointments) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+
+      res.json({
+        upcomingAppointments: upcomingAppointments,
+        recentAppointments: recentAppointments
+      });
+    });
+  });
+});
+
 // GET a single consultation request by ID (with students)
 router.get('/:id', (req, res) => {
   const id = req.params.id;
