@@ -23,7 +23,6 @@ router.post('/', (req, res) => {
     [faculty_id, course_code, date_requested, time_requested, reason],
     function (err) {
       if (err) {
-        console.error('Error inserting consultation request:', err.message);
         return res.status(500).json({ error: 'Database error' });
       }
       const requestId = this.lastID;

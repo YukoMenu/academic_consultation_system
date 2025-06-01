@@ -1,3 +1,4 @@
+/* ----- START OF MAIN.JS (STUDENT) ----- */
 /*=============== SHOW SIDEBAR ===============*/
 const showSidebar = (toggleId, sidebarId, headerId, mainId) => {
     const toggle = document.getElementById(toggleId),
@@ -122,3 +123,4 @@ logoutButton.addEventListener('click', () => {
     localStorage.clear()
     window.location.href = '/login'
 })
+/* ----- END OF MAIN.JS (STUDENT) ----- */

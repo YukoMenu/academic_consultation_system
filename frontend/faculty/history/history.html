@@ -5,22 +5,28 @@
     <button id="consultation-requests-btn" class="history-tab-btn">Consultation Requests</button>
     <button id="consultation-reports-btn" class="history-tab-btn">Consultation Reports</button>
     <button id="summary-report-btn" class="history-tab-btn">Summary Report</button>
+    <div class="right-align-btn">
+      <button id="summary-report-nav-btn" class="primary-btn">Go to Summary Report</button>
+    </div>
   </div>
 
   <div id="past-appointments-section">
     <h2>Past Appointments</h2>
-    <ul class="history-list">
-      <!-- Appointment cards will be rendered here by JS -->
-      <li class="history-card">
-        <div class="history-info">
-          <p><strong>Student:</strong> Juan Garcia</p>
-          <p><strong>Date:</strong> April 10, 2025</p>
-          <p><strong>Time:</strong> 2:00 PM - 2:30 PM</p>
-          <p><strong>Status:</strong> <span class="status completed">Completed</span></p>
-          <p><strong>Notes:</strong> Reviewed thesis draft and provided feedback.</p>
-        </div>
-      </li>
-    </ul>
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Student(s)</th>
+                <th>Course</th>
+                <th>Venue</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="appointmentHistoryBody">
+            <!-- Filled by JS -->
+        </tbody>
+    </table>
   </div>
 
   <div id="consultation-requests-section" style="display: none;">
@@ -47,8 +53,62 @@
   </div>
 
   <div id="summary-report-section" style="display: none;">
-    <h2>Summary Report</h2>
-    <div class="placeholder">No summary report available.</div>
+    <h2>Consultation Summary Report</h2>
+
+    <form id="filter-form" class="filter-form">
+      <label>
+        Academic Year:
+        <input type="text" id="academicYear" placeholder="e.g., 2024-2025" />
+      </label>
+      <label>
+        College Term:
+        <select id="collegeTerm">
+          <option value="">All</option>
+          <option value="Prelim">Prelim</option>
+          <option value="Midterm">Midterm</option>
+          <option value="PreFinal">PreFinal</option>
+        </select>
+      </label>
+      <label>
+        BED/SHS Term:
+        <select id="bedShsTerm">
+          <option value="">All</option>
+          <option value="1st_Qtr">1st Quarter</option>
+          <option value="2nd_Qtr">2nd Quarter</option>
+          <option value="3rd_Qtr">3rd Quarter</option>
+          <option value="4th_Qtr">4th Quarter</option>
+        </select>
+      </label>
+      <button type="submit">Filter</button>
+    </form>
+
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>School</th>
+          <th>Year Level</th>
+          <th>Academic Year</th>
+          <th>College Term</th>
+          <th>BED/SHS Term</th>
+          <th>No. of Students</th>
+          <th>Total Hours</th>
+          <th>Summary Report</th>
+          <th>Date Created</th>
+        </tr>
+      </thead>
+      <tbody id="summaryTableBody">
+        <!-- Rows inserted dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <div id="appointment-details-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal-btn" class="close-btn">&times;</span>
+      <div id="appointment-details-content">
+        <!-- Appointment details will be dynamically inserted here -->
+      </div>
+    </div>
   </div>
 </div>
 <!-- END OF HISTORY.HTML (FACULTY) -->

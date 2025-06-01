@@ -1,0 +1,212 @@
+/* ----- START OF GENERATE-SUMMARY.CSS ----- */
+.generate-summary-container {
+  background: var(--body-color);
+  color: var(--title-color);
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem 2.5rem 2.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 24px var(--shadow-color);
+}
+
+.generate-summary-container h2 {
+  margin-bottom: 1.5rem;
+  color: var(--first-color);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#generate-summary-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 2%;
+}
+
+#generate-summary-form label {
+  flex: 1 1 48%;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
+}
+
+#generate-summary-form label[for="summary_input"] {
+  flex-basis: 100%;
+}
+
+#generate-summary-form input,
+#generate-summary-form select,
+#generate-summary-form textarea {
+  margin-top: 0.4rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--shadow-color);
+  border-radius: 0.5rem;
+  background: var(--body-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+#generate-summary-form input:focus,
+#generate-summary-form select:focus,
+#generate-summary-form textarea:focus {
+  border-color: var(--first-color);
+  outline: none;
+}
+
+#generate-summary-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+#generate-summary-form button[type="submit"] {
+  flex-basis: 100%;
+  margin-top: 1rem;
+  background: var(--first-color);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#generate-summary-form button[type="submit"]:hover {
+  background: hsl(228, 85%, 55%);
+}
+
+#generated-summary {
+  margin-top: 2rem;
+  background: var(--body-color);
+  border: 1px solid var(--shadow-color);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 12px var(--shadow-color);
+}
+
+#generated-summary h3 {
+  color: var(--first-color);
+  margin-bottom: 0.75rem;
+}
+
+#summary-report {
+  width: 100%;
+  min-height: 80px;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--shadow-color);
+  background: var(--body-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  resize: vertical;
+}
+
+#save-summary-btn {
+  background: var(--first-color);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#save-summary-btn:hover {
+  background: hsl(228, 85%, 55%);
+}
+
+/* Button Styles */
+.generate-btn {
+  background: var(--first-color);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.generate-btn:hover {
+  background: hsl(228, 85%, 55%);
+  transform: translateY(-1px);
+}
+
+.generate-btn:active {
+  transform: translateY(1px);
+}
+
+.generate-btn:disabled {
+  background: hsl(228, 15%, 50%);
+  cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hide spinner when not loading */
+.loading-spinner.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .generate-summary-container {
+    padding: 1rem;
+  }
+  #generate-summary-form label {
+    flex-basis: 100%;
+  }
+}
+
+/* Dark theme support */
+body.dark-theme .generate-summary-container,
+body.dark-theme #generated-summary {
+  background: var(--body-color);
+  color: var(--title-color);
+  box-shadow: 0 2px 24px var(--shadow-color);
+}
+
+body.dark-theme #generate-summary-form input,
+body.dark-theme #generate-summary-form select,
+body.dark-theme #generate-summary-form textarea,
+body.dark-theme #summary-report {
+  background: hsl(228, 24%, 16%);
+  color: var(--text-color);
+  border: 1px solid hsl(228, 16%, 30%);
+}
+
+body.dark-theme #generate-summary-form button[type="submit"],
+body.dark-theme #save-summary-btn {
+  background: var(--first-color);
+  color: #fff;
+}
+
+body.dark-theme #generate-summary-form button[type="submit"]:hover,
+body.dark-theme #save-summary-btn:hover {
+  background: hsl(228, 85%, 55%);
+}
+/* ----- END OF GENERATE-SUMMARY.CSS ----- */

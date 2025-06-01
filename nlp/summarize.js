@@ -1,33 +1,28 @@
 // npm install dotenv
 // npm install dotenv axios
+// npm install ibm-watson@7 ibm-cloud-sdk-core
 /* ----- START OF SUMMARIZE.JS ----- */
+// ----- summarize.js -----
 require('dotenv').config();
 const axios = require('axios');
 
 async function generateSummary(text) {
-  const apiKey = process.env.OPENAI_API_KEY;
-
-  const prompt = `Summarize the following text in 3–4 concise bullet points:\n\n${text}`;
+  const apiKey = process.env.HF_API_KEY;
 
   const response = await axios.post(
-    'https://api.openai.com/v1/chat/completions',
+    'https://api-inference.huggingface.co/models/facebook/bart-large-cnn',
     {
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'system', content: 'You are a helpful assistant that summarizes text.' },
-        { role: 'user', content: prompt }
-      ],
-      temperature: 0.7
+      inputs: text,
     },
     {
       headers: {
         Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     }
   );
 
-  return response.data.choices[0].message.content;
+  return response.data[0]?.summary_text || 'No summary generated.';
 }
 
 module.exports = { generateSummary };

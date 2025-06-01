@@ -1,9 +1,10 @@
 /* ----- START OF HISTORY.CSS (STUDENT) ----- */
 :root {
-    --tab-bg: #f3f4f6;
-    --tab-bg-active: #3b82f6;
-    --tab-text: #222;
-    --tab-text-active: #fff;
+    --tab-bg: #e2e8f0;      
+    --tab-text: #1e293b; 
+    --tab-border: #cbd5e1;    
+    --tab-bg-active: #3b82f6;  
+    --tab-text-active: #fff;   
     --tab-border: #e0e7ef;
   }
   
@@ -69,5 +70,74 @@
     color: var(--tab-text-active);
     border-bottom: 2px solid var(--tab-bg-active);
     z-index: 1;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  .modal-content {
+    background-color: var(--body-color); /* Temporary explicit color */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px; /* Max width for larger screens */
+    border-radius: 0.5rem;
+    position: relative; /* Needed for absolute positioning of the close button */
+    color: var(--text-color);
+  }
+
+  .modal-content h2 {
+    margin-top: 0;
+    color: var(--title-color);
+  }
+
+  /* Close button styles */
+  .close-btn {
+    color: var(--text-color);
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close-btn:hover,
+  .close-btn:focus {
+    color: #000; /* Change color on hover/focus */
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+
+  .modal-content table th,
+  .modal-content table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+  }
+
+  .modal-content table th {
+    width: 30%; /* Adjust as needed */
+    color: var(--title-color);
+  }
+
+  .modal-content table tr:last-child td {
+    border-bottom: none;
   }
 /* ----- END OF HISTORY.CSS (STUDENT) ----- */

@@ -1,0 +1,55 @@
+<!-- START OF GENERATE-SUMMARY.HTML -->
+<div class="generate-summary-container">
+    <h2>Generate Consultation Summary Report</h2>
+    <form id="generate-summary-form">
+        <label>
+            School:
+            <input type="text" name="school" required>
+        </label>
+        <label>
+            Year Level:
+            <input type="text" name="year_level" id="year_level" required>
+        </label>
+        <label>
+            Academic Year:
+            <input type="text" name="academic_year" placeholder="e.g., 2024-2025" required>
+        </label>
+        <label>
+            College Term:
+            <select name="college_term" id="college_term">
+            <option value="">Select</option>
+            <option value="Prelim">Prelim</option>
+            <option value="Midterm">Midterm</option>
+            <option value="PreFinal">PreFinal</option>
+            </select>
+        </label>
+        <label>
+            BED/SHS Term:
+            <select name="bed_shs_term" id="bed_shs_term">
+            <option value="">Select</option>
+            <option value="1st_Qtr">1st Quarter</option>
+            <option value="2nd_Qtr">2nd Quarter</option>
+            <option value="3rd_Qtr">3rd Quarter</option>
+            <option value="4th_Qtr">4th Quarter</option>
+            </select>
+        </label>
+        <label>
+            Number of Students:
+            <input type="number" name="number_of_students" min="1" required>
+        </label>
+        <label>
+            Total Hours:
+            <input type="number" name="total_hours" min="0" step="0.1" required>
+        </label>
+        <button type="button" id="generate-summary-btn" class="generate-btn">
+          Generate Summary
+          <span class="loading-spinner hidden"></span>
+        </button>
+    </form>
+    <div id="generated-summary" style="margin-top:1rem; display:none;">
+        <h3>Generated Summary</h3>
+        <textarea id="summary-report" name="summary_report" rows="5" readonly></textarea>
+        <button id="save-summary-btn">Save Report</button>
+    </div>
+</div>
+<!-- END OF GENERATE-SUMMARY.HTML -->
