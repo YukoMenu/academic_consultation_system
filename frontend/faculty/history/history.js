@@ -4,37 +4,106 @@
   let user = JSON.parse(localStorage.getItem("user"));
   if (!user || user.role !== "faculty") return;
 
+  // Modal close functionality
+  const modal = document.getElementById('appointment-details-modal');
+  const closeBtn = document.getElementById('close-modal-btn');
+
+  // Close button click handler
+  if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+          console.log('Close button clicked');
+          modal.style.display = 'none';
+      });
+  } else {
+      console.error('Close button not found!');
+  }
+
+  // Click outside modal to close
+  window.addEventListener('click', (event) => {
+      if (event.target === modal) {
+          modal.style.display = 'none';
+      }
+  });
+
   // Appointment History (from consultation-form)
   let appointmentHistory = [];
   async function loadAppointmentHistory() {
-    const res = await fetch(`/api/consultation-form/faculty?faculty_id=${user.id}`);
-    appointmentHistory = await res.json();
-    console.log('appointmentHistory:', appointmentHistory);
-    renderAppointmentHistory();
+      try {
+          const res = await fetch(`/api/consultation-form/faculty?faculty_id=${user.id}`);
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+          appointmentHistory = await res.json();
+          console.log('appointmentHistory:', appointmentHistory);
+          renderAppointmentHistory();
+      } catch (error) {
+          console.error('Error loading appointment history:', error);
+      }
   }
 
   function renderAppointmentHistory() {
-    const list = document.querySelector('#past-appointments-section .history-list');
-    list.innerHTML = '';
-    if (!Array.isArray(appointmentHistory) || appointmentHistory.length === 0) {
-      list.innerHTML = `<li class="history-card"><div class="history-info">No appointments found.</div></li>`;
-      return;
-    }
-    appointmentHistory.forEach(entry => {
-      const li = document.createElement('li');
-      li.className = 'history-card';
-      li.innerHTML = `
-        <div class="history-info">
-          <p><strong>Student(s):</strong> ${entry.student_id || ''}</p>
-          <p><strong>Date:</strong> ${entry.date || ''}</p>
-          <p><strong>Time:</strong> ${entry.start_time || ''} - ${entry.end_time || ''}</p>
-          <p><strong>Status:</strong> <span class="status completed">Completed</span></p>
-          <p><strong>Course:</strong> ${entry.course_code || ''}</p>
-          <p><strong>Venue:</strong> ${entry.venue || ''}</p>
-        </div>
-      `;
-      list.appendChild(li);
-    });
+      const tbody = document.getElementById('appointmentHistoryBody');
+      tbody.innerHTML = '';
+
+      if (!Array.isArray(appointmentHistory) || appointmentHistory.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No appointments found.</td></tr>`;
+          return;
+      }
+
+      appointmentHistory.forEach(entry => {
+          tbody.innerHTML += `
+              <tr>
+                  <td>${entry.date || ''}</td>
+                  <td>${entry.start_time || ''} - ${entry.end_time || ''}</td>
+                  <td>${entry.student_names || 'No students listed'}</td>
+                  <td>${entry.course_code || ''}</td>
+                  <td>${entry.venue || ''}</td>
+                  <td>
+                      <button class="view-details-btn" data-id="${entry.consultation_id}">View Details</button>
+                  </td>
+              </tr>
+          `;
+      });
+
+      // Add click handlers for view details buttons
+      document.querySelectorAll('.view-details-btn').forEach(btn => {
+          btn.addEventListener('click', function () {
+              const id = this.getAttribute('data-id');
+              showAppointmentDetailsModal(id);
+          });
+      });
+  }
+
+  async function showAppointmentDetailsModal(id) {
+      try {
+          const res = await fetch(`/api/consultation-form/${id}`);
+          const entry = await res.json();
+          if (!entry) return;
+
+          const content = document.getElementById('appointment-details-content');
+          const studentNames = Array.isArray(entry.students) && entry.students.length > 0
+              ? entry.students.map(student => student.name).join(', ')
+              : 'No students listed';
+
+          content.innerHTML = `
+              <table>
+                  <tr><th>Date</th><td>${entry.date || ''}</td></tr>
+                  <tr><th>Student(s)</th><td>${studentNames}</td></tr>
+                  <tr><th>Course</th><td>${entry.course_code || ''}</td></tr>
+                  <tr><th>Term</th><td>${entry.term || ''}</td></tr>
+                  <tr><th>Venue</th><td>${entry.venue || ''}</td></tr>
+                  <tr><th>Program</th><td>${entry.program || ''}</td></tr>
+                  <tr><th>Start Time</th><td>${entry.start_time || ''}</td></tr>
+                  <tr><th>End Time</th><td>${entry.end_time || ''}</td></tr>
+                  <tr><th>Course Concerns</th><td>${entry.course_concerns || ''}</td></tr>
+                  <tr><th>Intervention</th><td>${entry.intervention || ''}</td></tr>
+                  <tr><th>Nature of Concerns</th><td>${entry.nature_of_concerns || ''}</td></tr>
+              </table>
+          `;
+
+          const modal = document.getElementById('appointment-details-modal');
+          modal.style.display = 'block';
+      } catch (error) {
+          console.error('Error fetching appointment details:', error);
+      }
   }
 
   // Consultation Request History (from consultation-request)
@@ -92,6 +161,77 @@
       if (section === 'past-appointments-section') loadAppointmentHistory();
       if (section === 'consultation-requests-section') loadConsultationHistory();
     });
+  });
+
+  const summaryReportBtn = document.getElementById('summary-report-nav-btn');
+  if (summaryReportBtn) {
+    summaryReportBtn.addEventListener('click', () => {
+      loadPage('generate-summary/generate-summary.html');  // path relative to your frontend/faculty folder
+      setTimeout(() => {
+        if (window.initSummaryReport) {
+          window.initSummaryReport();
+        }
+      }, 100); // adjust delay if needed
+    });
+  }
+
+  // ----- Summary Report Logic -----
+  async function fetchSummaryReports(filters = {}) {
+    const params = new URLSearchParams(filters);
+    try {
+      const response = await fetch(`/api/summary/saved?${params.toString()}`);
+      if (!response.ok) throw new Error("Failed to fetch summary reports.");
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+  function renderSummaryTable(data) {
+    const summaryTableBody = document.getElementById("summaryTableBody");
+    if (!summaryTableBody) return;
+
+    if (!data.length) {
+      summaryTableBody.innerHTML = `<tr><td colspan="9" class="text-center">No summary reports found</td></tr>`;
+      return;
+    }
+
+    summaryTableBody.innerHTML = data.map(row => `
+      <tr>
+        <td>${row.school || '-'}</td>
+        <td>${row.year_level || '-'}</td>
+        <td>${row.academic_year || '-'}</td>
+        <td>${row.college_term || '-'}</td>
+        <td>${row.bed_shs_term || '-'}</td>
+        <td>${row.number_of_students}</td>
+        <td>${parseFloat(row.total_hours).toFixed(1)}</td>
+        <td>${row.summary_report}</td>
+        <td>${new Date(row.date_created).toLocaleDateString()}</td>
+      </tr>
+    `).join('');
+  }
+
+  async function loadAndRenderSummaryReport(filters = {}) {
+    const data = await fetchSummaryReports(filters);
+    renderSummaryTable(data);
+  }
+
+  // Attach form handler
+  document.getElementById("filter-form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const filters = {
+      academic_year: document.getElementById("academicYear")?.value.trim(),
+      college_term: document.getElementById("collegeTerm")?.value,
+      bed_shs_term: document.getElementById("bedShsTerm")?.value
+    };
+
+    // Remove empty filters
+    Object.keys(filters).forEach(key => {
+      if (!filters[key]) delete filters[key];
+    });
+
+    loadAndRenderSummaryReport(filters);
   });
 
   // Load default tab

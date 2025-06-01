@@ -116,7 +116,7 @@ CREATE TABLE consultation_summary (
     id                 INTEGER PRIMARY KEY AUTOINCREMENT,
     school             TEXT,
     year_level         TEXT,
-    semester_ay        TEXT,
+    academic_year      TEXT,
     college_term       TEXT    CHECK (college_term IN ('Prelim', 'Midterm', 'PreFinal') ),
     bed_shs_term       TEXT    CHECK (bed_shs_term IN ('1st_Qtr', '2nd_Qtr', '3rd_Qtr', '4th_Qtr') ),
     number_of_students INTEGER,

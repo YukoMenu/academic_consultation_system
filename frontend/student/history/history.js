@@ -99,12 +99,21 @@
         <tr><th>Nature of Concerns</th><td>${entry.nature_of_concerns || ''}</td></tr>
       </table>
     `;
-    document.getElementById('appointment-details-modal').style.display = 'block';
+    
+    const modal = document.getElementById('appointment-details-modal');
+    modal.style.display = 'block';
+    
+    // Re-attach event listener to close button
+    document.getElementById('close-modal-btn').onclick = function() {
+        modal.style.display = 'none';
+    };
   }
 
   // Close modal logic
   document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOMContentLoaded fired");
     document.getElementById('close-modal-btn').onclick = function() {
+        console.log("Close button clicked");
       document.getElementById('appointment-details-modal').style.display = 'none';
     };
     // Optional: close modal when clicking outside

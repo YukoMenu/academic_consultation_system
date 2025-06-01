@@ -33,6 +33,7 @@
 |   |   ├─── documents/
 |   |   ├─── feedback/
 |   |   ├─── form/
+|   |   ├─── generate-summary/
 |   |   ├─── history/
 |   |   ├─── img/
 |   |   ├─── inbox/
@@ -63,6 +64,10 @@
 |   |   main.js
 |   |   styles.css
 |
+├─── nlp/
+|   |   summarize.js
+|   |   utils.js    [comment]: # Currently empty
+|
 ├─── routes/
 |   |   auth.js
 |   |   classes.js
@@ -73,6 +78,7 @@
 |   |   faculty-unavailable.js
 |   |   getuser.js
 |   |   setuser.js
+|   |   summary.js
 |   |   users.js
 |
 |   .gitignore
