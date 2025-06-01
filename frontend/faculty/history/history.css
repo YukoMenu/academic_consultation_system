@@ -16,6 +16,11 @@
   --tab-border: #2d3147;
   --tab-bg-active: #3b82f6;
   --tab-text-active: #fff;
+  --container-color: #fff;
+  --first-color-light: #f3f4f6;
+  --title-color: #222;
+  --text-color: #222;
+  --border-color: #e0e7ef;
 }
 
 body {
@@ -28,6 +33,11 @@ body {
 body.dark-theme {
   background-color: var(--card-bg-dark);
   color: var(--text-dark);
+  --container-color: #23273a;
+  --first-color-light: #23273a;
+  --title-color: #fff;
+  --text-color: #cbd5e1;
+  --border-color: #2d3147;
 }
 
 .history-page {
@@ -110,5 +120,34 @@ body.dark-theme .history-card {
   color: #888;
   padding: 2rem 0;
   text-align: center;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--container-color);
+  color: var(--text-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.history-table th,
+.history-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+  vertical-align: top;
+  word-break: break-word;
+  background: none;
+}
+
+.history-table th {
+  background-color: var(--first-color-light);
+  color: var(--title-color);
+}
+
+.history-table tr:last-child td {
+  border-bottom: none;
 }
 /* ----- END OF HISTORY.CSS (FACULTY) ----- */

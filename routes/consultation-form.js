@@ -63,5 +63,31 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// GET all consultation forms for a faculty (appointment history)
+router.get('/faculty', (req, res) => {
+  const { faculty_id } = req.query;
+  if (!faculty_id) return res.status(400).json({ error: 'Missing faculty_id' });
+
+  const sql = `
+    SELECT 
+      cf.*,
+      u_faculty.name AS faculty_name,
+      cs.student_id
+    FROM consultation_form cf
+    LEFT JOIN faculty f ON cf.faculty_id = f.user_id
+    LEFT JOIN users u_faculty ON f.user_id = u_faculty.id
+    LEFT JOIN consultation_students cs ON cf.consultation_id = cs.consultation_id
+    WHERE cf.faculty_id = ?
+    ORDER BY cf.date DESC, cf.start_time DESC
+  `;
+  db.all(sql, [faculty_id], (err, rows) => {
+    if (err) {
+      console.error('Database error:', err);
+      return res.status(500).json({ error: err.message, rows: [] });
+    }
+    res.json(Array.isArray(rows) ? rows : []);
+  });
+});
+
 module.exports = router;
 /* ----- END OF CONSULTATION-FORM.JS ----- */
