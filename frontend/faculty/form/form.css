@@ -337,4 +337,15 @@ body.dark-theme .form-page label i {
   align-items: center;
   margin-top: 2rem;
 }
+
+body.dark-theme .form-page input[type="date"]::-webkit-calendar-picker-indicator,
+body.dark-theme .form-page input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* Optional: For better cross-browser support, you can also try: */
+body.dark-theme .form-page input[type="date"]::-ms-input-placeholder,
+body.dark-theme .form-page input[type="time"]::-ms-input-placeholder {
+  color: #fff;
+}
 /* END OF FORM.CSS */

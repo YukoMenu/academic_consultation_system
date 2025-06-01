@@ -1,29 +1,11 @@
-<!-- START OF HISTORY.HTML -->
+<!-- START OF HISTORY.HTML (STUDENT) -->
 <section class="history-page">
   <div class="history-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-    <button id="appointment-history-btn" class="history-tab-btn active">Appointment History</button>
-    <button id="consultation-history-btn" class="history-tab-btn">Consultation Request History</button>
+    <button id="consultation-history-btn" class="history-tab-btn active">Consultation Request History</button>
+    <button id="appointment-history-btn" class="history-tab-btn">Appointment History</button>
   </div>
 
-  <div id="appointment-history-section">
-    <table class="history-table">
-      <!-- Appointment History Table -->
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Faculty</th>
-          <th>Course</th>
-          <th>Status</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody id="historyBody">
-        <!-- Filled by JS -->
-      </tbody>
-    </table>
-  </div>
-
-  <div id="consultation-history-section" style="display: none;">
+  <div id="consultation-history-section" style="display: block;">
     <table class="history-table">
       <!-- Consultation Request History Table -->
       <thead>
@@ -32,15 +14,45 @@
           <th>Faculty</th>
           <th>Course</th>
           <th>Status</th>
-          <th>Request Details</th>
+          <th>Reason</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td colspan="4" style="text-align:center;">No consultation requests yet.</td>
+          <td colspan="5" style="text-align:center;">No consultation requests yet.</td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <div id="appointment-history-section" style="display: none;">
+    <table class="history-table">
+      <!-- Appointment History Table -->
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Faculty</th>
+          <th>Course</th>
+          <th>Status</th>
+          <th>Venue</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="historyBody">
+        <!-- Filled by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal for appointment details -->
+  <div id="appointment-details-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span id="close-modal-btn" class="close-btn" style="cursor:pointer;">&times;</span>
+      <h2>Appointment Details</h2>
+      <div id="appointment-details-content">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
 </section>
-<!-- END OF HISTORY.HTML -->
+<!-- END OF HISTORY.HTML (STUDENT) -->

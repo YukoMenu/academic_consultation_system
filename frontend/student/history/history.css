@@ -1,4 +1,4 @@
-/* ----- START OF HISTORY.CSS ----- */
+/* ----- START OF HISTORY.CSS (STUDENT) ----- */
 :root {
     --tab-bg: #f3f4f6;
     --tab-bg-active: #3b82f6;
@@ -70,4 +70,4 @@
     border-bottom: 2px solid var(--tab-bg-active);
     z-index: 1;
   }
-/* ----- END OF HISTORY.CSS ----- */
+/* ----- END OF HISTORY.CSS (STUDENT) ----- */

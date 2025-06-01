@@ -98,14 +98,14 @@ router.get('/faculty', (req, res) => {
 
 // GET all student users
 router.get('/students', (req, res) => {
-    const sql = `SELECT users.*, students.program, students.year_level
-                 FROM users
-                 JOIN students ON users.id = students.user_id
-                 WHERE users.role = 'student'`;
-    db.all(sql, [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
+    db.all(
+        `SELECT u.id, u.name, u.email FROM users u WHERE u.role = 'student'`,
+        [],
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json(rows);
+        }
+    );
 });
 
 // Get single user by ID (with joined student/faculty info)

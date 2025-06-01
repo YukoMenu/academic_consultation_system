@@ -48,6 +48,7 @@ app.use('/login', express.static(path.join(__dirname, 'frontend', 'login')));
 app.use('/admin', express.static(path.join(__dirname, 'frontend', 'admin')));
 app.use('/faculty', express.static(path.join(__dirname, 'frontend', 'faculty')));
 app.use('/student', express.static(path.join(__dirname, 'frontend', 'student')));
+app.use('/data', express.static(path.join(__dirname, 'data')));
 
 // API Routes
 const usersRoute = require('./routes/users');
@@ -73,6 +74,7 @@ app.use('/api/courses', coursesRoute);
 app.use('/api/consultation-request', consultationRequestRoutes);
 app.use('/api/appointment', facultyAppointmentRoutes);
 app.use('/api/faculty-unavailable', facultyUnavailableRoutes);
+app.use('/api/consultation-form', require('./routes/consultation-form'));
 
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'login', 'login.html'));
