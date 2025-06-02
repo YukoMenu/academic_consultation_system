@@ -3,7 +3,7 @@
 // npm install express-session
 // 
 // For Git (bash)
-// cd "/c/Users/My PC/Documents/GitHub/academic_consultation_system"
+// cd "/c/Users/Jiro/Documents/GitHub/academic_consultation_system"
 // mkdir -p cert  -- if cert folder doesn't exist
 // openssl req -nodes -new -x509 -keyout cert/server.key -out cert/server.cert -days 365  -- this creates server.key and server.cert
 //
