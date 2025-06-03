@@ -8,6 +8,8 @@
 // openssl req -nodes -new -x509 -keyout cert/server.key -out cert/server.cert -days 365  -- this creates server.key and server.cert
 //
 // node server.js
+// ipconfig get local-ipv4  -- to get your local IP address
+// https://your-local-ipv4:3000/login  -- to access the login page in your browser
 
 // ----- START OF SERVER.JS -----
 require('dotenv').config();
@@ -18,6 +20,7 @@ const path = require('path');
 const fs = require('fs');
 const https = require('https');
 const app = express();
+const HOST = '0.0.0.0';
 const PORT = 3000;
 
 const sslOptions = {
@@ -95,7 +98,20 @@ app.get('/student/', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'student', 'index.html'));
 });
 
-https.createServer(sslOptions, app).listen(PORT, () => {
-  console.log(`Server is running at https://localhost:${PORT}/login`);
+function getLocalIPAddress() {
+  const os = require('os');
+  const interfaces = os.networkInterfaces();
+  for (let iface in interfaces) {
+    for (let config of interfaces[iface]) {
+      if (config.family === 'IPv4' && !config.internal) {
+        return config.address;
+      }
+    }
+  }
+  return 'localhost';
+}
+
+https.createServer(sslOptions, app).listen(PORT, HOST, () => {
+  console.log(`Server is running at https://${getLocalIPAddress()}:${PORT}/login`);
 });
 // ----- END OF SERVER.JS -----

@@ -1,49 +1,9 @@
 /* ----- START OF HISTORY.CSS (FACULTY) ----- */
-:root {
-  --card-bg-light: var(--body-color);
-  --card-bg-dark: hsl(228, 24%, 16%);
-  --text-light: var(--title-color);
-  --text-dark: hsl(228, 18%, 96%);
-  --border-light: hsl(228, 20%, 90%);
-  --border-dark: hsl(228, 16%, 30%);
-  --accent: var(--first-color);
-  --shadow-color: var(--shadow-color);
-  --status-completed: hsl(120, 70%, 40%);
-  --status-canceled: hsl(0, 70%, 50%);
-  --status-pending: hsl(42, 90%, 55%);
-  --tab-bg: #e2e8f0;       
-  --tab-text: #1e293b;     
-  --tab-border: #cbd5e1;    
-  --tab-bg-active: #3b82f6;  
-  --tab-text-active: #fff; 
-  --container-color: #fff;
-  --first-color-light: #f3f4f6;
-  --title-color: #222;
-  --text-color: #222;
-  --border-color: #e0e7ef;
-}
 
 body {
   font-family: var(--body-font);
-  color: var(--text-light);
   background-color: var(--body-color);
   transition: background-color 0.4s, color 0.4s;
-}
-
-body.dark-theme {
-  background-color: var(--card-bg-dark);
-  color: var(--text-dark);
-  --container-color: #23273a;
-  --first-color-light: #23273a;
-  --title-color: #fff;
-  --text-color: #cbd5e1;
-  --border-color: #2d3147;
-
-  --tab-bg: #1e293b;
-  --tab-text: #e2e8f0;
-  --tab-border: #334155;
-  --tab-bg-active: #3b82f6;
-  --tab-text-active: #fff;
 }
 
 .history-page {

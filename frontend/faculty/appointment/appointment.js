@@ -2,11 +2,11 @@
 (() => {
   let currentMonth = new Date().getMonth();
   let currentYear = new Date().getFullYear();
-  let facultyAvailability = {}; // day_of_week -> slots array
-  let calendarStatus = {}; // { 'YYYY-MM-DD': 'pending'|'accepted' }
-  let allRequests = []; // All requests for the month
-  let facultyUnavailableDays = []; // Track faculty unavailable days
-
+  let facultyAvailability = {};
+  let calendarStatus = {}; 
+  let allRequests = []; 
+  let facultyUnavailableDays = []; 
+  
   const calendarHeader = document.getElementById('calendarHeader');
   const calendarGrid = document.getElementById('calendar');
   const monthYear = document.getElementById('monthYear');
@@ -52,8 +52,6 @@
       // 3. Fetch faculty unavailable days
       const unavailableRes = await fetch(`/api/faculty-unavailable/${window.currentFacultyId}?month=${monthStr}`);
       facultyUnavailableDays = await unavailableRes.json();
-
-      // After fetching all requests for the month:
       const statusByDate = {};
       allRequests.forEach(req => {
         const date = req.date_requested;
@@ -231,7 +229,6 @@
         }
         // Re-render the requests for the current date, sorted
         showRequestsForDate(req.date_requested);
-        // Optionally, refresh calendar status/colors
         loadFacultyAvailability();
       });
     });

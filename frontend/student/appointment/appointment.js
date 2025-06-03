@@ -2,7 +2,6 @@
 (() => {
     console.log("Appointment loaded!");
 
-    // DOM elements
     const calendarHeader = document.getElementById("calendarHeader");
     const calendar = document.getElementById("calendar");
     const facultyDropdown = document.getElementById("facultyDropdown");
@@ -40,16 +39,13 @@
             facultyAvailability[dow].push(slot);
         });
 
-        // Fetch unavailable days for the selected faculty and month
         const monthStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`;
         const unavailableRes = await fetch(`/api/faculty-unavailable/${facultyId}?month=${monthStr}`);
         facultyUnavailableDays = await unavailableRes.json();
 
-        // Fetch request status for each date
         const statusRes = await fetch(`/api/consultation-request/calendar-status?faculty_id=${facultyId}&month=${monthStr}`);
         facultyRequestStatusByDate = await statusRes.json();
 
-        // Only update the calendar after all data is fetched
         updateAvailability();
     }
 
@@ -348,6 +344,7 @@
                 alert("Appointment request submitted!");
                 appointmentModal.style.display = "none";
                 resetAppointmentForm();
+                updateAvailability();
             } else {
                 alert(data.error || "Failed to submit appointment.");
             }
