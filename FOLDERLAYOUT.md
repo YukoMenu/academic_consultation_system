@@ -71,8 +71,10 @@
 ├─── routes/
 |   |   auth.js
 |   |   classes.js
+|   |   consultation-form.js
 |   |   consultation-request.js
 |   |   consultation.js
+|   |   courses.js
 |   |   faculty-appointment.js
 |   |   faculty-availability.js
 |   |   faculty-unavailable.js
