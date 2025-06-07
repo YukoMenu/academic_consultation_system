@@ -3,6 +3,7 @@
 // npm install express-session
 // npm install docxtemplater pizzip
 // npm install npm install pdfmake
+// npm install puppeteer handlebars
 // 
 // For Git (bash)
 // cd "/c/Users/My PC/Documents/GitHub/academic_consultation_system"
@@ -55,6 +56,7 @@ app.use('/admin', express.static(path.join(__dirname, 'frontend', 'admin')));
 app.use('/faculty', express.static(path.join(__dirname, 'frontend', 'faculty')));
 app.use('/student', express.static(path.join(__dirname, 'frontend', 'student')));
 app.use('/data', express.static(path.join(__dirname, 'data')));
+app.use('/templates', express.static(path.join(__dirname, 'templates')));
 
 // API Routes
 const usersRoute = require('./routes/users');

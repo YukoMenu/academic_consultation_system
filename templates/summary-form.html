@@ -9,33 +9,33 @@ xmlns="http://www.w3.org/TR/REC-html40">
 <meta name=ProgId content=Word.Document>
 <meta name=Generator content="Microsoft Word 15">
 <meta name=Originator content="Microsoft Word 15">
-<link rel=File-List href="fill-up-form_files/filelist.xml">
+<link rel=File-List href="summary-form_files/filelist.xml">
 <!--[if gte mso 9]><xml>
  <o:DocumentProperties>
   <o:Author>Microsoft account</o:Author>
   <o:LastAuthor>Microsoft account</o:LastAuthor>
   <o:Revision>2</o:Revision>
-  <o:TotalTime>77</o:TotalTime>
-  <o:Created>2025-06-07T08:17:00Z</o:Created>
-  <o:LastSaved>2025-06-07T08:17:00Z</o:LastSaved>
+  <o:TotalTime>53</o:TotalTime>
+  <o:Created>2025-06-07T09:45:00Z</o:Created>
+  <o:LastSaved>2025-06-07T09:45:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
-  <o:Words>123</o:Words>
-  <o:Characters>706</o:Characters>
+  <o:Words>125</o:Words>
+  <o:Characters>714</o:Characters>
   <o:Lines>5</o:Lines>
   <o:Paragraphs>1</o:Paragraphs>
-  <o:CharactersWithSpaces>828</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>838</o:CharactersWithSpaces>
   <o:Version>15.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
   <o:AllowPNG/>
  </o:OfficeDocumentSettings>
 </xml><![endif]-->
-<link rel=dataStoreItem href="fill-up-form_files/item0001.xml"
-target="fill-up-form_files/props002.xml">
-<link rel=themeData href="fill-up-form_files/themedata.thmx">
-<link rel=colorSchemeMapping href="fill-up-form_files/colorschememapping.xml">
+<link rel=themeData href="summary-form_files/themedata.thmx">
+<link rel=colorSchemeMapping href="summary-form_files/colorschememapping.xml">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -647,11 +647,10 @@ target="fill-up-form_files/props002.xml">
  @font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;
-	mso-font-charset:1;
+	mso-font-charset:0;
 	mso-generic-font-family:roman;
-	mso-font-format:other;
 	mso-font-pitch:variable;
-	mso-font-signature:0 0 0 0 0 0;}
+	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
 @font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;
@@ -733,6 +732,12 @@ span.FooterChar
 	mso-style-unhide:no;
 	mso-style-locked:yes;
 	mso-style-link:Footer;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -750,20 +755,17 @@ span.FooterChar
 	margin-bottom:8.0pt;
 	line-height:107%;}
  /* Page Definitions */
-
- @page {
-  size: A4;
-  margin: 1in 1in 1in 1in;
-  @top-center {
-    content: url('/templates/fill-up-form_files/header.png');
-  }
-}
+ @page
+	{mso-footnote-separator:url("summary-form_files/header.html") fs;
+	mso-footnote-continuation-separator:url("summary-form_files/header.html") fcs;
+	mso-endnote-separator:url("summary-form_files/header.html") es;
+	mso-endnote-continuation-separator:url("summary-form_files/header.html") ecs;}
 @page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;
 	mso-header-margin:.5in;
 	mso-footer-margin:.5in;
-	mso-header:url("fill-up-form_files/header.html") h1;
+	mso-header:url("summary-form_files/header.html") h1;
 	mso-paper-source:0;}
 div.WordSection1
 	{page:WordSection1;}
@@ -830,83 +832,71 @@ table.MsoTableGrid
 <div class=WordSection1>
 
 <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
-text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'>INDIVIDUAL/GROUP
-ACADEMIC CONSULTATION<o:p></o:p></b></p>
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'>SCHOOL:</b>
+_________________________<u>{{school}}</u>______________________________<o:p></o:p></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'>________<u>{{year_level}}</u>________
+Semester/AY ____________<u>{{academic_year}}</u>____________<o:p></o:p></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'>COLLEGE:</b><span
+style='mso-spacerun:yes'> </span>_<u>{{prelim_check}}</u>_<span class=GramE>_<span
+style='mso-spacerun:yes'> </span><b>Prelim</b></span> _<u>{{midterm_check}}</u>_ <b>Midterm</b> _<u>{{prefinal_check}}</u>_ <b>Pre-Final</b><o:p></o:p></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b 
+style='mso-bidi-font-weight:normal'>BED/SHS:</b>__<u>{{first_qtr_check}}</u>__ 1<sup>st</sup> <span class=SpellE>Qtr</span><span
+style='mso-spacerun:yes'> </span>__<u>{{second_qtr_check}}</u>__ <b>2<sup>nd</sup> <span class=SpellE>Qtr</span></b><span
+style='mso-spacerun:yes'> </span>__<u>{{third_qtr_check}}</u>__ <b>3<sup>rd</sup> <span class=SpellE>Qtr</span></b><span
+style='mso-spacerun:yes'> </span>__<u>{{fourth_qtr_check}}</u>__ <b>4<sup>th</sup> <span class=SpellE>Qtr</span></b><o:p></o:p></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'>NARRATIVE
+REPORT ON ACADEMIC CONSULTATION<o:p></o:p></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
+
+<p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+text-align:center;line-height:normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal'><b style='mso-bidi-font-weight:normal'>Number of students who availed
+Academic Consultation:</b> ________<u>{{number_of_students}}</u>________<o:p></o:p></p>
+
+<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+normal'><b style='mso-bidi-font-weight:normal'>Total number of hours rendered</b>
+by the faculty: ________<u>{{total_hours}}</u>________<o:p></o:p></p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
 normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>NAME/S: </b>_<u>{{student_names}}</u>_</p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>Date: </b>_<u>{{date}}</u>_<b
-style='mso-bidi-font-weight:normal'><span style='mso-tab-count:1'> </span>Start
-Time: </b>_<u>{{start_time}}</u>_<b style='mso-bidi-font-weight:normal'><span
-style='mso-tab-count:1'> </span>End Time: </b>_<u>{{end_time}}</u>_<b
-style='mso-bidi-font-weight:normal'><o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>Program: </b>_<u>{{program}}</u>_<b
-style='mso-bidi-font-weight:normal'><span style='mso-tab-count:1'> </span><span
-style='mso-tab-count:1'> </span>Course Code/Title: </b>_<u>{{course_code}}</u>_<b
-style='mso-bidi-font-weight:normal'><o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>Venue: </b>_<u>{{venue}}</u>_<b
-style='mso-bidi-font-weight:normal'><span style='mso-tab-count:1'> </span>Term:
-</b>_<u>{{term}}</u>_<b style='mso-bidi-font-weight:normal'><o:p></o:p></b></p>
+normal'><b style='mso-bidi-font-weight:normal'>SUMMARY RRERPORT (nature of
+concerns/intervention/progress)<o:p></o:p></b></p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
 normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
 
 <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
  style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
- mso-yfti-tbllook:1184;mso-padding-alt:0in 5.75pt 0in 5.75pt'>
+ mso-yfti-tbllook:1184;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
-  page-break-inside:avoid;height:2.6in'>
-  <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  mso-border-alt:solid windowtext .5pt;padding:0in 5.75pt 0in 5.75pt;
-  height:2.6in'>
+  height:2.5in'>
+  <td width=623 valign=top style='width:467.5pt;border:none;padding:0in 5.4pt 0in 5.4pt;
+  height:2.5in'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><b style='mso-bidi-font-weight:normal'>Course Concerns<o:p></o:p></b></p>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>{{course_concerns}}</p>
-  </td>
-  <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
-  solid windowtext .5pt;padding:0in 5.75pt 0in 5.75pt;height:2.6in'>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><b style='mso-bidi-font-weight:normal'>Action
-  Taken/Intervention/Progress<o:p></o:p></b></p>
-  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>{{intervention}}</p>
+  normal'>{{summary_report}}</p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>Nature of Concerns:<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'>_<u>{{decision_making_check}}</u>_<b style='mso-bidi-font-weight:normal'> 1. Decision Making<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'>_<u>{{study_skills_check}}</u>_<b style='mso-bidi-font-weight:normal'> 2. Study Skills<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'>_<u>{{monitoring_check}}</u>_ <b style='mso-bidi-font-weight:normal'>3. Monitoring of
-Underachieving Students<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'>_<u>{{monitoring_check}}</u>_ <b style='mso-bidi-font-weight:normal'>4. Others (pls specify) </b>_<u>{{others_info}}</u>_<b
-style='mso-bidi-font-weight:normal'><o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
 normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
@@ -921,25 +911,36 @@ normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>_____________________________</p>
+  normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b style='mso-bidi-font-weight:normal'>______________________________<o:p></o:p></b></p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'><b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:
   normal'><span style='font-size:10.0pt;mso-bidi-font-size:11.0pt'>Signature
   over Printed Name<o:p></o:p></span></i></b></p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><b style='mso-bidi-font-weight:normal'>Faculty<o:p></o:p></b></p>
+  normal'><b style='mso-bidi-font-weight:normal'>Faculty Member<span
+  style='mso-tab-count:1'> </span><o:p></o:p></b></p>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b style='mso-bidi-font-weight:normal'>Date: _________________<o:p></o:p></b></p>
   </td>
   <td width=312 valign=top style='width:233.75pt;padding:0in 5.4pt 0in 5.4pt'>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><b style='mso-bidi-font-weight:normal'>Signature of the Student/s<o:p></o:p></b></p>
+  normal'>Noted by:</p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
+  normal'><o:p>&nbsp;</o:p></p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-  normal'>_____________________________</p>
+  normal'><o:p>&nbsp;</o:p></p>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b style='mso-bidi-font-weight:normal'>______________________________<o:p></o:p></b></p>
   <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
   normal'><b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:
   normal'><span style='font-size:10.0pt;mso-bidi-font-size:11.0pt'>Signature
-  over Printed Name</span><o:p></o:p></i></b></p>
+  over Printed Name<o:p></o:p></span></i></b></p>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b style='mso-bidi-font-weight:normal'>Chair/Co-Chair/Academic Head<o:p></o:p></b></p>
+  <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
+  normal'><b style='mso-bidi-font-weight:normal'>Date: _________________<o:p></o:p></b></p>
   </td>
  </tr>
 </table>
@@ -950,38 +951,70 @@ normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
 normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
 
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>Noted by:<o:p></o:p></b></p>
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 align=left
+ style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:1184;mso-table-lspace:9.0pt;margin-left:6.75pt;mso-table-rspace:
+ 9.0pt;margin-right:6.75pt;mso-table-anchor-vertical:paragraph;mso-table-anchor-horizontal:
+ margin;mso-table-left:left;mso-table-top:15.05pt;mso-padding-alt:0in 5.4pt 0in 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  page-break-inside:avoid;height:98.5pt'>
+  <td width=204 valign=top style='width:153.0pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:98.5pt'>
+  <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal;mso-element:frame;mso-element-frame-hspace:
+  9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+  mso-element-anchor-horizontal:margin;mso-element-top:15.05pt;mso-height-rule:
+  exactly'>OFFICE OF THE VICE PRESIDENT</p>
+  <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal;mso-element:frame;mso-element-frame-hspace:
+  9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+  mso-element-anchor-horizontal:margin;mso-element-top:15.05pt;mso-height-rule:
+  exactly'><span style='font-size:10.0pt;mso-bidi-font-size:11.0pt'>FOR
+  ACADEMICS<o:p></o:p></span></p>
+  <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 align=left
+   style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+   mso-yfti-tbllook:1184;margin-left:-2.25pt;margin-right:-2.25pt;mso-table-anchor-vertical:
+   paragraph;mso-table-anchor-horizontal:margin;mso-table-left:left;mso-padding-alt:
+   0in 5.4pt 0in 5.4pt'>
+   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+    page-break-inside:avoid;height:.5in'>
+    <td width=114 valign=top style='width:85.5pt;border:solid windowtext 1.0pt;
+    mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;
+    height:.5in'>
+    <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:
+    .0001pt;text-align:center;line-height:normal;mso-element:frame;mso-element-frame-hspace:
+    9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+    mso-element-anchor-horizontal:margin;mso-element-top:15.05pt;mso-height-rule:
+    exactly'><o:p>&nbsp;</o:p></p>
+    <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:
+    .0001pt;text-align:center;line-height:normal;mso-element:frame;mso-element-frame-hspace:
+    9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+    mso-element-anchor-horizontal:margin;mso-element-top:15.05pt;mso-height-rule:
+    exactly'><o:p>&nbsp;</o:p></p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal;mso-element:frame;mso-element-frame-hspace:
+  9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+  mso-element-anchor-horizontal:margin;mso-element-top:15.05pt;mso-height-rule:
+  exactly'>LETRAN CALAMBA</p>
+  <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal;mso-element:frame;mso-element-frame-hspace:
+  9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+  mso-element-anchor-horizontal:margin;mso-element-top:15.05pt;mso-height-rule:
+  exactly'><span style='font-size:6.0pt;mso-bidi-font-size:11.0pt'><o:p>&nbsp;</o:p></span></p>
+  <p class=MsoNormal align=center style='margin-bottom:0in;margin-bottom:.0001pt;
+  text-align:center;line-height:normal;mso-element:frame;mso-element-frame-hspace:
+  9.0pt;mso-element-wrap:around;mso-element-anchor-vertical:paragraph;
+  mso-element-anchor-horizontal:margin;mso-element-top:15.05pt;mso-height-rule:
+  exactly'>Received By: _______________<b style='mso-bidi-font-weight:normal'><o:p></o:p></b></p>
+  </td>
+ </tr>
+</table>
 
 <p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
 normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'>_____________________________</p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:
-normal'><span style='font-size:10.0pt;mso-bidi-font-size:11.0pt'>Signature over
-Printed Name<o:p></o:p></span></i></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>Chair/Co-Chair/Academic Head<o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>Date:<span style='mso-tab-count:
-1'> </span></b>_____________________<b style='mso-bidi-font-weight:normal'><o:p></o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'><o:p>&nbsp;</o:p></b></p>
-
-<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:
-normal'><b style='mso-bidi-font-weight:normal'>C: OVPAR<o:p></o:p></b></p>
 
 </div>
 

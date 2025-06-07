@@ -29,6 +29,16 @@ router.get('/appointment-html/:id', async (req, res) => {
             if (err) return res.status(500).json({ error: err.message });
 
             // Prepare data for template
+            const concerns = (row.nature_of_concerns || '').toLowerCase();
+            const othersMatch = concerns.match(/others[:\-]?\s*(.*)/i);
+            const concernChecks = {
+                decision_making: concerns.includes('decision') ? '✓' : '_',
+                study_skills: concerns.includes('study') ? '✓' : '_',
+                monitoring: concerns.includes('monitoring') ? '✓' : '_',
+                others: othersMatch ? '✓' : '_',
+                others_info: othersMatch && othersMatch[1] ? othersMatch[1].trim() : ''
+            };
+
             const data = {
                 date: row.date,
                 faculty_name: row.faculty_name,
@@ -41,7 +51,12 @@ router.get('/appointment-html/:id', async (req, res) => {
                 end_time: row.end_time,
                 course_concerns: row.course_concerns,
                 intervention: row.intervention,
-                nature_of_concerns: row.nature_of_concerns
+                nature_of_concerns: row.nature_of_concerns,
+                decision_making_check: concernChecks.decision_making,
+                study_skills_check: concernChecks.study_skills,
+                monitoring_check: concernChecks.monitoring,
+                others_check: concernChecks.others,
+                others_info: concernChecks.others_info
             };
 
             // Load and compile HTML template
@@ -61,6 +76,63 @@ router.get('/appointment-html/:id', async (req, res) => {
             res.setHeader('Content-Disposition', `attachment; filename=appointment_${id}.pdf`);
             res.send(pdfBuffer);
         });
+    });
+});
+
+router.get('/summary-html/:id', async (req, res) => {
+    const id = req.params.id;
+    db.get(`SELECT * FROM consultation_summary WHERE id = ?`, [id], async (err, row) => {
+        if (err || !row) return res.status(404).json({ error: 'Not found' });
+
+        // Define possible terms
+        const collegeTerms = ["Prelim", "Midterm", "PreFinal"];
+        const bedShsTerms = ["1st_Qtr", "2nd_Qtr", "3rd_Qtr", "4th_Qtr"];
+
+        // Prepare checkmarks for each term
+        const collegeTermChecks = {};
+        collegeTerms.forEach(term => {
+            collegeTermChecks[term] = (row.college_term === term) ? '✓' : '_';
+        });
+
+        const bedShsTermChecks = {};
+        bedShsTerms.forEach(term => {
+            bedShsTermChecks[term] = (row.bed_shs_term === term) ? '✓' : '_';
+        });
+
+        // Prepare data for template
+        const data = {
+            school: row.school,
+            year_level: row.year_level,
+            academic_year: row.academic_year,
+            number_of_students: row.number_of_students,
+            total_hours: row.total_hours,
+            date_created: row.date_created,
+            summary_report: row.summary_report,
+            prelim_check: collegeTermChecks["Prelim"],
+            midterm_check: collegeTermChecks["Midterm"],
+            prefinal_check: collegeTermChecks["PreFinal"],
+            first_qtr_check: bedShsTermChecks["1st_Qtr"],
+            second_qtr_check: bedShsTermChecks["2nd_Qtr"],
+            third_qtr_check: bedShsTermChecks["3rd_Qtr"],
+            fourth_qtr_check: bedShsTermChecks["4th_Qtr"]
+        };
+
+        // Load and compile HTML template
+        const templatePath = path.join(__dirname, '..', 'templates', 'summary-form.html');
+        const html = fs.readFileSync(templatePath, 'utf8');
+        const compiled = Handlebars.compile(html);
+        const filledHtml = compiled(data);
+
+        // Generate PDF with Puppeteer
+        const browser = await puppeteer.launch({ headless: "new" });
+        const page = await browser.newPage();
+        await page.setContent(filledHtml, { waitUntil: 'networkidle0' });
+        const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
+        await browser.close();
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename=summary_${id}.pdf`);
+        res.send(pdfBuffer);
     });
 });
 

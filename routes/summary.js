@@ -74,5 +74,14 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Get a specific saved summary by ID
+router.get('/saved/:id', (req, res) => {
+  const id = req.params.id;
+  db.get('SELECT * FROM consultation_summary WHERE id = ?', [id], (err, row) => {
+    if (err || !row) return res.status(404).json({ error: 'Not found' });
+    res.json(row);
+  });
+});
+
 module.exports = router;
 /* ----- END OF SUMMARY.JS ----- */
