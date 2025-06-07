@@ -74,7 +74,7 @@ CREATE TABLE consultation_requests (
     reason         TEXT     NOT NULL,
     date_created   DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_closed    DATETIME,
-    status         TEXT     CHECK (status IN ('pending', 'accepted', 'rejected') ) 
+    status         TEXT     CHECK (status IN ('pending', 'accepted', 'rejected', 'closed') ) 
                             DEFAULT 'pending',
     FOREIGN KEY (
         faculty_id
