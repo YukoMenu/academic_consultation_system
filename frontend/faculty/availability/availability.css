@@ -417,9 +417,9 @@ body.dark-theme .availability-edit-row select {
 }
 
 body.dark-theme .availability-edit-row input[type="time"] {
-  background-color: var(--input-bg-dark, hsl(228, 24%, 24%));
-  color: var(--text-dark);
-  border-color: var(--border-dark);
+  background-color: var(--text-color);
+  color: var(--text-dark, #fff);
+  border-color: var(--border-dark, #555);
 }
 
 .availability-edit-row button.save-btn,
@@ -462,5 +462,18 @@ body.dark-theme .availability-edit-row button.save-btn {
 
 body.dark-theme .availability-edit-row button.delete-btn {
   box-shadow: none;
+}
+
+/* For create and edit rows in dark mode */
+body.dark-theme .availability-row input[type="time"],
+body.dark-theme .availability-edit-row input[type="time"] {
+  background-color: var(--input-bg-dark, #222);
+  color: var(--text-dark, #fff);
+  border-color: var(--border-dark, #555);
+}
+
+/* Optional: Style the time input's calendar/time icon for better visibility */
+body.dark-theme input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
 /* ----- END OF AVAILABILITY.CSS ----- */
