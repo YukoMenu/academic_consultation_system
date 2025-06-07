@@ -38,7 +38,11 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  if (!req.session.user && req.path.startsWith('/api/')) {
+  if (
+    (!req.session.user && req.path.startsWith('/api/')) &&
+    req.path !== '/api/users' &&
+    req.path !== '/login'
+  ) {
     return res.status(401).json({ error: 'Session expired' });
   }
   next();
