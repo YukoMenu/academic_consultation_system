@@ -64,6 +64,16 @@
       <datalist id="student-list"></datalist>
       <label for="reason"><i class="ri-chat-3-line" style="margin-right:0.3rem;"></i>Reason:</label>
       <textarea id="reason" name="reason" rows="2" style="width:100%;margin-bottom:1rem;" placeholder="Enter reason for appointment"></textarea>
+      <!-- Add Program Input -->
+      <label for="program"><i class="ri-graduation-cap-line" style="margin-right:0.3rem;"></i>Program:</label>
+      <input id="program" name="program" type="text" placeholder="Enter program" style="width:100%;margin-bottom:1rem;" />
+      <label for="term"><i class="ri-calendar-event-line" style="margin-right:0.3rem;"></i>Term:</label>
+      <select id="term" name="term" required style="width:100%;margin-bottom:1rem;">
+        <option value="">-- Select Term --</option>
+        <option value="Prelim">Prelim</option>
+        <option value="Midterm">Midterm</option>
+        <option value="Final">Final</option>
+      </select>
       <label for="timeSlot"><i class="ri-time-line" style="margin-right:0.3rem;"></i>Select Time:</label>
       <select id="timeSlot"></select>
       <div class="form-btn-row">

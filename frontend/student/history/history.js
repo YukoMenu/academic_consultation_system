@@ -18,18 +18,20 @@
     const tbody = document.querySelector('#consultation-history-section tbody');
     tbody.innerHTML = '';
     if (!consultationHistory || consultationHistory.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No consultation requests found.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No consultation requests found.</td></tr>`;
       return;
     }
     consultationHistory.forEach(entry => {
-      const reason = entry.reason || '';
       tbody.innerHTML += `
         <tr>
           <td>${entry.date_requested}</td>
           <td>${entry.faculty_name}</td>
           <td>${entry.course_code}</td>
+          <td>${entry.program || ''}</td>
+          <td>${entry.start_time || ''}</td>
+          <td>${entry.end_time || ''}</td>
           <td>${entry.status}</td>
-          <td>${reason}</td>
+          <td>${entry.reason || ''}</td>
         </tr>
       `;
     });

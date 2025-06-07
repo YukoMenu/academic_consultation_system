@@ -5,9 +5,9 @@ const db = require('../db/database');
 
 // POST /api/consultation-request
 router.post('/', (req, res) => {
-  const { faculty_id, course_code, date_requested, time_requested, reason, student_ids } = req.body;
+  const { faculty_id, course_code, date_requested, start_time, end_time, program, reason, term, student_ids } = req.body;
 
-  if (!faculty_id || !course_code || !date_requested || !time_requested || !reason || !Array.isArray(student_ids) || student_ids.length === 0) {
+  if (!faculty_id || !course_code || !date_requested || !start_time || !end_time || !program || !reason || !term || !Array.isArray(student_ids) || student_ids.length === 0) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -18,57 +18,90 @@ router.post('/', (req, res) => {
     return res.status(400).json({ error: 'One or more student IDs are invalid.' });
   }
 
-  db.run(
-    `INSERT INTO consultation_requests (faculty_id, course_code, date_requested, time_requested, reason) VALUES (?, ?, ?, ?, ?)`,
-    [faculty_id, course_code, date_requested, time_requested, reason],
-    function (err) {
-      if (err) {
-        return res.status(500).json({ error: 'Database error' });
-      }
-      const requestId = this.lastID;
+  const sql = `
+    INSERT INTO consultation_requests
+    (faculty_id, course_code, date_requested, start_time, end_time, program, reason, term, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+  `;
+  const params = [
+    faculty_id,
+    course_code,
+    date_requested,
+    start_time,
+    end_time,
+    program,
+    reason,
+    term
+  ];
 
-      // Insert students
-      const stmt = db.prepare(
-        `INSERT INTO consultation_requests_students (consultation_request_id, student_id) VALUES (?, ?)`
-      );
-      for (const sid of validStudentIds) {
-        stmt.run(requestId, sid);
-      }
-      stmt.finalize();
+  db.run(sql, params, function (err) {
+    if (err) return res.status(500).json({ error: err.message });
+    const requestId = this.lastID;
 
-      res.status(201).json({ message: 'Consultation request created', id: requestId });
+    // Insert students
+    const stmt = db.prepare(
+      `INSERT INTO consultation_requests_students (consultation_request_id, student_id) VALUES (?, ?)`
+    );
+    for (const sid of validStudentIds) {
+      stmt.run(requestId, sid);
     }
-  );
+    stmt.finalize();
+
+    res.status(201).json({ message: 'Consultation request created', id: requestId });
+  });
 });
 
 // GET all consultation requests (optionally filter by faculty or student)
 router.get('/', (req, res) => {
-  const { faculty_id, student_id } = req.query;
+  const { faculty_id, student_id, status } = req.query;
   let sql = `
-    SELECT cr.*, group_concat(s.user_id) as student_ids, group_concat(u.name) as student_names, u_faculty.name as faculty_name
+    SELECT cr.*
     FROM consultation_requests cr
-    JOIN consultation_requests_students crs ON cr.id = crs.consultation_request_id
-    JOIN students s ON crs.student_id = s.user_id
-    JOIN users u ON s.user_id = u.id
-    JOIN faculty f ON cr.faculty_id = f.user_id
-    JOIN users u_faculty ON f.user_id = u_faculty.id
+    WHERE 1=1
+      AND cr.date_requested >= DATE('now')
+      AND (cr.status IS NULL OR cr.status != 'closed')
   `;
   const params = [];
-  const where = [];
   if (faculty_id) {
-    where.push('cr.faculty_id = ?');
+    sql += ' AND cr.faculty_id = ?';
     params.push(faculty_id);
   }
-  if (student_id) {
-    where.push('crs.student_id = ?');
-    params.push(student_id);
+  if (status) {
+    sql += ' AND cr.status = ?';
+    params.push(status);
   }
-  if (where.length) sql += ' WHERE ' + where.join(' AND ');
-  sql += ' GROUP BY cr.id ORDER BY cr.date_created DESC';
+  // ...add other filters as needed...
 
-  db.all(sql, params, (err, rows) => {
+  sql += ' ORDER BY cr.date_requested DESC';
+
+  // 1. Get all requests
+  db.all(sql, params, (err, requests) => {
     if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
+    if (!requests.length) return res.json([]);
+
+    // 2. For each request, get students
+    const reqIds = requests.map(r => r.id);
+    db.all(
+      `SELECT crs.consultation_request_id, u.id, u.name
+       FROM consultation_requests_students crs
+       JOIN users u ON crs.student_id = u.id
+       WHERE crs.consultation_request_id IN (${reqIds.map(() => '?').join(',')})`,
+      reqIds,
+      (err2, students) => {
+        if (err2) return res.status(500).json({ error: err2.message });
+        // Group students by request
+        const studentsByReq = {};
+        students.forEach(s => {
+          if (!studentsByReq[s.consultation_request_id]) studentsByReq[s.consultation_request_id] = [];
+          studentsByReq[s.consultation_request_id].push({ id: s.id, name: s.name });
+        });
+        // Attach to each request
+        requests.forEach(r => {
+          r.students = studentsByReq[r.id] || [];
+        });
+        res.json(requests);
+      }
+    );
   });
 });
 
@@ -170,15 +203,18 @@ router.get('/:id', (req, res) => {
     [id],
     (err, request) => {
       if (err || !request) return res.status(404).json({ error: 'Not found' });
+
+      // Get students for this request
       db.all(
-        `SELECT s.user_id, u.name FROM consultation_requests_students crs
-         JOIN students s ON crs.student_id = s.user_id
-         JOIN users u ON s.user_id = u.id
+        `SELECT u.id, u.name FROM consultation_requests_students crs
+         JOIN users u ON crs.student_id = u.id
          WHERE crs.consultation_request_id = ?`,
         [id],
-        (err, students) => {
-          if (err) return res.status(500).json({ error: err.message });
-          res.json({ ...request, students });
+        (err2, students) => {
+          if (err2) return res.status(500).json({ error: err2.message });
+          // Attach students array to the request object
+          request.students = students || [];
+          res.json(request);
         }
       );
     }

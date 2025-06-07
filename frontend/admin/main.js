@@ -1,4 +1,46 @@
 // ----- START OF MAIN.JS (ADMIN) -----
+fetch('/api/getuser', { credentials: 'include' })
+  .then(res => res.json())
+  .then(data => {
+    if (data.user && data.user.role === 'admin') {
+      localStorage.setItem('user', JSON.stringify(data.user));
+    } else {
+      alert('Not logged in as admin.');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+  })
+  .catch(() => {
+    alert('Could not fetch user info.');
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  });
+
+  function handleSessionExpired() {
+    alert('You have been logged out due to inactivity.');
+    const theme = localStorage.getItem('theme');
+    localStorage.clear();
+    if (theme) localStorage.setItem('theme', theme);
+    window.location.href = '/login';
+}
+
+// Periodically check session every 1 minute
+setInterval(() => {
+    fetch('/api/getuser', { credentials: 'include' })
+        .then(res => {
+            if (res.status === 401) {
+                handleSessionExpired();
+                throw new Error('Session expired');
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (!data.user || data.user.role !== 'admin') {
+                handleSessionExpired();
+            }
+        })
+}, 4 * 60 * 60 * 1000);
+
 /*=============== SHOW SIDEBAR ===============*/
 const showSidebar = (toggleId, sidebarId, headerId, mainId) =>{
    const toggle = document.getElementById(toggleId),
@@ -107,7 +149,7 @@ function fetchUserInfo() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const lastPage = localStorage.getItem('last-page') || 'dashboard/dashboard.html'
+    const lastPage = localStorage.getItem('last-page') || 'user-management/user-management.html'
     const defaultLink = document.querySelector(`[data-page="${lastPage}"]`)
     if (defaultLink) defaultLink.click()
         
@@ -118,10 +160,10 @@ window.addEventListener('DOMContentLoaded', () => {
 const logoutButton = document.querySelector('.sidebar__actions button:last-child')
 
 logoutButton.addEventListener('click', () => {
-    // Clear all stored data
-    localStorage.clear()
-    
-    // Redirect to login
-    window.location.href = '/login'
-})
+    const theme = localStorage.getItem('theme');
+    localStorage.clear();
+    if (theme) localStorage.setItem('theme', theme);
+
+    window.location.href = '/login';
+});
 // ----- END OF MAIN.JS (ADMIN) -----

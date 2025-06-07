@@ -59,7 +59,7 @@
                   <td>${entry.course_code || ''}</td>
                   <td>${entry.venue || ''}</td>
                   <td>
-                      <button class="view-details-btn" data-id="${entry.consultation_id}">View Details</button>
+                      <button class="view-details-btn details-btn" data-id="${entry.consultation_id}">View Details</button>
                   </td>
               </tr>
           `;
@@ -101,9 +101,16 @@
               </table>
           `;
 
-          document.getElementById('print-appointment-pdf-btn').onclick = function() {
-              window.open(`/api/generate-pdf/appointment-html/${id}`, '_blank');
-          };
+          // Show appointment print button, hide summary print button
+          const appointmentPrintBtn = document.getElementById('print-appointment-pdf-btn');
+          if (appointmentPrintBtn) {
+              appointmentPrintBtn.style.display = '';
+              appointmentPrintBtn.onclick = function() {
+                  window.open(`/api/generate-pdf/appointment-html/${id}`, '_blank');
+              };
+          }
+          const printSummaryBtn = document.getElementById('print-summary-pdf-btn');
+          if (printSummaryBtn) printSummaryBtn.style.display = 'none';
 
           const modal = document.getElementById('appointment-details-modal');
           modal.classList.add('show');
@@ -126,7 +133,7 @@
     if (!tbody) return;
     tbody.innerHTML = '';
     if (!Array.isArray(consultationHistory) || consultationHistory.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No consultation requests to show.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No consultation requests to show.</td></tr>`;
       return;
     }
     consultationHistory.forEach(entry => {
@@ -135,6 +142,9 @@
           <td>${entry.date_requested || ''}</td>
           <td>${entry.student_names || ''}</td>
           <td>${entry.course_code || ''}</td>
+          <td>${entry.program || ''}</td>
+          <td>${entry.start_time || ''}</td>
+          <td>${entry.end_time || ''}</td>
           <td>${capitalize(entry.status)}</td>
           <td>${entry.reason || ''}</td>
         </tr>
@@ -150,7 +160,6 @@
   const tabButtons = [
     { btn: 'past-appointments-btn', section: 'past-appointments-section' },
     { btn: 'consultation-requests-btn', section: 'consultation-requests-section' },
-    { btn: 'consultation-reports-btn', section: 'consultation-reports-section' },
     { btn: 'summary-report-btn', section: 'summary-report-section' }
   ];
 
@@ -215,7 +224,7 @@
         <td>${parseFloat(row.total_hours).toFixed(1)}</td>
         <td>${new Date(row.date_created).toLocaleDateString()}</td>
         <td>
-          <button class="view-summary-details-btn" data-id="${row.id}">View Details</button>
+          <button class="view-summary-details-btn details-btn" data-id="${row.id}">View Details</button>
         </td>
       </tr>
     `).join('');

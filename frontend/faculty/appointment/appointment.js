@@ -23,6 +23,7 @@
         loadFacultyAvailability();
       } else {
         alert('Not logged in as faculty.');
+        window.currentFacultyId = null;
       }
     })
     .catch(() => {
@@ -254,12 +255,99 @@
 
   const consultationBtn = document.getElementById('load-consultation-form');
   if (consultationBtn) {
-    consultationBtn.addEventListener('click', () => {
+    consultationBtn.addEventListener('click', async () => {
+      // Show modal
+      const modal = document.getElementById('select-request-modal');
+      const list = document.getElementById('accepted-requests-list');
+      modal.classList.add('show');
+      list.innerHTML = "<li>Loading...</li>";
+
+      // Fetch accepted requests for this faculty
+      const user = JSON.parse(localStorage.getItem("user"));
+      const res = await fetch(`/api/consultation-request?faculty_id=${user.id}&status=accepted`);
+      const requests = await res.json();
+
+      if (!requests.length) {
+        list.innerHTML = "<li>No accepted consultation requests found.</li>";
+        return;
+      }
+
+      list.innerHTML = "";
+      requests.forEach(req => {
+        const li = document.createElement("li");
+        li.className = "request-list-item";
+        li.dataset.id = req.id;
+
+        // Get student names as a comma-separated string
+        let studentNames = "-";
+        if (req.students && req.students.length > 0) {
+          studentNames = req.students.map(s => s.name).join(", ");
+        }
+
+        li.innerHTML = `
+          <strong>${req.course_code}</strong> - ${req.date_requested} ${req.start_time || ''}–${req.end_time || ''}
+          <br><span style="color:var(--accent);font-weight:500;">Students:</span> ${studentNames}
+          <br>Program: ${req.program || '-'}
+          <br>Reason: ${req.reason}
+        `;
+        list.appendChild(li);
+      });
+    });
+  }
+
+  const fillUpFormBtn = document.getElementById('fill-up-form-btn');
+  let selectedRequestId = null;
+
+  document.getElementById('accepted-requests-list').addEventListener('click', function(e) {
+    // Find the clicked .request-list-item
+    let item = e.target.closest('.request-list-item');
+    if (item && item.dataset.id) {
+      // Highlight the selected request
+      document.querySelectorAll('.request-list-item').forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+      // Store selected request ID
+      selectedRequestId = item.dataset.id;
+      fillUpFormBtn.disabled = false; // <-- Enable the button
+    }
+  });
+
+  // When opening or closing the modal, always reset the button to disabled
+  document.getElementById('load-consultation-form').onclick = function() {
+    fillUpFormBtn.disabled = true;
+    selectedRequestId = null;
+    document.querySelectorAll('.request-list-item').forEach(item => item.classList.remove('selected'));
+  };
+
+  document.getElementById('close-select-request-modal').onclick = function() {
+    document.getElementById('select-request-modal').classList.remove('show');
+    fillUpFormBtn.disabled = true;
+    selectedRequestId = null;
+    document.querySelectorAll('.request-list-item').forEach(item => item.classList.remove('selected'));
+  };
+
+  // Fill Up Form button handler (autofill)
+  fillUpFormBtn.onclick = function() {
+    if (selectedRequestId) {
+      localStorage.setItem('selectedRequestId', selectedRequestId);
+      document.getElementById('select-request-modal').classList.remove('show');
       loadPage('form/form.html');
       setTimeout(() => {
-        window.initConsultationForm();
-      }, 100); // 100ms delay, adjust if needed
-    });
+        window.initConsultationForm && window.initConsultationForm();
+      }, 100);
+    }
+  };
+
+  const proceedNoAutofillBtn = document.getElementById('proceed-no-autofill-btn');
+  if (proceedNoAutofillBtn) {
+    proceedNoAutofillBtn.onclick = function() {
+      // Remove any selected request
+      localStorage.removeItem('selectedRequestId');
+      document.getElementById('select-request-modal').classList.remove('show');
+      loadPage('form/form.html');
+      setTimeout(() => {
+        window.initConsultationForm && window.initConsultationForm();
+      }, 100);
+    };
   }
 })();
 // ----- END OF APPOINTMENT.JS (FACULTY) -----

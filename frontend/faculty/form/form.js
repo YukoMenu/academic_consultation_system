@@ -143,7 +143,8 @@ function attachFormListener() {
       term: data.term,
       course_concerns: data.course_concerns,
       intervention: data.intervention,
-      nature_of_concerns: concerns.join(", ")
+      nature_of_concerns: concerns.join(", "),
+      consultation_request_id: localStorage.getItem("selectedRequestId")
     };
 
     try {
@@ -188,5 +189,53 @@ window.initConsultationForm = async function() {
   attachCourseFieldListeners();
   attachFormListener();
   attachNameFieldAdder();
+
+  // Autofill if a request was selected
+  const selectedRequestId = localStorage.getItem("selectedRequestId");
+  if (selectedRequestId) {
+    try {
+      const res = await fetch(`/api/consultation-request/${selectedRequestId}`);
+      const req = await res.json();
+
+      // Fill form fields with correct fields
+      document.getElementById("date").value = req.date_requested || "";
+      document.getElementById("start_time").value = req.start_time || "";
+      document.getElementById("end_time").value = req.end_time || "";
+      document.getElementById("course_code_input").value = req.course_code || "";
+      document.getElementById("program").value = req.program || "";
+      document.getElementById("venue").value = req.venue || "";
+      document.getElementById("term").value = req.term || "";
+
+      // Autofill student names
+      if (req.students && req.students.length > 0) {
+        const wrapper = document.querySelector('.names-wrapper');
+        // Remove all but the first input group
+        wrapper.querySelectorAll('.name-input-group').forEach((group, idx) => {
+          if (idx > 0) group.remove();
+        });
+        // Fill the first input
+        const firstInput = wrapper.querySelector('.names-input');
+        if (firstInput) firstInput.value = req.students[0].name;
+        // Add more inputs if needed
+        for (let i = 1; i < req.students.length; i++) {
+          const newGroup = document.createElement("div");
+          newGroup.classList.add("name-input-group");
+          newGroup.innerHTML = `
+            <input type="text" name="names" class="names-input" list="student-names-datalist" value="${req.students[i].name}" />
+            <button type="button" class="remove-name-btn">−</button>
+          `;
+          wrapper.appendChild(newGroup);
+          newGroup.querySelector(".remove-name-btn").addEventListener("click", () => {
+            newGroup.remove();
+          });
+        }
+      }
+
+      // Optionally clear selectedRequestId after autofill
+      // localStorage.removeItem("selectedRequestId");
+    } catch (err) {
+      console.error("Failed to autofill from request:", err);
+    }
+  }
 }
 //----- END OF FORM.JS -----

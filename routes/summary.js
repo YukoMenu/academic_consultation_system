@@ -7,11 +7,16 @@ const { generateSummary } = require('../nlp/summarize');
 // GET saved summaries from database with filters
 router.get('/saved', (req, res) => {
   const { academic_year, college_term, bed_shs_term } = req.query;
-  
+  const faculty_id = req.user?.id; // Get from session
+
   let sql = `SELECT * FROM consultation_summary`;
   const params = [];
   const conditions = [];
 
+  if (faculty_id) {
+    conditions.push('faculty_id = ?');
+    params.push(faculty_id);
+  }
   if (academic_year) {
     conditions.push('academic_year = ?');
     params.push(academic_year);

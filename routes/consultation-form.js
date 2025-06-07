@@ -150,6 +150,8 @@ router.post('/save-summary', (req, res) => {
     summary_report
   } = req.body;
 
+  const faculty_id = req.user?.id; // Make sure req.user is set via session
+
   const sql = `
     INSERT INTO consultation_summary (
       school,
@@ -159,8 +161,9 @@ router.post('/save-summary', (req, res) => {
       bed_shs_term,
       number_of_students,
       total_hours,
-      summary_report
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      summary_report,
+      faculty_id
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   const params = [
@@ -171,7 +174,8 @@ router.post('/save-summary', (req, res) => {
     bed_shs_term || null,
     number_of_students,
     total_hours,
-    summary_report
+    summary_report,
+    faculty_id
   ];
 
   db.run(sql, params, function(err) {

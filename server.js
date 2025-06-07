@@ -1,19 +1,3 @@
-// npm install express  <-  only run if 'node server.js' won't run;   err code: 'MODULE_NOT_FOUND'
-//                          or if you can't see a folder named 'node_modules'
-// npm install express-session
-// npm install docxtemplater pizzip
-// npm install npm install pdfmake
-// npm install puppeteer handlebars
-// 
-// For Git (bash)
-// cd "/c/Users/My PC/Documents/GitHub/academic_consultation_system"
-// mkdir -p cert  -- if cert folder doesn't exist
-// openssl req -nodes -new -x509 -keyout cert/server.key -out cert/server.cert -days 365  -- this creates server.key and server.cert
-//
-// node server.js
-// ipconfig get local-ipv4  -- to get your local IP address
-// https://your-local-ipv4:3000/login  -- to access the login page in your browser
-
 // ----- START OF SERVER.JS -----
 require('dotenv').config();
 const express = require('express');
@@ -40,12 +24,22 @@ app.use(session({
     secret: "yourSecretKey",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }   // secure: process.env.NODE_ENV === "production"
+    cookie: { 
+        secure: false,
+        maxAge: 4 * 60 * 60 * 1000 // 4 * 60 * 60 * 1000 - 4 hours in milliseconds
+    }
 }));
 
 app.use((req, res, next) => {
   if (req.session && req.session.user) {
     req.user = req.session.user;
+  }
+  next();
+});
+
+app.use((req, res, next) => {
+  if (!req.session.user && req.path.startsWith('/api/')) {
+    return res.status(401).json({ error: 'Session expired' });
   }
   next();
 });
