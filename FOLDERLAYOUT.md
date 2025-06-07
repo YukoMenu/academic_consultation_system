@@ -83,6 +83,10 @@
 |   |   summary.js
 |   |   users.js
 |
+├─── templates/
+|   |   fill-up-form.docx
+|   |   summary-form.docx
+|
 |   .gitignore
 |   package-lock.json
 |   package.json

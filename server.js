@@ -1,6 +1,8 @@
 // npm install express  <-  only run if 'node server.js' won't run;   err code: 'MODULE_NOT_FOUND'
 //                          or if you can't see a folder named 'node_modules'
 // npm install express-session
+// npm install docxtemplater pizzip
+// npm install npm install pdfmake
 // 
 // For Git (bash)
 // cd "/c/Users/My PC/Documents/GitHub/academic_consultation_system"
@@ -66,7 +68,9 @@ const coursesRoute = require('./routes/courses');
 const consultationRequestRoutes = require('./routes/consultation-request');
 const facultyAppointmentRoutes = require('./routes/faculty-appointment');
 const facultyUnavailableRoutes = require('./routes/faculty-unavailable');
+const connsultationFormRoutes = require('./routes/consultation-form');
 const summaryRoute = require('./routes/summary');
+const generatePDFRoute = require('./routes/generate-pdf');
 
 app.use('/api/consultation', consultationRoutes);
 app.use('/api/users', usersRoute);
@@ -79,7 +83,8 @@ app.use('/api/courses', coursesRoute);
 app.use('/api/consultation-request', consultationRequestRoutes);
 app.use('/api/appointment', facultyAppointmentRoutes);
 app.use('/api/faculty-unavailable', facultyUnavailableRoutes);
-app.use('/api/consultation-form', require('./routes/consultation-form'));
+app.use('/api/consultation-form', connsultationFormRoutes);
+app.use('/api/generate-pdf',generatePDFRoute);
 app.use('/api/summary', summaryRoute);
 
 app.get('/login', (req, res) => {

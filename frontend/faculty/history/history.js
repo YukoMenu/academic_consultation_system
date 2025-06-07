@@ -12,7 +12,8 @@
   if (closeBtn) {
       closeBtn.addEventListener('click', () => {
           console.log('Close button clicked');
-          modal.style.display = 'none';
+          modal.classList.remove('show');
+          document.body.style.overflow = ''; // Restore scroll
       });
   } else {
       console.error('Close button not found!');
@@ -21,7 +22,8 @@
   // Click outside modal to close
   window.addEventListener('click', (event) => {
       if (event.target === modal) {
-          modal.style.display = 'none';
+          modal.classList.remove('show');
+          document.body.style.overflow = ''; // Restore scroll
       }
   });
 
@@ -99,8 +101,13 @@
               </table>
           `;
 
+          document.getElementById('print-appointment-pdf-btn').onclick = function() {
+              window.open(`/api/generate-pdf/appointment-html/${id}`, '_blank');
+          };
+
           const modal = document.getElementById('appointment-details-modal');
-          modal.style.display = 'block';
+          modal.classList.add('show');
+          document.body.style.overflow = 'hidden'; // Prevent background scroll
       } catch (error) {
           console.error('Error fetching appointment details:', error);
       }
