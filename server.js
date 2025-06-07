@@ -1,14 +1,3 @@
-// npm install express  <-  only run if 'node server.js' won't run;   err code: 'MODULE_NOT_FOUND'
-//                          or if you can't see a folder named 'node_modules'
-// npm install express-session
-// 
-// For Git (bash)
-// cd "/c/Users/My PC/Documents/GitHub/academic_consultation_system"
-// mkdir -p cert  -- if cert folder doesn't exist
-// openssl req -nodes -new -x509 -keyout cert/server.key -out cert/server.cert -days 365  -- this creates server.key and server.cert
-//
-// node server.js
-
 // ----- START OF SERVER.JS -----
 require('dotenv').config();
 const express = require('express');
@@ -18,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const https = require('https');
 const app = express();
+const HOST = '0.0.0.0';
 const PORT = 3000;
 
 const sslOptions = {
@@ -34,12 +24,22 @@ app.use(session({
     secret: "yourSecretKey",
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }   // secure: process.env.NODE_ENV === "production"
+    cookie: { 
+        secure: false,
+        maxAge: 4 * 60 * 60 * 1000 // 4 * 60 * 60 * 1000 - 4 hours in milliseconds
+    }
 }));
 
 app.use((req, res, next) => {
   if (req.session && req.session.user) {
     req.user = req.session.user;
+  }
+  next();
+});
+
+app.use((req, res, next) => {
+  if (!req.session.user && req.path.startsWith('/api/')) {
+    return res.status(401).json({ error: 'Session expired' });
   }
   next();
 });
@@ -50,6 +50,7 @@ app.use('/admin', express.static(path.join(__dirname, 'frontend', 'admin')));
 app.use('/faculty', express.static(path.join(__dirname, 'frontend', 'faculty')));
 app.use('/student', express.static(path.join(__dirname, 'frontend', 'student')));
 app.use('/data', express.static(path.join(__dirname, 'data')));
+app.use('/templates', express.static(path.join(__dirname, 'templates')));
 
 // API Routes
 const usersRoute = require('./routes/users');
@@ -63,7 +64,9 @@ const coursesRoute = require('./routes/courses');
 const consultationRequestRoutes = require('./routes/consultation-request');
 const facultyAppointmentRoutes = require('./routes/faculty-appointment');
 const facultyUnavailableRoutes = require('./routes/faculty-unavailable');
+const connsultationFormRoutes = require('./routes/consultation-form');
 const summaryRoute = require('./routes/summary');
+const generatePDFRoute = require('./routes/generate-pdf');
 
 app.use('/api/consultation', consultationRoutes);
 app.use('/api/users', usersRoute);
@@ -76,7 +79,8 @@ app.use('/api/courses', coursesRoute);
 app.use('/api/consultation-request', consultationRequestRoutes);
 app.use('/api/appointment', facultyAppointmentRoutes);
 app.use('/api/faculty-unavailable', facultyUnavailableRoutes);
-app.use('/api/consultation-form', require('./routes/consultation-form'));
+app.use('/api/consultation-form', connsultationFormRoutes);
+app.use('/api/generate-pdf',generatePDFRoute);
 app.use('/api/summary', summaryRoute);
 
 app.get('/login', (req, res) => {
@@ -95,7 +99,20 @@ app.get('/student/', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'student', 'index.html'));
 });
 
-https.createServer(sslOptions, app).listen(PORT, () => {
-  console.log(`Server is running at https://localhost:${PORT}/login`);
+function getLocalIPAddress() {
+  const os = require('os');
+  const interfaces = os.networkInterfaces();
+  for (let iface in interfaces) {
+    for (let config of interfaces[iface]) {
+      if (config.family === 'IPv4' && !config.internal) {
+        return config.address;
+      }
+    }
+  }
+  return 'localhost';
+}
+
+https.createServer(sslOptions, app).listen(PORT, HOST, () => {
+  console.log(`Server is running at https://${getLocalIPAddress()}:${PORT}/login`);
 });
 // ----- END OF SERVER.JS -----

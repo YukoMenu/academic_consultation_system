@@ -12,7 +12,8 @@
   if (closeBtn) {
       closeBtn.addEventListener('click', () => {
           console.log('Close button clicked');
-          modal.style.display = 'none';
+          modal.classList.remove('show');
+          document.body.style.overflow = '';
       });
   } else {
       console.error('Close button not found!');
@@ -21,7 +22,8 @@
   // Click outside modal to close
   window.addEventListener('click', (event) => {
       if (event.target === modal) {
-          modal.style.display = 'none';
+          modal.classList.remove('show');
+          document.body.style.overflow = '';
       }
   });
 
@@ -57,7 +59,7 @@
                   <td>${entry.course_code || ''}</td>
                   <td>${entry.venue || ''}</td>
                   <td>
-                      <button class="view-details-btn" data-id="${entry.consultation_id}">View Details</button>
+                      <button class="view-details-btn details-btn" data-id="${entry.consultation_id}">View Details</button>
                   </td>
               </tr>
           `;
@@ -99,8 +101,20 @@
               </table>
           `;
 
+          // Show appointment print button, hide summary print button
+          const appointmentPrintBtn = document.getElementById('print-appointment-pdf-btn');
+          if (appointmentPrintBtn) {
+              appointmentPrintBtn.style.display = '';
+              appointmentPrintBtn.onclick = function() {
+                  window.open(`/api/generate-pdf/appointment-html/${id}`, '_blank');
+              };
+          }
+          const printSummaryBtn = document.getElementById('print-summary-pdf-btn');
+          if (printSummaryBtn) printSummaryBtn.style.display = 'none';
+
           const modal = document.getElementById('appointment-details-modal');
-          modal.style.display = 'block';
+          modal.classList.add('show');
+          document.body.style.overflow = 'hidden';
       } catch (error) {
           console.error('Error fetching appointment details:', error);
       }
@@ -119,7 +133,7 @@
     if (!tbody) return;
     tbody.innerHTML = '';
     if (!Array.isArray(consultationHistory) || consultationHistory.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No consultation requests to show.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No consultation requests to show.</td></tr>`;
       return;
     }
     consultationHistory.forEach(entry => {
@@ -128,6 +142,9 @@
           <td>${entry.date_requested || ''}</td>
           <td>${entry.student_names || ''}</td>
           <td>${entry.course_code || ''}</td>
+          <td>${entry.program || ''}</td>
+          <td>${entry.start_time || ''}</td>
+          <td>${entry.end_time || ''}</td>
           <td>${capitalize(entry.status)}</td>
           <td>${entry.reason || ''}</td>
         </tr>
@@ -143,7 +160,6 @@
   const tabButtons = [
     { btn: 'past-appointments-btn', section: 'past-appointments-section' },
     { btn: 'consultation-requests-btn', section: 'consultation-requests-section' },
-    { btn: 'consultation-reports-btn', section: 'consultation-reports-section' },
     { btn: 'summary-report-btn', section: 'summary-report-section' }
   ];
 
@@ -166,12 +182,12 @@
   const summaryReportBtn = document.getElementById('summary-report-nav-btn');
   if (summaryReportBtn) {
     summaryReportBtn.addEventListener('click', () => {
-      loadPage('generate-summary/generate-summary.html');  // path relative to your frontend/faculty folder
+      loadPage('generate-summary/generate-summary.html');
       setTimeout(() => {
         if (window.initSummaryReport) {
           window.initSummaryReport();
         }
-      }, 100); // adjust delay if needed
+      }, 100);
     });
   }
 
@@ -206,10 +222,20 @@
         <td>${row.bed_shs_term || '-'}</td>
         <td>${row.number_of_students}</td>
         <td>${parseFloat(row.total_hours).toFixed(1)}</td>
-        <td>${row.summary_report}</td>
         <td>${new Date(row.date_created).toLocaleDateString()}</td>
+        <td>
+          <button class="view-summary-details-btn details-btn" data-id="${row.id}">View Details</button>
+        </td>
       </tr>
     `).join('');
+
+    // Add click handlers for the new buttons
+    document.querySelectorAll('.view-summary-details-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const id = this.getAttribute('data-id');
+        showSummaryDetailsModal(id);
+      });
+    });
   }
 
   async function loadAndRenderSummaryReport(filters = {}) {
@@ -233,6 +259,46 @@
 
     loadAndRenderSummaryReport(filters);
   });
+
+  async function showSummaryDetailsModal(id) {
+    try {
+      const res = await fetch(`/api/summary/saved/${id}`);
+      const entry = await res.json();
+      if (!entry) return;
+
+      const content = document.getElementById('appointment-details-content');
+      content.innerHTML = `
+        <table>
+          <tr><th>School</th><td>${entry.school || '-'}</td></tr>
+          <tr><th>Year Level</th><td>${entry.year_level || '-'}</td></tr>
+          <tr><th>Academic Year</th><td>${entry.academic_year || '-'}</td></tr>
+          <tr><th>College Term</th><td>${entry.college_term || '-'}</td></tr>
+          <tr><th>BED/SHS Term</th><td>${entry.bed_shs_term || '-'}</td></tr>
+          <tr><th>No. of Students</th><td>${entry.number_of_students}</td></tr>
+          <tr><th>Total Hours</th><td>${parseFloat(entry.total_hours).toFixed(1)}</td></tr>
+          <tr><th>Date Created</th><td>${new Date(entry.date_created).toLocaleDateString()}</td></tr>
+          <tr><th>Summary Report</th><td>${entry.summary_report || '-'}</td></tr>
+        </table>
+      `;
+
+      // Show summary print button, hide appointment print button
+      const printBtn = document.getElementById('print-summary-pdf-btn');
+      if (printBtn) {
+        printBtn.style.display = '';
+        printBtn.onclick = function() {
+          window.open(`/api/generate-pdf/summary-html/${id}`, '_blank');
+        };
+      }
+      const appointmentPrintBtn = document.getElementById('print-appointment-pdf-btn');
+      if (appointmentPrintBtn) appointmentPrintBtn.style.display = 'none';
+
+      const modal = document.getElementById('appointment-details-modal');
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    } catch (error) {
+      console.error('Error fetching summary details:', error);
+    }
+  }
 
   // Load default tab
   loadAppointmentHistory();

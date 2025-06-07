@@ -54,12 +54,16 @@ CREATE TABLE consultation_form (
     start_time         TIMESTAMP,
     end_time           TIMESTAMP,
     course_code        TEXT,
-    term               TEXT      CHECK (term IN ('Prelim', 'Midterm', 'Final') ) 
-                                 NOT NULL,
+    term               TEXT      CHECK (term IN ('Prelim', 'Midterm', 'Final') ),
     course_concerns    TEXT,
     intervention       TEXT,
-    nature_of_concerns TEXT
+    nature_of_concerns TEXT,
+    FOREIGN KEY (
+        faculty_id
+    )
+    REFERENCES faculty (user_id) ON DELETE CASCADE
 );
+
 
 CREATE TABLE consultation_requests (
     id             INTEGER  PRIMARY KEY AUTOINCREMENT,
@@ -70,7 +74,7 @@ CREATE TABLE consultation_requests (
     reason         TEXT     NOT NULL,
     date_created   DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_closed    DATETIME,
-    status         TEXT     CHECK (status IN ('pending', 'accepted', 'rejected') ) 
+    status         TEXT     CHECK (status IN ('pending', 'accepted', 'rejected', 'closed') ) 
                             DEFAULT 'pending',
     FOREIGN KEY (
         faculty_id

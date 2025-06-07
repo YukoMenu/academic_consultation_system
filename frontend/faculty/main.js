@@ -1,4 +1,48 @@
 // ----- START OF MAIN.JS (FACULTY) -----
+fetch('/api/getuser', { credentials: 'include' })
+  .then(res => res.json())
+  .then(data => {
+    if (data.user && data.user.role === 'faculty') {
+      // Optionally store user info in localStorage
+      localStorage.setItem('user', JSON.stringify(data.user));
+      // Continue loading the page as normal
+    } else {
+      alert('Not logged in as faculty.');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+  })
+  .catch(() => {
+    alert('Could not fetch user info.');
+    localStorage.removeItem('user');
+    window.location.href = '/login';
+  });
+
+  function handleSessionExpired() {
+    alert('You have been logged out due to inactivity.');
+    const theme = localStorage.getItem('theme');
+    localStorage.clear();
+    if (theme) localStorage.setItem('theme', theme);
+    window.location.href = '/login';
+}
+
+// Periodically check session every 1 minute
+setInterval(() => {
+    fetch('/api/getuser', { credentials: 'include' })
+        .then(res => {
+            if (res.status === 401) {
+                handleSessionExpired();
+                throw new Error('Session expired');
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (!data.user || data.user.role !== 'faculty') {
+                handleSessionExpired();
+            }
+        })
+}, 4 * 60 * 60 * 1000); // every 1 minute
+  
 /*=============== SHOW SIDEBAR ===============*/
 const showSidebar = (toggleId, sidebarId, headerId, mainId) =>{
    const toggle = document.getElementById(toggleId),
@@ -107,7 +151,7 @@ function fetchUserInfo() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const lastPage = localStorage.getItem('last-page') || 'dashboard/dashboard.html'
+    const lastPage = localStorage.getItem('last-page') || 'appointment/appointment.html'
     const defaultLink = document.querySelector(`[data-page="${lastPage}"]`)
     if (defaultLink) defaultLink.click()
         
@@ -118,16 +162,22 @@ window.addEventListener('DOMContentLoaded', () => {
 const logoutButton = document.querySelector('.sidebar__actions button:last-child')
 
 logoutButton.addEventListener('click', () => {
-    // Clear all stored data
-    localStorage.clear()
-    
-    // Redirect to login
-    window.location.href = '/login'
-})
+    const theme = localStorage.getItem('theme');
+    localStorage.clear();
+    if (theme) localStorage.setItem('theme', theme);
+
+    window.location.href = '/login';
+});
 function loadPage(page) {
     const mainContent = document.getElementById('main');
     fetch(page)
-        .then(res => res.text())
+        .then(res => {
+            if (res.status === 401) {
+                handleSessionExpired();
+                throw new Error('Session expired');
+            }
+            return res.text();
+        })
         .then(html => {
             mainContent.innerHTML = html;
 

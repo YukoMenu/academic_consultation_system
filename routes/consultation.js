@@ -18,7 +18,8 @@ router.post('/', (req, res) => {
     term,
     course_concerns,
     intervention,
-    nature_of_concerns
+    nature_of_concerns,
+    consultation_request_id // <-- Add this line
   } = req.body;
 
   const faculty_id = req.user?.id;
@@ -68,6 +69,20 @@ router.post('/', (req, res) => {
 
     const consultation_id = this.lastID;
     console.log('Inserted consultation ID:', consultation_id);
+
+    // After successfully creating the consultation form...
+    console.log('Updating consultation_request_id:', consultation_request_id);
+    db.run(
+      `UPDATE consultation_requests SET status = 'closed', date_closed = CURRENT_TIMESTAMP WHERE id = ?`,
+      [consultation_request_id],
+      function(err) {
+        if (err) {
+          console.error('Failed to update consultation_request status:', err.message);
+        } else {
+          console.log('Updated consultation_request status for id', consultation_request_id, 'changes:', this.changes);
+        }
+      }
+    );
 
     let linkedCount = 0;
 

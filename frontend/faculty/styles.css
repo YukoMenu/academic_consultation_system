@@ -118,7 +118,6 @@ body.dark-theme {
   padding-inline: 1.5rem;
   border-radius: 1rem;
   transition: background-color .4s;
-  border: 1px solid hsla(228, 8%, 85%, .2);  /* Add subtle border */
 }
 
 .header__logo {
@@ -164,7 +163,6 @@ body.dark-theme {
   margin: .75rem;
   border-radius: 1rem;
   transition: left .4s, background-color .4s, width .4s;
-  border: 1px solid hsla(228, 8%, 85%, .2);  /* Add subtle border */
 }
 
 .sidebar__container, 

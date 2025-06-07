@@ -71,8 +71,10 @@
 ├─── routes/
 |   |   auth.js
 |   |   classes.js
+|   |   consultation-form.js
 |   |   consultation-request.js
 |   |   consultation.js
+|   |   courses.js
 |   |   faculty-appointment.js
 |   |   faculty-availability.js
 |   |   faculty-unavailable.js
@@ -80,6 +82,10 @@
 |   |   setuser.js
 |   |   summary.js
 |   |   users.js
+|
+├─── templates/
+|   |   fill-up-form.docx
+|   |   summary-form.docx
 |
 |   .gitignore
 |   package-lock.json

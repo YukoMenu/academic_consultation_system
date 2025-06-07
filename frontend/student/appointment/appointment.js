@@ -2,7 +2,6 @@
 (() => {
     console.log("Appointment loaded!");
 
-    // DOM elements
     const calendarHeader = document.getElementById("calendarHeader");
     const calendar = document.getElementById("calendar");
     const facultyDropdown = document.getElementById("facultyDropdown");
@@ -40,16 +39,13 @@
             facultyAvailability[dow].push(slot);
         });
 
-        // Fetch unavailable days for the selected faculty and month
         const monthStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`;
         const unavailableRes = await fetch(`/api/faculty-unavailable/${facultyId}?month=${monthStr}`);
         facultyUnavailableDays = await unavailableRes.json();
 
-        // Fetch request status for each date
         const statusRes = await fetch(`/api/consultation-request/calendar-status?faculty_id=${facultyId}&month=${monthStr}`);
         facultyRequestStatusByDate = await statusRes.json();
 
-        // Only update the calendar after all data is fetched
         updateAvailability();
     }
 
@@ -60,6 +56,9 @@
         today.setHours(0, 0, 0, 0);
 
         days.forEach(day => {
+            day.style.pointerEvents = "";
+            day.style.cursor = "";
+            
             day.classList.remove("available", "scheduled", "unavailable", "default", "past");
             if (!day.dataset.date) {
                 day.classList.add("empty");
@@ -116,7 +115,7 @@
         const slots = facultyAvailability[dow] || [];
         timeSlotDropdown.innerHTML = "";
         slots.forEach(slot => {
-            timeSlotDropdown.innerHTML += `<option value="${slot.start_time}" data-course="${slot.course}">
+            timeSlotDropdown.innerHTML += `<option value="${slot.start_time}" data-course="${slot.course}" data-start="${slot.start_time}" data-end="${slot.end_time}">
                 ${slot.start_time} - ${slot.end_time} (${slot.course})
             </option>`;
         });
@@ -312,7 +311,6 @@
             return;
         }
 
-        // Convert student names to IDs
         const studentIds = studentNames.map(name => {
             const found = allStudents.find(
                 s => s.name.trim().toLowerCase() === name.trim().toLowerCase()
@@ -324,10 +322,22 @@
             alert("One or more student names are invalid.");
             return;
         }
+        const program = document.getElementById("program").value.trim();
+        if (!program) {
+            alert("Please enter the program.");
+            return;
+        }
+        const term = document.getElementById("term").value;
+        if (!term) {
+            alert("Please select a term.");
+            return;
+        }
 
-        // Get course code from selected time slot
+        // Get course code, start_time, end_time from selected time slot
         const selectedOption = timeSlotDropdown.selectedOptions[0];
         const courseCode = selectedOption ? selectedOption.getAttribute('data-course') : '';
+        const startTime = selectedOption ? selectedOption.getAttribute('data-start') : '';
+        const endTime = selectedOption ? selectedOption.getAttribute('data-end') : '';
 
         // Send POST request to backend
         try {
@@ -338,8 +348,11 @@
                     faculty_id: facultyId,
                     course_code: courseCode,
                     date_requested: dateRequested,
-                    time_requested: timeRequested,
+                    start_time: startTime,
+                    end_time: endTime,
+                    program,
                     reason,
+                    term,
                     student_ids: studentIds
                 })
             });
@@ -348,6 +361,7 @@
                 alert("Appointment request submitted!");
                 appointmentModal.style.display = "none";
                 resetAppointmentForm();
+                updateAvailability();
             } else {
                 alert(data.error || "Failed to submit appointment.");
             }

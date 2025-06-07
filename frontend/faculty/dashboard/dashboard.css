@@ -6,19 +6,16 @@
   --border-light: hsl(228, 20%, 90%);
   --border-dark: hsl(228, 16%, 30%);
   --accent: var(--first-color);
-  --shadow-color: var(--shadow-color);
 }
 
 body {
   font-family: var(--body-font);
-  color: var(--text-light);
   background-color: var(--body-color);
   transition: background-color 0.4s, color 0.4s;
 }
 
 body.dark-theme {
   background-color: var(--card-bg-dark);
-  color: var(--text-dark);
 }
 
 .faculty-dashboard h2 {

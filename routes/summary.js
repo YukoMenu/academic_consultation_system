@@ -7,11 +7,16 @@ const { generateSummary } = require('../nlp/summarize');
 // GET saved summaries from database with filters
 router.get('/saved', (req, res) => {
   const { academic_year, college_term, bed_shs_term } = req.query;
-  
+  const faculty_id = req.user?.id; // Get from session
+
   let sql = `SELECT * FROM consultation_summary`;
   const params = [];
   const conditions = [];
 
+  if (faculty_id) {
+    conditions.push('faculty_id = ?');
+    params.push(faculty_id);
+  }
   if (academic_year) {
     conditions.push('academic_year = ?');
     params.push(academic_year);
@@ -72,6 +77,15 @@ router.post('/', async (req, res) => {
     console.error('Error generating summary:', err.message);
     res.status(500).json({ error: 'Failed to generate summary' });
   }
+});
+
+// Get a specific saved summary by ID
+router.get('/saved/:id', (req, res) => {
+  const id = req.params.id;
+  db.get('SELECT * FROM consultation_summary WHERE id = ?', [id], (err, row) => {
+    if (err || !row) return res.status(404).json({ error: 'Not found' });
+    res.json(row);
+  });
 });
 
 module.exports = router;

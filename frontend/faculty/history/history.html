@@ -3,7 +3,6 @@
   <div class="history-tabs" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
     <button id="past-appointments-btn" class="history-tab-btn active">Past Appointments</button>
     <button id="consultation-requests-btn" class="history-tab-btn">Consultation Requests</button>
-    <button id="consultation-reports-btn" class="history-tab-btn">Consultation Reports</button>
     <button id="summary-report-btn" class="history-tab-btn">Summary Report</button>
     <div class="right-align-btn">
       <button id="summary-report-nav-btn" class="primary-btn">Go to Summary Report</button>
@@ -37,6 +36,9 @@
           <th>Date</th>
           <th>Student(s)</th>
           <th>Course</th>
+          <th>Program</th>
+          <th>Start Time</th>
+          <th>End Time</th>
           <th>Status</th>
           <th>Reason</th>
         </tr>
@@ -45,11 +47,6 @@
         <tr><td colspan="5" style="text-align:center;">No consultation requests to show.</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div id="consultation-reports-section" style="display: none;">
-    <h2>Consultation Reports</h2>
-    <div class="placeholder">No consultation reports to show.</div>
   </div>
 
   <div id="summary-report-section" style="display: none;">
@@ -92,22 +89,23 @@
           <th>BED/SHS Term</th>
           <th>No. of Students</th>
           <th>Total Hours</th>
-          <th>Summary Report</th>
           <th>Date Created</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody id="summaryTableBody">
         <!-- Rows inserted dynamically -->
       </tbody>
     </table>
+
   </div>
 
   <div id="appointment-details-modal" class="modal">
     <div class="modal-content">
       <span id="close-modal-btn" class="close-btn">&times;</span>
-      <div id="appointment-details-content">
-        <!-- Appointment details will be dynamically inserted here -->
-      </div>
+      <div id="appointment-details-content"></div>
+      <button id="print-summary-pdf-btn" class="primary-btn print-btn" style="display:none;">Print as PDF</button>
+      <button id="print-appointment-pdf-btn" class="primary-btn print-btn" style="display:none;">Print as PDF</button>
     </div>
   </div>
 </div>
